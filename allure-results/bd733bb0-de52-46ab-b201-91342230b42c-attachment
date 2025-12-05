@@ -1,0 +1,20 @@
+{
+    "requestId": "test_6926108865433",
+    "username": "CRXDC_JED_MIDWAY_UAT",
+    "externalToken": "CRXDC_TOKEN9733997174",
+    "gameRoundCode": "test_rnd998530583fe8",
+    "pay": {
+        "transactionCode": "test_trx_6926108865437",
+        "transactionDate": "2025-11-25 20:24:40.414",
+        "amount": "1",
+        "type": "WIN",
+        "internalFundChanges": []
+    },
+    "gameRoundClose": {
+        "date": "2025-11-25 20:24:40.414",
+        "rngGeneratorId": "SecureRandom",
+        "rngSoftwareId": "Casino CaGS 12.3.4.5"
+    },
+    "gameCodeName": "gpas_28dman_pop",
+    "gameHistoryUrl": "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
+}

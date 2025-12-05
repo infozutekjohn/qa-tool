@@ -1,0 +1,49 @@
+{
+    "requestId": "test_69261076437ba",
+    "username": "CRXDC_JED_MIDWAY_UAT",
+    "externalToken": "CRXDC_TOKEN9733997174",
+    "gameRoundCode": "test_rndfa1c61391eb7",
+    "pay": {
+        "transactionCode": "test_trx_69261076437bc",
+        "transactionDate": "2025-11-25 20:24:22.276",
+        "amount": "1",
+        "type": "WIN",
+        "internalFundChanges": []
+    },
+    "jackpot": {
+        "contributionAmount": 0.01,
+        "winAmount": "0",
+        "jackpotId": "test_110_120_130_140_333",
+        "jackpotContributions": [
+            {
+                "amount": 0.01,
+                "jackpotId": "test_110_120_130_140_333",
+                "subJackpotInfo": [
+                    {
+                        "amount": 0.003333333333333333,
+                        "jackpotId": "test_140_333"
+                    },
+                    {
+                        "amount": 0.003333333333333333,
+                        "jackpotId": "test_130_333"
+                    },
+                    {
+                        "amount": 0.0022222222222222222,
+                        "jackpotId": "test_120_333"
+                    },
+                    {
+                        "amount": 0.0011111111111111111,
+                        "jackpotId": "test_110_333"
+                    }
+                ]
+            }
+        ]
+    },
+    "gameRoundClose": {
+        "date": "2025-11-25 20:24:22.276",
+        "rngGeneratorId": "SecureRandom",
+        "rngSoftwareId": "Casino CaGS 12.3.4.5"
+    },
+    "gameCodeName": "gpas_28dman_pop",
+    "gameHistoryUrl": "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
+}

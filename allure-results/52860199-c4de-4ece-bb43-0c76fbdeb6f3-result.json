@@ -1,0 +1,201 @@
+{
+    "uuid": "52860199-c4de-4ece-bb43-0c76fbdeb6f3",
+    "name": "Gameroundresult | Casino | Regular gameround scenario (win with jackpot)",
+    "description": "Testing wallet regular no win result response",
+    "descriptionHtml": null,
+    "start": 1764102265315,
+    "stop": 1764102266558,
+    "status": "passed",
+    "statusDetails": {
+        "known": null,
+        "muted": null,
+        "flaky": null,
+        "message": null,
+        "trace": null
+    },
+    "stage": "finished",
+    "steps": [
+        {
+            "name": "Send game round result request to endpoint",
+            "description": null,
+            "descriptionHtml": null,
+            "start": 1764102265315,
+            "stop": 1764102266472,
+            "status": "passed",
+            "statusDetails": null,
+            "stage": "finished",
+            "steps": [],
+            "attachments": [],
+            "parameters": [
+                {
+                    "name": "method",
+                    "value": "POST",
+                    "excluded": false,
+                    "mode": null
+                },
+                {
+                    "name": "endpoint",
+                    "value": "\/to-operator\/playtech\/gameroundresult",
+                    "excluded": false,
+                    "mode": null
+                }
+            ]
+        },
+        {
+            "name": "Validate HTTP response status",
+            "description": null,
+            "descriptionHtml": null,
+            "start": 1764102266546,
+            "stop": 1764102266546,
+            "status": "passed",
+            "statusDetails": null,
+            "stage": "finished",
+            "steps": [],
+            "attachments": [],
+            "parameters": [
+                {
+                    "name": "expectedStatus",
+                    "value": "200",
+                    "excluded": false,
+                    "mode": null
+                },
+                {
+                    "name": "actualStatus",
+                    "value": "200",
+                    "excluded": false,
+                    "mode": null
+                }
+            ]
+        },
+        {
+            "name": "Response does not have an error",
+            "description": null,
+            "descriptionHtml": null,
+            "start": 1764102266546,
+            "stop": 1764102266546,
+            "status": "passed",
+            "statusDetails": null,
+            "stage": "finished",
+            "steps": [],
+            "attachments": [],
+            "parameters": [
+                {
+                    "name": "errorPresent",
+                    "value": "false",
+                    "excluded": false,
+                    "mode": null
+                }
+            ]
+        },
+        {
+            "name": "RequestId in response matches request",
+            "description": null,
+            "descriptionHtml": null,
+            "start": 1764102266546,
+            "stop": 1764102266546,
+            "status": "passed",
+            "statusDetails": null,
+            "stage": "finished",
+            "steps": [],
+            "attachments": [],
+            "parameters": [
+                {
+                    "name": "expectedRequestId",
+                    "value": "test_692610794d026",
+                    "excluded": false,
+                    "mode": null
+                },
+                {
+                    "name": "actualRequestId",
+                    "value": "test_692610794d026",
+                    "excluded": false,
+                    "mode": null
+                }
+            ]
+        },
+        {
+            "name": "Validate response JSON structure",
+            "description": null,
+            "descriptionHtml": null,
+            "start": 1764102266546,
+            "stop": 1764102266546,
+            "status": "passed",
+            "statusDetails": null,
+            "stage": "finished",
+            "steps": [],
+            "attachments": [],
+            "parameters": [
+                {
+                    "name": "validatedKeys",
+                    "value": "externalTransactionCode,requestId,externalTransactionDate,balance",
+                    "excluded": false,
+                    "mode": null
+                }
+            ]
+        }
+    ],
+    "attachments": [
+        {
+            "name": "Raw HTTP Response",
+            "source": "6f20bebb-0e18-41e6-9627-7e97f2194a09-attachment",
+            "type": "text\/plain"
+        },
+        {
+            "name": "Request URL",
+            "source": "96b8e240-ba90-444e-b620-549e365e1493-attachment",
+            "type": "text\/plain"
+        },
+        {
+            "name": "Request Payload",
+            "source": "57c7e96e-3a96-454d-a741-e7081ab8b20c-attachment",
+            "type": "application\/json"
+        },
+        {
+            "name": "Response Headers",
+            "source": "bc56a16e-ad38-4f4b-9def-0b93c4aecac0-attachment",
+            "type": "application\/json"
+        },
+        {
+            "name": "Response Body",
+            "source": "9b7b08a1-c607-4483-bd81-3271c58d437a-attachment",
+            "type": "application\/json"
+        },
+        {
+            "name": "Validation Checks",
+            "source": "500d8ab7-dade-4d81-b100-e036ac45bc6c-attachment",
+            "type": "text\/plain"
+        }
+    ],
+    "parameters": [],
+    "historyId": "0a81b6bbb8eebb6c59b3f0baf90385d2",
+    "testCaseId": "ecf9ddef361fe1e47374cd95174c3449",
+    "rerunOf": null,
+    "fullName": "Tests\\Feature\\ApiTest::result_win_jackpot",
+    "labels": [
+        {
+            "name": "testClass",
+            "value": "Tests\\Feature\\ApiTest"
+        },
+        {
+            "name": "testMethod",
+            "value": "result_win_jackpot"
+        },
+        {
+            "name": "host",
+            "value": "c38985986065"
+        },
+        {
+            "name": "thread",
+            "value": "CRXDC_TOKEN9733997174"
+        },
+        {
+            "name": "suite",
+            "value": "Regular Gameround Scenario with Jackpot"
+        },
+        {
+            "name": "parentSuite",
+            "value": "Casino Tests"
+        }
+    ],
+    "links": []
+}
