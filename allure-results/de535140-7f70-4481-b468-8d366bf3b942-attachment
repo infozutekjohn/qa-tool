@@ -1,0 +1,13 @@
+{
+    "requestId": "test_6926107e953ca",
+    "username": "CRXDC_JED_MIDWAY_UAT",
+    "externalToken": "CRXDC_TOKEN9733997174",
+    "gameRoundCode": "test_rnd009d1e5cae7d",
+    "gameRoundClose": {
+        "date": "2025-11-25 20:24:29.273",
+        "rngGeneratorId": "SecureRandom",
+        "rngSoftwareId": "Casino CaGS 12.3.4.5"
+    },
+    "gameCodeName": "gpas_28dman_pop",
+    "gameHistoryUrl": "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
+}

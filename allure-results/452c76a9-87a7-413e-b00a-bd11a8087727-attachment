@@ -1,0 +1,60 @@
+{
+    "Date": [
+        "Tue, 25 Nov 2025 20:24:45 GMT"
+    ],
+    "Content-Type": [
+        "application\/json"
+    ],
+    "Transfer-Encoding": [
+        "chunked"
+    ],
+    "Connection": [
+        "keep-alive"
+    ],
+    "Server": [
+        "cloudflare"
+    ],
+    "Nel": [
+        "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+    ],
+    "X-Powered-By": [
+        "PHP\/8.1.2-1ubuntu2.13"
+    ],
+    "Cache-Control": [
+        "no-cache, private"
+    ],
+    "X-RateLimit-Limit": [
+        "60000"
+    ],
+    "X-RateLimit-Remaining": [
+        "59989"
+    ],
+    "X-Frame-Options": [
+        "SAMEORIGIN"
+    ],
+    "X-XSS-Protection": [
+        "1; mode=block"
+    ],
+    "X-Content-Type-Options": [
+        "nosniff"
+    ],
+    "Report-To": [
+        "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https:\/\/a.nel.cloudflare.com\/report\/v4?s=vK8R6jLt49GfPFk0KrYENOP841GQMxBb4QZXb8J4eFKNyLGu%2BmGHm8%2FdQs2IYOK4H9j0Yn0EtlmarxHUpmSMMNGtJ09t7qGYE0A838mlgf3yucFO\"}]}"
+    ],
+    "cf-cache-status": [
+        "DYNAMIC"
+    ],
+    "vary": [
+        "accept-encoding"
+    ],
+    "Server-Timing": [
+        "cfCacheStatus;desc=\"DYNAMIC\"",
+        "cfEdge;dur=5,cfOrigin;dur=469"
+    ],
+    "CF-RAY": [
+        "9a43df0e982041ce-SJC"
+    ],
+    "alt-svc": [
+        "h3=\":443\"; ma=86400"
+    ]
+}

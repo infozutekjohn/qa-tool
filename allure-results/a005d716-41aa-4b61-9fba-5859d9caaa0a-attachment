@@ -1,0 +1,14 @@
+{
+    "requestId": "test_6926108b36233",
+    "username": "CRXDC_JED_MIDWAY_UAT",
+    "externalToken": "CRXDC_TOKEN9733997174",
+    "gameRoundCode": "test_rnd9d8aca7bed50",
+    "pay": {
+        "transactionCode": "test_trx_6926108b36236",
+        "transactionDate": "2025-11-25 20:24:43.221",
+        "amount": "1",
+        "type": "WIN",
+        "internalFundChanges": []
+    },
+    "gameCodeName": "gpas_28dman_pop"
+}

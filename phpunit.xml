@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+>
+
+    <!-- ############# TEST SUITES ############# -->
+
+    <testsuites>
+        <testsuite name="Api">
+            <file>tests/Feature/ApiTest.php</file>
+        </testsuite>
+    </testsuites>
+
+    <!-- ############# ALLOW APP CODE TO BE AUTOLOADED ############# -->
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+
+    <!-- ############# ALLURE INTEGRATION (critical — without this allure-results will NOT appear) ############# -->
+    <!-- <extensions>
+        <extension class="Allure\PHPUnit\AllurePHPUnit">
+            <arguments>
+                <string>allure-results</string>
+            </arguments>
+        </extension>
+    </extensions> -->
+
+    <extensions>
+        <bootstrap class="Qameta\Allure\PHPUnit\AllureExtension">
+            <parameter name="config" value="config/allure.config.php" />
+        </bootstrap>
+    </extensions>
+
+    <!-- ############# 
+         ENVIRONMENT VARIABLES
+         IMPORTANT:
+         We REMOVE the SQLite settings because you are **not**
+         using Laravel’s DB in your API tests.
+         ############# -->
+    <php>
+        <!-- Laravel test environment variables (safe to keep) -->
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="BROADCAST_CONNECTION" value="null"/>
+        <env name="CACHE_STORE" value="array"/>
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="PULSE_ENABLED" value="false"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="NIGHTWATCH_ENABLED" value="false"/>
+
+        <!-- REMOVE SQLite settings, you are NOT using Laravel DB for API tests -->
+        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
+        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
+
+        <!-- #############
+             Add Allure output dir (critical)
+             ############# -->
+        <!-- <env name="ALLURE_OUTPUT_DIR" value="allure-results"/> -->
+
+        <!-- #############
+             OPTIONAL — values overriden by Ps1 script anyway
+             ############# -->
+        <!-- <env name="TEST_USERNAME" value="fallback_user"/> -->
+        <!-- <env name="TEST_TOKEN" value="fallback_token"/> -->
+    </php>
+</phpunit>

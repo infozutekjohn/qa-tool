@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Date: Tue, 25 Nov 2025 20:24:37 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+X-Powered-By: PHP/8.1.2-1ubuntu2.13
+Cache-Control: no-cache, private
+X-RateLimit-Limit: 60000
+X-RateLimit-Remaining: 59990
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ZEj%2FUaZiw6y38hGp0UNp46U1n%2Fcgg1bYbyCZsHF5dZqjciIiq5NMlqdT%2Fka%2Bp53kGmeu8W4YfOcJtdknTx1Eu%2FSQBWDVMrZLEWZHzsWXndVudg%3D%3D"}]}
+cf-cache-status: DYNAMIC
+vary: accept-encoding
+Server-Timing: cfCacheStatus;desc="DYNAMIC", cfEdge;dur=10,cfOrigin;dur=572
+CF-RAY: 9a43dee1bdf77aaf-SJC
+alt-svc: h3=":443"; ma=86400
+
+{"requestId":"test_692610840b3b6","externalTransactionCode":"test_trx_692610840b3b8","externalTransactionDate":"2025-11-25 20:24:36.046","balance":{"real":"474607.60","timestamp":"2025-11-26 04:24:37.790"}}
