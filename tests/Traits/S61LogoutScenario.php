@@ -13,14 +13,64 @@ use Tests\Config\Endpoint;
 
 trait S61LogoutScenario
 {
-    #[ParentSuite('06. Gameslink Logout')]
-    #[Suite('Logout')]
-    #[DisplayName('Logout')]
-    #[Description('Testing user logout')]
+    #[ParentSuite('07. Gameslink Logout')]
+    #[Suite('7.0 Logout')]
+    #[DisplayName('Logout | User session logout')]
+    #[Description('Testing user logout functionality')]
     #[Test]
     public function logout(): void
     {
-        // TODO: Implement - POST /to-operator/playtech/logout
-        $this->markTestIncomplete('Awaiting request/response implementation');
+        $username = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token    = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+
+        $payload = [
+            "requestId" => uniqid('test_'),
+            "username" => $username,
+            "externalToken" => $token
+        ];
+
+        $endpoint = Endpoint::playtech('logout');
+
+        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
+
+        [$response, $body, $data] = Allure::runStep(
+            #[DisplayName('Send Logout request to endpoint')]
+            function (StepContextInterface $step) use ($payload, $endpoint) {
+                $step->parameter('method', 'POST');
+                $step->parameter('endpoint', $endpoint);
+
+                $response = $this->client->post($endpoint, [
+                    'json' => $payload,
+                ]);
+
+                $body = (string)$response->getBody();
+                $data = json_decode($body, true);
+                return [$response, $body, $data];
+            }
+        );
+
+        $checks = [];
+
+        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
+
+        $this->stepAssertStatus($response, 200, $checks);
+
+        $this->stepAssertNoErrorField($data);
+
+        $this->stepAssertRequestIdMatches($payload, $data);
+
+        Allure::runStep(
+            #[DisplayName('Verify logout response structure')]
+            function (StepContextInterface $step) use ($data, &$checks) {
+                $this->assertIsArray($data, 'Response should be an array');
+                $checks[] = '[PASS] Logout response received successfully';
+            }
+        );
+
+        Allure::attachment(
+            'Validation Checks',
+            implode(PHP_EOL, $checks),
+            'text/plain'
+        );
     }
 }
