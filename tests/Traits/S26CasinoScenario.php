@@ -16,8 +16,8 @@ use Tests\Config\Endpoint;
 
 trait S26CasinoScenario
 {
-    #[ParentSuite('Casino Tests')]
-    #[Suite('In-Game Bonus Round Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Bet | Casino | In-game bonus round scenario')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -84,8 +84,8 @@ trait S26CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('In-Game Bonus Round Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (main win) | Casino | In-game bonus round scenario')]
     #[Description('Testing wallet win result response')]
     #[Test]
@@ -156,8 +156,8 @@ trait S26CasinoScenario
     }
 
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('In-Game Bonus Round Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature win 1) | Casino | In-game bonus round scenario')]
     #[Description('Testing wallet win result response')]
     #[Test]
@@ -227,8 +227,8 @@ trait S26CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('In-Game Bonus Round Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature win 2 | Casino | In-game bonus round scenario')]
     #[Description('Testing wallet win result response')]
     #[Test]
@@ -298,8 +298,8 @@ trait S26CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('In-Game Bonus Round Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature win 3) | Casino | In-game bonus round scenario')]
     #[Description('Testing wallet win result response')]
     #[Test]
@@ -369,8 +369,8 @@ trait S26CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('In-Game Bonus Round Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature end no win) | Casino | In-game bonus round scenario')]
     #[Description('Testing wallet no win result response')]
     #[Test]

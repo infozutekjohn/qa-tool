@@ -11,6 +11,8 @@ class TestRunController extends Controller
 {
     public function store(Request $request, ApiTestRunner $runner)
     {
+        // Increase execution time limit for long-running PHPUnit tests
+        set_time_limit(300); // 5 minutes
 
         // $data = $request->validate([
         //     'username' => 'required|string',

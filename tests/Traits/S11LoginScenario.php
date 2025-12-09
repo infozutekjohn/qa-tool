@@ -15,8 +15,8 @@ use Tests\Config\Endpoint;
 
 trait S11LoginScenario
 {
-    #[ParentSuite('Login')]
-    #[Suite('Login Scenario')]
+    #[ParentSuite('01. Login')]
+    #[Suite('1.1 Login Scenario')]
     #[Displayname('Authenticate')]
     #[Description('Testing wallet authenticate response')]
     #[Test]
@@ -102,8 +102,8 @@ trait S11LoginScenario
         );
     }
 
-    #[ParentSuite('Login')]
-    #[Suite('Login Scenario')]
+    #[ParentSuite('01. Login')]
+    #[Suite('1.1 Login Scenario')]
     #[Displayname('Getbalance')]
     #[Description('Testing wallet balance response')]
     #[Test]

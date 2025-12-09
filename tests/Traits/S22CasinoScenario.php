@@ -16,8 +16,8 @@ use Tests\Config\Endpoint;
 
 trait S22CasinoScenario
 {
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Jackpot')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Bet | Casino | Regular gameround scenario (no win with no jackpot)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -85,8 +85,8 @@ trait S22CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Jackpot')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win with no jackpot)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -154,8 +154,8 @@ trait S22CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Jackpot')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win with no jackpot)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -223,8 +223,8 @@ trait S22CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Jackpot')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (win with no jackpot)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -338,8 +338,8 @@ trait S22CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Jackpot')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win with jackpot)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -407,8 +407,8 @@ trait S22CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Jackpot')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (win with jackpot)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]

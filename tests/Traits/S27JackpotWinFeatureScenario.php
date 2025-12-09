@@ -14,26 +14,21 @@ use Qameta\Allure\Attribute\Description;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Config\Endpoint;
 
-trait S23CasinoScenario
+trait S27JackpotWinFeatureScenario
 {
-    private static array $CasinoRegularBetRetryPayload = [];
-    private static array $CasinoRegularResultRetryPayload = [];
-
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.3 Regular Gameround Scenario with Retries')]
-    #[Displayname('Bet | Casino | Regular gameround scenario with retries')]
-    #[Description('Testing wallet regular bet response')]
+    #[Suite('2.7 Jackpot win through feature')]
+    #[Displayname('Bet | Casino | Jackpot win through feature scenario')]
+    #[Description('Testing bet for jackpot win through feature scenario')]
     #[Test]
-    public function bet_retry_initial(): void
+    public function bet_jackpot_win_through_feature(): void
     {
-        $roundCode = $this->getRoundCode('regular_gameround_scenario_retry');
-        // $transactionCode = $this->generateTransactionCode();
+        $roundCode = $this->getRoundCode('jackpot_win_feature');
 
         $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
         $betPrimary     = getenv('TEST_BET_PRIMARY');
-
 
         $date = $this->generateDate();
 
@@ -49,8 +44,6 @@ trait S23CasinoScenario
             "gameCodeName" => $casinoGameCode
         ];
 
-        self::$CasinoRegularBetRetryPayload = $payload;
-
         $endpoint = Endpoint::playtech('bet');
 
         $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
@@ -91,75 +84,81 @@ trait S23CasinoScenario
     }
 
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.3 Regular Gameround Scenario with Retries')]
-    #[Displayname('Bet | Casino | Regular gameround scenario with retries (retry)')]
-    #[Description('Testing wallet regular bet retry response')]
+    #[Suite('2.7 Jackpot win through feature')]
+    #[Displayname('Gameroundresult | Casino | Jackpot win through feature scenario (jackpot win)')]
+    #[Description('Testing game round result with feature jackpot win')]
     #[Test]
-    public function bet_retry_trigger(): void
+    public function result_feature_jackpot_win(): void
     {
-        $payload = self::$CasinoRegularBetRetryPayload; // retry payload
-        $payload['requestId'] = uniqid('test_');
-
-        $endpoint = Endpoint::playtech('bet');
-
-        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
-
-        [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Bet request to endpoint')]
-            function (StepContextInterface $step) use ($payload, $endpoint) {
-                $step->parameter('method', 'POST');
-                $step->parameter('endpoint', $endpoint);
-
-                $response = $this->client->post($endpoint, [
-                    'json' => $payload,
-                ]);
-
-                $body = (string)$response->getBody();
-                $data = json_decode($body, true);
-                return [$response, $body, $data];
-            }
-        );
-
-        $checks = [];
-
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        Allure::attachment(
-            'Validation Checks',
-            implode(PHP_EOL, $checks),
-            'text/plain'
-        );
-    }
-
-
-    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.3 Regular Gameround Scenario with Retries')]
-    #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
-    #[Description('Testing wallet regular no win result response')]
-    #[Test]
-    public function result_retry_initial(): void
-    {
-        $roundCode = $this->getRoundCode('regular_gameround_scenario_retry');
+        $roundCode = $this->getRoundCode('jackpot_win_feature');
 
         $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
+        $betPrimary     = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
+
+        $contriAmount = $betPrimary * 0.01;
+        $subJP1 = $betPrimary * (1 / 3) / 100;
+        $subJP2 = $betPrimary * (1 / 3) / 100;
+        $subJP3 = $betPrimary * (2 / 9) / 100;
+        $subJP4 = $betPrimary * (1 / 9) / 100;
+        $jackpotWinAmount = $betPrimary;
 
         $payload = [
             "requestId" => uniqid('test_'),
             "username" => $username,
             "externalToken" => $token,
             "gameRoundCode" => $roundCode,
+            "pay" => [
+                "transactionCode" => uniqid('test_trx_'),
+                "transactionDate" => $date,
+                "amount" => (string)$jackpotWinAmount,
+                "type" => "WIN",
+                "internalFundChanges" => []
+            ],
+            "jackpot" => [
+                "contributionAmount" => sprintf('%.16f', $contriAmount),
+                "winAmount" => (string)$jackpotWinAmount,
+                "jackpotId" => "test_110_120_130_140_333",
+                "jackpotContributions" => [
+                    [
+                        "amount" => sprintf('%.16f', $contriAmount),
+                        "jackpotId" => "test_110_120_130_140_333",
+                        "subJackpotInfo" => [
+                            [
+                                "amount" => sprintf('%.16f', $subJP1),
+                                "jackpotId" => "test_140_333"
+                            ],
+                            [
+                                "amount" => sprintf('%.16f', $subJP2),
+                                "jackpotId" => "test_130_333"
+                            ],
+                            [
+                                "amount" => sprintf('%.16f', $subJP3),
+                                "jackpotId" => "test_120_333"
+                            ],
+                            [
+                                "amount" => sprintf('%.16f', $subJP4),
+                                "jackpotId" => "test_110_333"
+                            ]
+                        ]
+                    ]
+                ],
+                "jackpotWinnings" => [
+                    [
+                        "amount" => (string)$jackpotWinAmount,
+                        "jackpotId" => "test_110_120_130_140_333",
+                        "subJackpotInfo" => [
+                            [
+                                "amount" => (string)$jackpotWinAmount,
+                                "jackpotId" => "test_110_333"
+                            ]
+                        ]
+                    ]
+                ]
+            ],
             "gameRoundClose" => [
                 "date" => $date,
                 "rngGeneratorId" => "SecureRandom",
@@ -168,8 +167,6 @@ trait S23CasinoScenario
             "gameCodeName" => $casinoGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
         ];
-
-        self::$CasinoRegularResultRetryPayload = $payload;
 
         $endpoint = Endpoint::playtech('gameroundresult');
 
@@ -212,14 +209,35 @@ trait S23CasinoScenario
     }
 
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.3 Regular Gameround Scenario with Retries')]
-    #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
-    #[Description('Testing wallet regular no win result response')]
+    #[Suite('2.7 Jackpot win through feature')]
+    #[Displayname('Gameroundresult | Casino | Jackpot win through feature scenario (feature win)')]
+    #[Description('Testing game round result with feature win')]
     #[Test]
-    public function result_retry_trigger(): void
+    public function result_feature_win(): void
     {
-        $payload = self::$CasinoRegularResultRetryPayload; // retry payload
-        $payload['requestId'] = uniqid('test_');
+        $roundCode = $this->getRoundCode('jackpot_win_feature');
+
+        $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
+        $win            = getenv('TEST_WIN_PRIMARY');
+
+        $date = $this->generateDate();
+
+        $payload = [
+            "requestId" => uniqid('test_'),
+            "username" => $username,
+            "externalToken" => $token,
+            "gameRoundCode" => $roundCode,
+            "pay" => [
+                "transactionCode" => uniqid('test_trx_'),
+                "transactionDate" => $date,
+                "amount" => $win,
+                "type" => "WIN",
+                "internalFundChanges" => []
+            ],
+            "gameCodeName" => $casinoGameCode
+        ];
 
         $endpoint = Endpoint::playtech('gameroundresult');
 

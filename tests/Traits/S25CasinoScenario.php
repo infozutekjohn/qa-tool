@@ -16,8 +16,8 @@ use Tests\Config\Endpoint;
 
 trait S25CasinoScenario
 {
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Alternating Bet and Result Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Bet 1 | Casino | Alternating bet and result scenario')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -84,8 +84,8 @@ trait S25CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Alternating Bet and Result Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Gameroundresult 1 | Casino | Alternating bet and result scenario')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -157,8 +157,8 @@ trait S25CasinoScenario
     }
 
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Alternating Bet and Result Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Bet 2 | Casino | Alternating bet and result scenario')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -224,8 +224,8 @@ trait S25CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Alternating Bet and Result Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Gameroundresult 2 | Casino | Alternating bet and result scenario')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]

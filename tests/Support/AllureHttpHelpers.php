@@ -11,6 +11,7 @@ use Qameta\Allure\Attribute\DisplayName;
 trait AllureHttpHelpers
 {
     private static array $roundCodes = [];
+    private static array $transactionCodes = [];
 
     private function getRoundCode(string $group): string
     {
@@ -18,6 +19,16 @@ trait AllureHttpHelpers
             self::$roundCodes[$group] = 'test_rnd' . bin2hex(random_bytes(6));
         }
         return self::$roundCodes[$group];
+    }
+
+    protected function setTransactionCode(string $key, string $value): void
+    {
+        self::$transactionCodes[$key] = $value;
+    }
+
+    protected function getTransactionCode(string $key): ?string
+    {
+        return self::$transactionCodes[$key] ?? null;
     }
 
     private function generateRandomJackpotId(): string

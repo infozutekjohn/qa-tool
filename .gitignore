@@ -16,6 +16,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/allure-reports
 /storage/*.key
 /storage/pail
 /vendor
@@ -24,3 +25,4 @@ Homestead.yaml
 Thumbs.db
 .node_modules
 .vendor
+/allure-results

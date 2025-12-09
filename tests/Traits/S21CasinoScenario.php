@@ -16,8 +16,8 @@ use Tests\Config\Endpoint;
 
 trait S21CasinoScenario
 {
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Bet | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -84,8 +84,8 @@ trait S21CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -154,8 +154,8 @@ trait S21CasinoScenario
     }
 
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -222,8 +222,8 @@ trait S21CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
