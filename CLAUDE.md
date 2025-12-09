@@ -123,12 +123,23 @@ trait S##ScenarioName
 
 #### Test Trait Files
 - Pattern: `S{XX}{ScenarioName}Scenario.php`
-- Examples:
+- Casino Scenarios (S21-S29):
   - `S21CasinoScenario.php` (2.1 Regular Gameround)
   - `S22CasinoScenario.php` (2.2 Regular Gameround with Jackpot)
   - `S27JackpotWinFeatureScenario.php` (2.7 Jackpot Win Through Feature)
   - `S28RefundScenario.php` (2.8 Regular Refund)
   - `S29ForwardCompatibilityScenario.php` (2.9 Forward Compatibility)
+- Live Casino Scenarios (S31-S40):
+  - `S31LiveCasinoRegularScenario.php` (3.1 Regular Live Casino)
+  - `S32LiveCasinoJackpotScenario.php` (3.2 Live Casino Jackpot)
+  - `S33LiveCasinoRetriesScenario.php` (3.3 Idempotent Retries)
+  - `S34LiveCasinoMultiseatScenario.php` (3.4 Multiseat)
+  - `S35LiveCasinoBonusScenario.php` (3.5 Bonus)
+  - `S36LiveCasinoRefundScenario.php` (3.6 Refund)
+  - `S37LiveCasinoPartialRefundScenario.php` (3.7 Partial Refund)
+  - `S38LiveCasinoFullRefundScenario.php` (3.8 Full Refund)
+  - `S39LiveCasinoTipScenario.php` (3.9 Live Tip)
+  - `S40LiveCasinoForwardCompatibilityScenario.php` (3.10 Forward Compatibility)
 
 #### Test Method Names
 - Use snake_case: `bet_no_win`, `result_win_jackpot`, `bet_for_refund`
@@ -202,16 +213,33 @@ trait S##ScenarioName
   - `TEST_WIN_PRIMARY`
 
 ## Helper Methods Available
+
+### Core Methods
 - `$this->getRoundCode(string $group)` - Get/create round code for test group
 - `$this->setTransactionCode(string $key, string $value)` - Store transaction code
 - `$this->getTransactionCode(string $key)` - Retrieve stored transaction code
 - `$this->generateDate()` - Generate ISO date with microseconds
 - `$this->generateRandomJackpotId()` - Generate random jackpot ID
+
+### Allure Attachment Methods
 - `$this->attachHttpRequestAndResponse(...)` - Attach HTTP artifacts to Allure
+
+### Assertion Methods
 - `$this->stepAssertStatus(...)` - Assert HTTP status in Allure step
 - `$this->stepAssertNoErrorField(...)` - Assert no error field
 - `$this->stepAssertRequestIdMatches(...)` - Assert requestId matches
 - `$this->stepAssertTransactionResponseSchema(...)` - Assert response schema
+
+### Balance Tracking Methods (Lenient - log warnings instead of failing)
+- `$this->getTrackedBalance()` - Get current tracked balance
+- `$this->updateTrackedBalance(array $data)` - Update tracked balance from response
+- `$this->stepAssertBalanceDeducted($data, $betAmount, &$checks)` - Assert balance deducted after bet
+- `$this->stepAssertBalanceWinAdded($data, $winAmount, $message, &$checks)` - Assert balance increased after win
+- `$this->stepAssertBalanceUnchanged($data, $message, &$checks)` - Assert balance unchanged (for idempotent retries)
+
+### Timestamp Assertion Methods
+- `$this->stepAssertTimestampFormat($data, &$checks)` - Assert timestamp format (YYYY-MM-DD HH:mm:ss.SSS)
+- `$this->stepAssertTimestampGMT($data, &$checks)` - Assert timestamp is in GMT
 
 ## Auto-Apply Rules
 When modifying or creating code in this project:
