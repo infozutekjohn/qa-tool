@@ -77,6 +77,12 @@ trait S25CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -149,6 +155,12 @@ trait S25CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -216,6 +228,12 @@ trait S25CasinoScenario
         $this->stepAssertRequestIdMatches($payload, $data);
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
+
+        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
 
         Allure::attachment(
             'Validation Checks',
@@ -294,6 +312,12 @@ trait S25CasinoScenario
         $this->stepAssertRequestIdMatches($payload, $data);
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
+
+        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
 
         Allure::attachment(
             'Validation Checks',

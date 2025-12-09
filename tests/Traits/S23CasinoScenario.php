@@ -83,6 +83,12 @@ trait S23CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -131,6 +137,12 @@ trait S23CasinoScenario
         $this->stepAssertRequestIdMatches($payload, $data);
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
+
+        $this->stepAssertBalanceUnchanged($data, 'Retry - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
 
         Allure::attachment(
             'Validation Checks',
@@ -204,6 +216,12 @@ trait S23CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceUnchanged($data, 'No win - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -254,6 +272,12 @@ trait S23CasinoScenario
         $this->stepAssertRequestIdMatches($payload, $data);
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
+
+        $this->stepAssertBalanceUnchanged($data, 'Retry - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
 
         Allure::attachment(
             'Validation Checks',

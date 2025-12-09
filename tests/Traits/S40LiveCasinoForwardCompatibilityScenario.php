@@ -11,21 +11,18 @@ use Qameta\Allure\Attribute\Description;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Config\Endpoint;
 
-trait S36LiveCasinoRefundScenario
+trait S40LiveCasinoForwardCompatibilityScenario
 {
-    // 2.6 Regular refund scenario with relation
+    // 2.10 Forward compatibility check
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
-    #[Suite('2.6 Regular refund scenario with relation')]
-    #[DisplayName('Bet (for refund) | Live Casino | Regular gameround scenario with relation')]
-    #[Description('Testing live casino bet for refund with relation')]
+    #[Suite('2.10 Forward compatibility check')]
+    #[DisplayName('Bet | Live Casino | Forward compatibility check')]
+    #[Description('Testing live casino bet with unknown fields for forward compatibility')]
     #[Test]
-    public function live_bet_for_refund_with_relation(): void
+    public function live_forward_compatibility_bet(): void
     {
-        $roundCode = $this->getRoundCode('live_refund_scenario');
+        $roundCode = $this->getRoundCode('live_forward_compatibility_scenario');
         $transactionCode = uniqid('test_trx_') . bin2hex(random_bytes(4));
-
-        // Store transaction code for refund relation
-        $this->setTransactionCode('live_refund_bet', $transactionCode);
 
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
@@ -48,7 +45,9 @@ trait S36LiveCasinoRefundScenario
                 "launchAlias" => "bal_baccaratko",
                 "tableId" => "1234",
                 "tableName" => "Integration Test"
-            ]
+            ],
+            // Forward compatibility: API should ignore unknown fields
+            "forwardCompatibilityCheck" => "ignoreUnexpectedFields"
         ];
 
         $endpoint = Endpoint::playtech('bet');
@@ -56,10 +55,11 @@ trait S36LiveCasinoRefundScenario
         $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
 
         [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Bet (for refund) request to endpoint')]
+            #[DisplayName('Send Bet request with unknown field to endpoint')]
             function (StepContextInterface $step) use ($payload, $endpoint) {
                 $step->parameter('method', 'POST');
                 $step->parameter('endpoint', $endpoint);
+                $step->parameter('forwardCompatibilityCheck', 'ignoreUnexpectedFields');
 
                 $response = $this->client->post($endpoint, [
                     'json' => $payload,
@@ -95,21 +95,17 @@ trait S36LiveCasinoRefundScenario
     }
 
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
-    #[Suite('2.6 Regular refund scenario with relation')]
-    #[DisplayName('Gameroundresult (refund) | Live Casino | Regular gameround scenario with relation')]
-    #[Description('Testing live casino refund result with relation')]
+    #[Suite('2.10 Forward compatibility check')]
+    #[DisplayName('Gameroundresult (no win) | Live Casino | Forward compatibility check')]
+    #[Description('Testing live casino gameroundresult with unknown fields for forward compatibility')]
     #[Test]
-    public function live_result_refund_with_relation(): void
+    public function live_forward_compatibility_result_no_win(): void
     {
-        $roundCode = $this->getRoundCode('live_refund_scenario');
-        $relatedTransactionCode = $this->getTransactionCode('live_refund_bet');
-
-        $this->assertNotNull($relatedTransactionCode, 'Transaction code from previous bet not found');
+        $roundCode = $this->getRoundCode('live_forward_compatibility_scenario');
 
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
-        $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
 
@@ -118,18 +114,12 @@ trait S36LiveCasinoRefundScenario
             "username" => $username,
             "externalToken" => $token,
             "gameRoundCode" => $roundCode,
-            "pay" => [
-                "transactionCode" => uniqid('test_trx_'),
-                "transactionDate" => $date,
-                "amount" => $betPrimary,
-                "type" => "REFUND",
-                "relatedTransactionCode" => $relatedTransactionCode,
-                "internalFundChanges" => []
+            "jackpot" => [
+                "contributionAmount" => "0",
+                "winAmount" => "0"
             ],
             "gameRoundClose" => [
-                "date" => $date,
-                "rngGeneratorId" => "SecureRandom",
-                "rngSoftwareId" => "Casino CaGS 12.3.4.5"
+                "date" => $date
             ],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
@@ -137,7 +127,9 @@ trait S36LiveCasinoRefundScenario
                 "tableId" => "1234",
                 "tableName" => "Integration Test"
             ],
-            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
+            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
+            // Forward compatibility: API should ignore unknown fields
+            "forwardCompatibilityCheck" => "ignoreUnexpectedFields"
         ];
 
         $endpoint = Endpoint::playtech('gameroundresult');
@@ -145,11 +137,11 @@ trait S36LiveCasinoRefundScenario
         $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
 
         [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Gameroundresult (refund) request to endpoint')]
-            function (StepContextInterface $step) use ($payload, $endpoint, $relatedTransactionCode) {
+            #[DisplayName('Send Gameroundresult (no win) with unknown field to endpoint')]
+            function (StepContextInterface $step) use ($payload, $endpoint) {
                 $step->parameter('method', 'POST');
                 $step->parameter('endpoint', $endpoint);
-                $step->parameter('relatedTransactionCode', $relatedTransactionCode);
+                $step->parameter('forwardCompatibilityCheck', 'ignoreUnexpectedFields');
 
                 $response = $this->client->post($endpoint, [
                     'json' => $payload,
@@ -171,11 +163,58 @@ trait S36LiveCasinoRefundScenario
 
         $this->stepAssertRequestIdMatches($payload, $data);
 
-        $this->stepAssertTransactionResponseSchema($data, $checks);
+        Allure::attachment(
+            'Validation Checks',
+            implode(PHP_EOL, $checks),
+            'text/plain'
+        );
+    }
 
-        $this->stepAssertTimestampFormat($data, $checks);
+    #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
+    #[Suite('2.10 Forward compatibility check')]
+    #[DisplayName('What Is My Purpose Again? | Live Casino | Forward compatibility check')]
+    #[Description('Placeholder test until skipRequest() in Allure is fixed')]
+    #[Test]
+    public function live_forward_compatibility_purpose_check(): void
+    {
+        $payload = [
+            "requestId" => uniqid('test_'),
+            "purpose" => "To be a landing pad until skipRequest() in Allure is fixed."
+        ];
 
-        $this->stepAssertTimestampGMT($data, $checks);
+        $endpoint = 'https://postman-echo.com/get';
+
+        [$response, $body, $data] = Allure::runStep(
+            #[DisplayName('Send purpose check request to Postman Echo')]
+            function (StepContextInterface $step) use ($payload, $endpoint) {
+                $step->parameter('method', 'GET');
+                $step->parameter('endpoint', $endpoint);
+                $step->parameter('purpose', 'Placeholder until skipRequest() is fixed');
+
+                $response = $this->client->get($endpoint, [
+                    'query' => $payload,
+                ]);
+
+                $body = (string)$response->getBody();
+                $data = json_decode($body, true);
+                return [$response, $body, $data];
+            }
+        );
+
+        $checks = [];
+
+        $this->attachHttpRequestAndResponse($endpoint, $payload, $response, $body);
+
+        $this->stepAssertStatus($response, 200, $checks);
+
+        Allure::runStep(
+            #[DisplayName('Verify request echoed back correctly')]
+            function (StepContextInterface $step) use ($data, $payload, &$checks) {
+                $this->assertArrayHasKey('args', $data, 'Response should contain args');
+                $this->assertEquals($payload['requestId'], $data['args']['requestId'] ?? null, 'RequestId should match');
+                $checks[] = '[PASS] Request echoed back correctly';
+            }
+        );
 
         Allure::attachment(
             'Validation Checks',

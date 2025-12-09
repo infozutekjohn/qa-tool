@@ -28,7 +28,9 @@ use Tests\Traits\S33LiveCasinoRetriesScenario;
 use Tests\Traits\S34LiveCasinoMultiseatScenario;
 use Tests\Traits\S35LiveCasinoBonusScenario;
 use Tests\Traits\S36LiveCasinoRefundScenario;
-use Tests\Traits\S37LiveTipScenario;
+use Tests\Traits\S37LiveCasinoPartialRefundScenario;
+use Tests\Traits\S38LiveCasinoFullRefundScenario;
+use Tests\Traits\S39LiveCasinoTipScenario;
 
 // 04. Bonus Flows
 use Tests\Traits\S41FreespinHeldScenario;
@@ -107,7 +109,9 @@ class ApiTest extends TestCase
     use S34LiveCasinoMultiseatScenario;
     use S35LiveCasinoBonusScenario;
     use S36LiveCasinoRefundScenario;
-    use S37LiveTipScenario;
+    use S37LiveCasinoPartialRefundScenario;
+    use S38LiveCasinoFullRefundScenario;
+    use S39LiveCasinoTipScenario;
 
     // 04. Bonus Flows
     use S41FreespinHeldScenario;
