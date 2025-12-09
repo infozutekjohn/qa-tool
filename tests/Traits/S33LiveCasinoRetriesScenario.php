@@ -2,34 +2,34 @@
 
 namespace Tests\Traits;
 
-use DateTime;
-use GuzzleHttp\Psr7\Message;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
 use Qameta\Allure\Attribute\Suite;
-use Qameta\Allure\Attribute\SubSuite;
 use Qameta\Allure\Attribute\DisplayName;
 use Qameta\Allure\Attribute\Description;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Config\Endpoint;
 
-trait S25CasinoScenario
+trait S33LiveCasinoRetriesScenario
 {
-    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Bet 1 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular bet response')]
+    #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
+    #[Suite('2.3 Regular gameround scenario with retries')]
+    #[DisplayName('Bet (retry) | Live Casino | Regular gameround scenario with retries')]
+    #[Description('Testing live casino bet retry - first bet request')]
     #[Test]
-    public function bet_alternate_1(): void
+    public function live_bet_retry(): void
     {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
+        $roundCode = $this->getRoundCode('live_retries_scenario');
+        $transactionCode = uniqid('test_') . bin2hex(random_bytes(4));
 
-        $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
-        $betPrimary     = getenv('TEST_BET_PRIMARY');
+        // Store transaction code for retry test
+        $this->setTransactionCode('live_retry_bet', $transactionCode);
 
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
 
@@ -38,11 +38,16 @@ trait S25CasinoScenario
             "username" => $username,
             "externalToken" => $token,
             "gameRoundCode" => $roundCode,
-            "transactionCode" => uniqid('test_trx_'),
+            "transactionCode" => $transactionCode,
             "transactionDate" => $date,
             "amount" => $betPrimary,
             "internalFundChanges" => [],
-            "gameCodeName" => $casinoGameCode
+            "gameCodeName" => $liveGameCode,
+            "liveTableDetails" => [
+                "launchAlias" => "bal_baccaratko",
+                "tableId" => "1234",
+                "tableName" => "Integration Test"
+            ]
         ];
 
         $endpoint = Endpoint::playtech('bet');
@@ -50,7 +55,7 @@ trait S25CasinoScenario
         $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
 
         [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Bet request to endpoint')]
+            #[DisplayName('Send Bet request to endpoint (first attempt)')]
             function (StepContextInterface $step) use ($payload, $endpoint) {
                 $step->parameter('method', 'POST');
                 $step->parameter('endpoint', $endpoint);
@@ -90,19 +95,22 @@ trait S25CasinoScenario
         );
     }
 
-    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Gameroundresult 1 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular no win result response')]
+    #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
+    #[Suite('2.3 Regular gameround scenario with retries')]
+    #[DisplayName('Bet | Live Casino | Regular gameround scenario with retries')]
+    #[Description('Testing live casino bet retry - resending same transaction code')]
     #[Test]
-    public function result_alternate_1(): void
+    public function live_bet_with_retries(): void
     {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
+        $roundCode = $this->getRoundCode('live_retries_scenario');
+        $transactionCode = $this->getTransactionCode('live_retry_bet');
 
-        $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $win            = getenv('TEST_WIN_PRIMARY');
-        $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
+        $this->assertNotNull($transactionCode, 'Transaction code from previous bet not found');
+
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
 
@@ -111,90 +119,16 @@ trait S25CasinoScenario
             "username" => $username,
             "externalToken" => $token,
             "gameRoundCode" => $roundCode,
-            "pay" => [
-                "transactionCode" => uniqid('test_trx_'),
-                "transactionDate" => $date,
-                "amount" => $win,
-                "type" => "WIN",
-                "internalFundChanges" => []
-            ],
-            "gameCodeName" => $casinoGameCode,
-            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
-        ];
-
-        $endpoint = Endpoint::playtech('gameroundresult');
-
-        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
-
-        [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send game round result request to endpoint')]
-            function (StepContextInterface $step) use ($payload, $endpoint) {
-                $step->parameter('method', 'POST');
-                $step->parameter('endpoint', $endpoint);
-
-                $response = $this->client->post($endpoint, [
-                    'json' => $payload,
-                ]);
-
-                $body = (string)$response->getBody();
-                $data = json_decode($body, true);
-
-                return [$response, $body, $data];
-            }
-        );
-
-        $checks = [];
-
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
-
-        Allure::attachment(
-            'Validation Checks',
-            implode(PHP_EOL, $checks),
-            'text/plain'
-        );
-    }
-
-
-    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Bet 2 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular bet response')]
-    #[Test]
-    public function bet_alternate_2(): void
-    {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
-
-        $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
-        $betPrimary     = getenv('TEST_BET_PRIMARY');
-
-        $date = $this->generateDate();
-
-        $payload = [
-            "requestId" => uniqid('test_'),
-            "username" => $username,
-            "externalToken" => $token,
-            "gameRoundCode" => $roundCode,
-            "transactionCode" => uniqid('test_trx_'),
+            "transactionCode" => $transactionCode,
             "transactionDate" => $date,
             "amount" => $betPrimary,
             "internalFundChanges" => [],
-            "gameCodeName" => $casinoGameCode
+            "gameCodeName" => $liveGameCode,
+            "liveTableDetails" => [
+                "launchAlias" => "bal_baccaratko",
+                "tableId" => "1234",
+                "tableName" => "Integration Test"
+            ]
         ];
 
         $endpoint = Endpoint::playtech('bet');
@@ -202,10 +136,11 @@ trait S25CasinoScenario
         $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
 
         [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Bet request to endpoint')]
-            function (StepContextInterface $step) use ($payload, $endpoint) {
+            #[DisplayName('Send Bet request to endpoint (retry - same transaction code)')]
+            function (StepContextInterface $step) use ($payload, $endpoint, $transactionCode) {
                 $step->parameter('method', 'POST');
                 $step->parameter('endpoint', $endpoint);
+                $step->parameter('retryTransactionCode', $transactionCode);
 
                 $response = $this->client->post($endpoint, [
                     'json' => $payload,
@@ -229,7 +164,8 @@ trait S25CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
-        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+        // Balance should be unchanged on retry (idempotent)
+        $this->stepAssertBalanceUnchanged($data, 'Retry - balance unchanged (idempotent)', $checks);
 
         $this->stepAssertTimestampFormat($data, $checks);
 
@@ -242,19 +178,23 @@ trait S25CasinoScenario
         );
     }
 
-    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Gameroundresult 2 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular no win result response')]
+    #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
+    #[Suite('2.3 Regular gameround scenario with retries')]
+    #[DisplayName('Gameroundresult (win retry) | Live Casino | Regular gameround scenario with retries')]
+    #[Description('Testing live casino result win - first attempt')]
     #[Test]
-    public function result_alternate_2(): void
+    public function live_result_win_retry(): void
     {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
+        $roundCode = $this->getRoundCode('live_retries_scenario');
+        $transactionCode = uniqid('test_') . bin2hex(random_bytes(4));
 
-        $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
-        $win            = getenv('TEST_WIN_PRIMARY');
+        // Store transaction code for retry test
+        $this->setTransactionCode('live_retry_result', $transactionCode);
+
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $winAmount    = getenv('TEST_WIN_AMOUNT') ?: '2';
 
         $date = $this->generateDate();
 
@@ -264,9 +204,9 @@ trait S25CasinoScenario
             "externalToken" => $token,
             "gameRoundCode" => $roundCode,
             "pay" => [
-                "transactionCode" => uniqid('test_trx_'),
+                "transactionCode" => $transactionCode,
                 "transactionDate" => $date,
-                "amount" => $win,
+                "amount" => $winAmount,
                 "type" => "WIN",
                 "internalFundChanges" => []
             ],
@@ -275,8 +215,13 @@ trait S25CasinoScenario
                 "rngGeneratorId" => "SecureRandom",
                 "rngSoftwareId" => "Casino CaGS 12.3.4.5"
             ],
-            "gameCodeName" => $casinoGameCode,
-            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
+            "gameCodeName" => $liveGameCode,
+            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
+            "liveTableDetails" => [
+                "launchAlias" => "bal_baccaratko",
+                "tableId" => "1234",
+                "tableName" => "Integration Test"
+            ]
         ];
 
         $endpoint = Endpoint::playtech('gameroundresult');
@@ -284,7 +229,7 @@ trait S25CasinoScenario
         $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
 
         [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send game round result request to endpoint')]
+            #[DisplayName('Send Gameroundresult request to endpoint (first attempt)')]
             function (StepContextInterface $step) use ($payload, $endpoint) {
                 $step->parameter('method', 'POST');
                 $step->parameter('endpoint', $endpoint);
@@ -294,9 +239,7 @@ trait S25CasinoScenario
                 ]);
 
                 $body = (string)$response->getBody();
-
                 $data = json_decode($body, true);
-
                 return [$response, $body, $data];
             }
         );
@@ -313,7 +256,94 @@ trait S25CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
-        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
+        Allure::attachment(
+            'Validation Checks',
+            implode(PHP_EOL, $checks),
+            'text/plain'
+        );
+    }
+
+    #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
+    #[Suite('2.3 Regular gameround scenario with retries')]
+    #[DisplayName('Gameroundresult (win) | Live Casino | Regular gameround scenario with retries')]
+    #[Description('Testing live casino result win retry - resending same result')]
+    #[Test]
+    public function live_result_win_with_retries(): void
+    {
+        $roundCode = $this->getRoundCode('live_retries_scenario');
+        $transactionCode = $this->getTransactionCode('live_retry_result');
+
+        $this->assertNotNull($transactionCode, 'Transaction code from previous result not found');
+
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $winAmount    = getenv('TEST_WIN_AMOUNT') ?: '2';
+
+        $date = $this->generateDate();
+
+        $payload = [
+            "requestId" => uniqid('test_'),
+            "username" => $username,
+            "externalToken" => $token,
+            "gameRoundCode" => $roundCode,
+            "pay" => [
+                "transactionCode" => $transactionCode,
+                "transactionDate" => $date,
+                "amount" => $winAmount,
+                "type" => "WIN",
+                "internalFundChanges" => []
+            ],
+            "gameRoundClose" => [
+                "date" => $date,
+                "rngGeneratorId" => "SecureRandom",
+                "rngSoftwareId" => "Casino CaGS 12.3.4.5"
+            ],
+            "gameCodeName" => $liveGameCode,
+            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
+            "liveTableDetails" => [
+                "launchAlias" => "bal_baccaratko",
+                "tableId" => "1234",
+                "tableName" => "Integration Test"
+            ]
+        ];
+
+        $endpoint = Endpoint::playtech('gameroundresult');
+
+        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
+
+        [$response, $body, $data] = Allure::runStep(
+            #[DisplayName('Send Gameroundresult request to endpoint (retry - same transaction code)')]
+            function (StepContextInterface $step) use ($payload, $endpoint, $transactionCode) {
+                $step->parameter('method', 'POST');
+                $step->parameter('endpoint', $endpoint);
+                $step->parameter('retryTransactionCode', $transactionCode);
+
+                $response = $this->client->post($endpoint, [
+                    'json' => $payload,
+                ]);
+
+                $body = (string)$response->getBody();
+                $data = json_decode($body, true);
+                return [$response, $body, $data];
+            }
+        );
+
+        $checks = [];
+
+        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
+
+        $this->stepAssertStatus($response, 200, $checks);
+
+        $this->stepAssertNoErrorField($data);
+
+        $this->stepAssertRequestIdMatches($payload, $data);
+
+        $this->stepAssertTransactionResponseSchema($data, $checks);
 
         $this->stepAssertTimestampFormat($data, $checks);
 

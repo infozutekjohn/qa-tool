@@ -19,8 +19,8 @@ trait S23CasinoScenario
     private static array $CasinoRegularBetRetryPayload = [];
     private static array $CasinoRegularResultRetryPayload = [];
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Retries')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Bet | Casino | Regular gameround scenario with retries')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -83,6 +83,12 @@ trait S23CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -90,10 +96,10 @@ trait S23CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Retries')]
-    #[Displayname('Bet | Casino | Regular gameround scenario (win)')]
-    #[Description('Testing wallet regular bet response')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.3 Regular Gameround Scenario with Retries')]
+    #[Displayname('Bet | Casino | Regular gameround scenario with retries (retry)')]
+    #[Description('Testing wallet regular bet retry response')]
     #[Test]
     public function bet_retry_trigger(): void
     {
@@ -132,6 +138,12 @@ trait S23CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceUnchanged($data, 'Retry - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -140,8 +152,8 @@ trait S23CasinoScenario
     }
 
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Retries')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -204,6 +216,12 @@ trait S23CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceUnchanged($data, 'No win - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -211,8 +229,8 @@ trait S23CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario with Retries')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -254,6 +272,12 @@ trait S23CasinoScenario
         $this->stepAssertRequestIdMatches($payload, $data);
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
+
+        $this->stepAssertBalanceUnchanged($data, 'Retry - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
 
         Allure::attachment(
             'Validation Checks',

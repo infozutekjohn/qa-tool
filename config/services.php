@@ -39,6 +39,8 @@ return [
         'internal_base_url' => env('ALLURE_INTERNAL_BASE_URL', 'http://allure:5050'),
         // from browser to Allure (host/production URL)
         'public_base_url'   => env('ALLURE_PUBLIC_BASE_URL', 'http://localhost:5050'),
+        // Set to true to use local Allure CLI instead of Docker service
+        'use_local'         => env('ALLURE_USE_LOCAL', false),
     ],
 
 ];

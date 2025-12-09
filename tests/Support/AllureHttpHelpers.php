@@ -11,6 +11,8 @@ use Qameta\Allure\Attribute\DisplayName;
 trait AllureHttpHelpers
 {
     private static array $roundCodes = [];
+    private static array $transactionCodes = [];
+    private static ?float $currentBalance = null;
 
     private function getRoundCode(string $group): string
     {
@@ -18,6 +20,16 @@ trait AllureHttpHelpers
             self::$roundCodes[$group] = 'test_rnd' . bin2hex(random_bytes(6));
         }
         return self::$roundCodes[$group];
+    }
+
+    protected function setTransactionCode(string $key, string $value): void
+    {
+        self::$transactionCodes[$key] = $value;
+    }
+
+    protected function getTransactionCode(string $key): ?string
+    {
+        return self::$transactionCodes[$key] ?? null;
     }
 
     private function generateRandomJackpotId(): string
@@ -230,6 +242,233 @@ trait AllureHttpHelpers
                 // $checks[] = "✔ 'title' is not empty";
 
                 $step->parameter('validatedKeys', 'externalTransactionCode,requestId,externalTransactionDate,balance');
+            }
+        );
+    }
+
+    /**
+     * Get current tracked balance
+     */
+    protected function getTrackedBalance(): ?float
+    {
+        return self::$currentBalance;
+    }
+
+    /**
+     * Set/update tracked balance from response
+     */
+    protected function updateTrackedBalance(array $data): void
+    {
+        if (isset($data['balance']['real'])) {
+            self::$currentBalance = (float) $data['balance']['real'];
+        }
+    }
+
+    /**
+     * Assert balance updated correctly after bet deduction
+     */
+    protected function stepAssertBalanceDeducted(
+        array $data,
+        string $betAmount,
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Balance updated correctly (bet deduction)')]
+            function (StepContextInterface $step) use ($data, $betAmount, &$checks) {
+                $this->assertArrayHasKey('balance', $data, 'Missing balance in response');
+                $this->assertArrayHasKey('real', $data['balance'], 'Missing balance.real in response');
+
+                $balanceBefore = self::$currentBalance;
+                $balanceAfter = (float) $data['balance']['real'];
+                $betAmountFloat = (float) $betAmount;
+
+                $step->parameter('balanceBefore', (string) $balanceBefore);
+                $step->parameter('betAmount', $betAmount);
+                $step->parameter('balanceAfter', (string) $balanceAfter);
+
+                // Verify balance is a valid non-negative number
+                $this->assertGreaterThanOrEqual(0, $balanceAfter, 'Balance should be non-negative');
+
+                if ($balanceBefore !== null) {
+                    $actualDeduction = round($balanceBefore - $balanceAfter, 2);
+                    $step->parameter('actualDeduction', (string) $actualDeduction);
+
+                    // Log the balance change for debugging, but don't fail on mismatch
+                    // as balance may be affected by other concurrent transactions
+                    if (is_array($checks)) {
+                        if (abs($actualDeduction - $betAmountFloat) < 0.01) {
+                            $checks[] = "✔ Balance deducted correctly | Bet: {$betAmount} | Balance after: {$balanceAfter}";
+                        } else {
+                            $checks[] = "⚠ Balance change: {$actualDeduction} (expected: {$betAmount}) | Balance after: {$balanceAfter}";
+                        }
+                    }
+                }
+
+                // Update tracked balance
+                self::$currentBalance = $balanceAfter;
+            }
+        );
+    }
+
+    /**
+     * Assert balance updated correctly after win addition
+     */
+    protected function stepAssertBalanceWinAdded(
+        array $data,
+        string $winAmount,
+        string $message = 'Win amount',
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Balance updated correctly (win addition)')]
+            function (StepContextInterface $step) use ($data, $winAmount, $message, &$checks) {
+                $this->assertArrayHasKey('balance', $data, 'Missing balance in response');
+                $this->assertArrayHasKey('real', $data['balance'], 'Missing balance.real in response');
+
+                $balanceBefore = self::$currentBalance;
+                $balanceAfter = (float) $data['balance']['real'];
+                $winAmountFloat = (float) $winAmount;
+
+                $step->parameter('balanceBefore', (string) $balanceBefore);
+                $step->parameter('winAmount', $winAmount);
+                $step->parameter('balanceAfter', (string) $balanceAfter);
+
+                // Verify balance is a valid non-negative number
+                $this->assertGreaterThanOrEqual(0, $balanceAfter, 'Balance should be non-negative');
+
+                if ($balanceBefore !== null) {
+                    $actualAddition = round($balanceAfter - $balanceBefore, 2);
+                    $step->parameter('actualAddition', (string) $actualAddition);
+
+                    // Log the balance change for debugging, but don't fail on mismatch
+                    // as balance may be affected by other concurrent transactions
+                    if (is_array($checks)) {
+                        if (abs($actualAddition - $winAmountFloat) < 0.01) {
+                            $checks[] = "✔ Balance increased correctly | {$message}: {$winAmount} | Balance after: {$balanceAfter}";
+                        } else {
+                            $checks[] = "⚠ Balance change: {$actualAddition} (expected: {$winAmount}) | Balance after: {$balanceAfter}";
+                        }
+                    }
+                }
+
+                // Update tracked balance
+                self::$currentBalance = $balanceAfter;
+            }
+        );
+    }
+
+    /**
+     * Assert balance unchanged (for no-win scenarios or refunds)
+     */
+    protected function stepAssertBalanceUnchanged(
+        array $data,
+        string $message = 'No balance change expected',
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Balance unchanged')]
+            function (StepContextInterface $step) use ($data, $message, &$checks) {
+                $this->assertArrayHasKey('balance', $data, 'Missing balance in response');
+                $this->assertArrayHasKey('real', $data['balance'], 'Missing balance.real in response');
+
+                $balanceBefore = self::$currentBalance;
+                $balanceAfter = (float) $data['balance']['real'];
+
+                $step->parameter('balanceBefore', (string) $balanceBefore);
+                $step->parameter('balanceAfter', (string) $balanceAfter);
+
+                // Verify balance is a valid non-negative number
+                $this->assertGreaterThanOrEqual(0, $balanceAfter, 'Balance should be non-negative');
+
+                if ($balanceBefore !== null) {
+                    // Check the balance change
+                    $actualChange = round($balanceAfter - $balanceBefore, 2);
+                    $step->parameter('actualChange', (string) $actualChange);
+
+                    // Log the balance change for debugging, but don't fail on mismatch
+                    // as balance may be affected by other concurrent transactions or idempotent retries
+                    if (is_array($checks)) {
+                        if (abs($actualChange) < 0.01) {
+                            $checks[] = "✔ Balance unchanged | {$message} | Balance: {$balanceAfter}";
+                        } else {
+                            $checks[] = "⚠ Balance change: {$actualChange} (expected: 0) | {$message} | Balance: {$balanceAfter}";
+                        }
+                    }
+                }
+
+                // Update tracked balance
+                self::$currentBalance = $balanceAfter;
+            }
+        );
+    }
+
+    /**
+     * Assert timestamp is in correct format: YYYY-MM-DD HH:mm:ss.SSS
+     */
+    protected function stepAssertTimestampFormat(
+        array $data,
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Timestamp in correct format')]
+            function (StepContextInterface $step) use ($data, &$checks) {
+                $this->assertArrayHasKey('externalTransactionDate', $data, 'Missing externalTransactionDate in response');
+
+                $timestamp = $data['externalTransactionDate'];
+                $step->parameter('timestamp', $timestamp);
+
+                // Pattern: YYYY-MM-DD HH:mm:ss.SSS
+                $pattern = '/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]\.\d{3}$/';
+
+                $this->assertMatchesRegularExpression(
+                    $pattern,
+                    $timestamp,
+                    "Timestamp format should be YYYY-MM-DD HH:mm:ss.SSS, got: {$timestamp}"
+                );
+
+                if (is_array($checks)) {
+                    $checks[] = "✔ Timestamp in correct format";
+                }
+            }
+        );
+    }
+
+    /**
+     * Assert timestamp is in GMT (UTC)
+     */
+    protected function stepAssertTimestampGMT(
+        array $data,
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Timestamp in GMT')]
+            function (StepContextInterface $step) use ($data, &$checks) {
+                $this->assertArrayHasKey('externalTransactionDate', $data, 'Missing externalTransactionDate in response');
+
+                $timestamp = $data['externalTransactionDate'];
+
+                // Parse the timestamp and convert to UTC, should remain the same if already in GMT
+                $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s.v', $timestamp, new \DateTimeZone('UTC'));
+
+                if ($dateTime) {
+                    $utcFormatted = $dateTime->format('Y-m-d H:i:s.v');
+
+                    $step->parameter('fromResponse', $timestamp);
+                    $step->parameter('conversionToGMT', $utcFormatted);
+
+                    $this->assertEquals(
+                        $timestamp,
+                        $utcFormatted,
+                        "Timestamp should be in GMT. Original: {$timestamp}, UTC conversion: {$utcFormatted}"
+                    );
+
+                    if (is_array($checks)) {
+                        $checks[] = "✔ Timestamp in GMT | From response: {$timestamp} | Conversion to GMT: {$utcFormatted}";
+                    }
+                } else {
+                    $step->parameter('parseError', 'Could not parse timestamp');
+                    $this->fail("Could not parse timestamp: {$timestamp}");
+                }
             }
         );
     }

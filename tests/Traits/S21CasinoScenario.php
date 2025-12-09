@@ -16,8 +16,8 @@ use Tests\Config\Endpoint;
 
 trait S21CasinoScenario
 {
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Bet | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -77,6 +77,12 @@ trait S21CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -84,8 +90,8 @@ trait S21CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -146,6 +152,12 @@ trait S21CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceUnchanged($data, 'No win - balance unchanged', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -154,8 +166,8 @@ trait S21CasinoScenario
     }
 
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win)')]
     #[Description('Testing wallet regular bet response')]
     #[Test]
@@ -215,6 +227,12 @@ trait S21CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
+        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -222,8 +240,8 @@ trait S21CasinoScenario
         );
     }
 
-    #[ParentSuite('Casino Tests')]
-    #[Suite('Regular Gameround Scenario')]
+    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
+    #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
@@ -292,6 +310,12 @@ trait S21CasinoScenario
         $this->stepAssertRequestIdMatches($payload, $data);
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
+
+        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
+
+        $this->stepAssertTimestampFormat($data, $checks);
+
+        $this->stepAssertTimestampGMT($data, $checks);
 
         Allure::attachment(
             'Validation Checks',

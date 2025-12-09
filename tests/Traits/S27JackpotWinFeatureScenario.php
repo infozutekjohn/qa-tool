@@ -14,22 +14,21 @@ use Qameta\Allure\Attribute\Description;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Config\Endpoint;
 
-trait S25CasinoScenario
+trait S27JackpotWinFeatureScenario
 {
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Bet 1 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular bet response')]
+    #[Suite('2.7 Jackpot win through feature')]
+    #[Displayname('Bet | Casino | Jackpot win through feature scenario')]
+    #[Description('Testing bet for jackpot win through feature scenario')]
     #[Test]
-    public function bet_alternate_1(): void
+    public function bet_jackpot_win_through_feature(): void
     {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
+        $roundCode = $this->getRoundCode('jackpot_win_feature');
 
         $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
         $betPrimary     = getenv('TEST_BET_PRIMARY');
-
 
         $date = $this->generateDate();
 
@@ -91,20 +90,27 @@ trait S25CasinoScenario
     }
 
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Gameroundresult 1 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular no win result response')]
+    #[Suite('2.7 Jackpot win through feature')]
+    #[Displayname('Gameroundresult | Casino | Jackpot win through feature scenario (jackpot win)')]
+    #[Description('Testing game round result with feature jackpot win')]
     #[Test]
-    public function result_alternate_1(): void
+    public function result_feature_jackpot_win(): void
     {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
+        $roundCode = $this->getRoundCode('jackpot_win_feature');
 
         $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $win            = getenv('TEST_WIN_PRIMARY');
         $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
+        $betPrimary     = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
+
+        $contriAmount = $betPrimary * 0.01;
+        $subJP1 = $betPrimary * (1 / 3) / 100;
+        $subJP2 = $betPrimary * (1 / 3) / 100;
+        $subJP3 = $betPrimary * (2 / 9) / 100;
+        $subJP4 = $betPrimary * (1 / 9) / 100;
+        $jackpotWinAmount = $betPrimary;
 
         $payload = [
             "requestId" => uniqid('test_'),
@@ -114,9 +120,55 @@ trait S25CasinoScenario
             "pay" => [
                 "transactionCode" => uniqid('test_trx_'),
                 "transactionDate" => $date,
-                "amount" => $win,
+                "amount" => (string)$jackpotWinAmount,
                 "type" => "WIN",
                 "internalFundChanges" => []
+            ],
+            "jackpot" => [
+                "contributionAmount" => sprintf('%.16f', $contriAmount),
+                "winAmount" => (string)$jackpotWinAmount,
+                "jackpotId" => "test_110_120_130_140_333",
+                "jackpotContributions" => [
+                    [
+                        "amount" => sprintf('%.16f', $contriAmount),
+                        "jackpotId" => "test_110_120_130_140_333",
+                        "subJackpotInfo" => [
+                            [
+                                "amount" => sprintf('%.16f', $subJP1),
+                                "jackpotId" => "test_140_333"
+                            ],
+                            [
+                                "amount" => sprintf('%.16f', $subJP2),
+                                "jackpotId" => "test_130_333"
+                            ],
+                            [
+                                "amount" => sprintf('%.16f', $subJP3),
+                                "jackpotId" => "test_120_333"
+                            ],
+                            [
+                                "amount" => sprintf('%.16f', $subJP4),
+                                "jackpotId" => "test_110_333"
+                            ]
+                        ]
+                    ]
+                ],
+                "jackpotWinnings" => [
+                    [
+                        "amount" => (string)$jackpotWinAmount,
+                        "jackpotId" => "test_110_120_130_140_333",
+                        "subJackpotInfo" => [
+                            [
+                                "amount" => (string)$jackpotWinAmount,
+                                "jackpotId" => "test_110_333"
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            "gameRoundClose" => [
+                "date" => $date,
+                "rngGeneratorId" => "SecureRandom",
+                "rngSoftwareId" => "Casino CaGS 12.3.4.5"
             ],
             "gameCodeName" => $casinoGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
@@ -155,81 +207,7 @@ trait S25CasinoScenario
 
         $this->stepAssertTransactionResponseSchema($data, $checks);
 
-        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
-
-        Allure::attachment(
-            'Validation Checks',
-            implode(PHP_EOL, $checks),
-            'text/plain'
-        );
-    }
-
-
-    #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Bet 2 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular bet response')]
-    #[Test]
-    public function bet_alternate_2(): void
-    {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
-
-        $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $casinoGameCode = getenv('TEST_CASINO_GAME_CODE');
-        $betPrimary     = getenv('TEST_BET_PRIMARY');
-
-        $date = $this->generateDate();
-
-        $payload = [
-            "requestId" => uniqid('test_'),
-            "username" => $username,
-            "externalToken" => $token,
-            "gameRoundCode" => $roundCode,
-            "transactionCode" => uniqid('test_trx_'),
-            "transactionDate" => $date,
-            "amount" => $betPrimary,
-            "internalFundChanges" => [],
-            "gameCodeName" => $casinoGameCode
-        ];
-
-        $endpoint = Endpoint::playtech('bet');
-
-        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
-
-        [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Bet request to endpoint')]
-            function (StepContextInterface $step) use ($payload, $endpoint) {
-                $step->parameter('method', 'POST');
-                $step->parameter('endpoint', $endpoint);
-
-                $response = $this->client->post($endpoint, [
-                    'json' => $payload,
-                ]);
-
-                $body = (string)$response->getBody();
-                $data = json_decode($body, true);
-                return [$response, $body, $data];
-            }
-        );
-
-        $checks = [];
-
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
+        $this->stepAssertBalanceWinAdded($data, (string)$jackpotWinAmount, 'Jackpot win amount', $checks);
 
         $this->stepAssertTimestampFormat($data, $checks);
 
@@ -243,13 +221,13 @@ trait S25CasinoScenario
     }
 
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
-    #[Suite('2.5 Alternating Bet and Result Scenario')]
-    #[Displayname('Gameroundresult 2 | Casino | Alternating bet and result scenario')]
-    #[Description('Testing wallet regular no win result response')]
+    #[Suite('2.7 Jackpot win through feature')]
+    #[Displayname('Gameroundresult | Casino | Jackpot win through feature scenario (feature win)')]
+    #[Description('Testing game round result with feature win')]
     #[Test]
-    public function result_alternate_2(): void
+    public function result_feature_win(): void
     {
-        $roundCode = $this->getRoundCode('alternating_scenario_1');
+        $roundCode = $this->getRoundCode('jackpot_win_feature');
 
         $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
@@ -270,13 +248,7 @@ trait S25CasinoScenario
                 "type" => "WIN",
                 "internalFundChanges" => []
             ],
-            "gameRoundClose" => [
-                "date" => $date,
-                "rngGeneratorId" => "SecureRandom",
-                "rngSoftwareId" => "Casino CaGS 12.3.4.5"
-            ],
-            "gameCodeName" => $casinoGameCode,
-            "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
+            "gameCodeName" => $casinoGameCode
         ];
 
         $endpoint = Endpoint::playtech('gameroundresult');
