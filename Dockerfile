@@ -1,6 +1,6 @@
-FROM php:8.3-fpm
+FROM php:8.3-cli
 
-# Install system packages, PHP extensions, and Node.js
+# Install system packages and PHP extensions
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -9,24 +9,33 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libcurl4-openssl-dev \
-    && docker-php-ext-install pdo pdo_mysql zip \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm@latest \
+    && docker-php-ext-install pdo pdo_mysql zip curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+WORKDIR /app
 
-# Copy your Laravel project into the image
+# Copy composer files first for better caching
+COPY composer.json composer.lock ./
+
+# Install ALL dependencies (including dev for testing)
+RUN composer install --optimize-autoloader --no-interaction
+
+# Copy the rest of the application
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Create necessary directories
+RUN mkdir -p storage/logs bootstrap/cache allure-results \
+    && chmod -R 775 storage bootstrap/cache allure-results
 
-# Permissions for Laravel
-RUN chown -R www-data:www-data storage bootstrap/cache
+# Set environment
+ENV APP_ENV=production
+ENV LOG_CHANNEL=stderr
 
-CMD ["php-fpm"]
+# Expose port for Laravel server (optional - for web interface)
+EXPOSE 8080
+
+# Default command runs the tests
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]

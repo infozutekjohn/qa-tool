@@ -59,7 +59,7 @@ class ApiTest extends TestCase
     {
         parent::setUp();
 
-        $endpoint = getenv('TEST_ENDPOINT') ?: 'fixed_user_fallback';  //https://api-uat.agmidway.net/
+        $endpoint = getenv('TEST_ENDPOINT') ?: 'https://api-uat.agmidway.net';
 
         $this->client = new Client([
             'base_uri' => $endpoint,
