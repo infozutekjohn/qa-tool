@@ -31,6 +31,7 @@ use Tests\Traits\S36LiveCasinoRefundScenario;
 use Tests\Traits\S37LiveCasinoPartialRefundScenario;
 use Tests\Traits\S38LiveCasinoFullRefundScenario;
 use Tests\Traits\S39LiveCasinoTipScenario;
+use Tests\Traits\S40LiveCasinoForwardCompatibilityScenario;
 
 // 04. Bonus Flows
 use Tests\Traits\S41FreespinHeldScenario;
@@ -42,7 +43,10 @@ use Tests\Traits\S45NotificationsScenario;
 // 05. Error Handling
 use Tests\Traits\S51ErrorHandlingScenario;
 
-// 06. Logout
+// 06. Gameslink Features Tests
+use Tests\Traits\S60FeatureTestsScenario;
+
+// 07. Logout
 use Tests\Traits\S61LogoutScenario;
 
 class ApiTest extends TestCase
@@ -55,7 +59,7 @@ class ApiTest extends TestCase
     {
         parent::setUp();
 
-        $endpoint = getenv('TEST_ENDPOINT') ?: 'fixed_user_fallback';  //https://api-uat.agmidway.net/
+        $endpoint = getenv('TEST_ENDPOINT') ?: 'https://api-uat.agmidway.net';
 
         $this->client = new Client([
             'base_uri' => $endpoint,
@@ -112,6 +116,7 @@ class ApiTest extends TestCase
     use S37LiveCasinoPartialRefundScenario;
     use S38LiveCasinoFullRefundScenario;
     use S39LiveCasinoTipScenario;
+    use S40LiveCasinoForwardCompatibilityScenario;
 
     // 04. Bonus Flows
     use S41FreespinHeldScenario;
@@ -123,6 +128,9 @@ class ApiTest extends TestCase
     // 05. Error Handling
     use S51ErrorHandlingScenario;
 
-    // 06. Logout
+    // 06. Gameslink Features Tests
+    use S60FeatureTestsScenario;
+
+    // 07. Logout
     use S61LogoutScenario;
 }

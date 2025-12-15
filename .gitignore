@@ -26,3 +26,4 @@ Thumbs.db
 .node_modules
 .vendor
 /allure-results
+/tests/Config/test-run.md

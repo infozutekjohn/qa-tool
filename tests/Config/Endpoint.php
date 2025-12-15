@@ -13,6 +13,7 @@ final class Endpoint
             'transferfunds'     => '/to-operator/playtech/transferfunds',
             'notifybonusevent'  => '/to-operator/playtech/notifybonusevent',
             'livetip'           => '/to-operator/playtech/livetip',
+            'logout'            => '/to-operator/playtech/logout',
         ],
     ];
 
