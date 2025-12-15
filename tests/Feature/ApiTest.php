@@ -60,6 +60,17 @@ class ApiTest extends TestCase
         parent::setUp();
 
         $endpoint = getenv('TEST_ENDPOINT') ?: 'https://api-uat.agmidway.net';
+        $username = getenv('TEST_USERNAME');
+        $token    = getenv('TEST_TOKEN');
+
+        // DEBUG: Output environment variables to stderr (visible in PHPUnit output)
+        fwrite(STDERR, "\n[DEBUG ApiTest::setUp] Environment Variables Received:\n");
+        fwrite(STDERR, "  TEST_ENDPOINT: " . ($endpoint ?: 'NOT SET') . "\n");
+        fwrite(STDERR, "  TEST_USERNAME: " . ($username ?: 'NOT SET') . "\n");
+        fwrite(STDERR, "  TEST_TOKEN: " . ($token ? substr($token, 0, 20) . '...' : 'NOT SET') . "\n");
+        fwrite(STDERR, "  TEST_CASINO_GAME_CODE: " . (getenv('TEST_CASINO_GAME_CODE') ?: 'NOT SET') . "\n");
+        fwrite(STDERR, "  TEST_LIVE_GAME_CODE: " . (getenv('TEST_LIVE_GAME_CODE') ?: 'NOT SET') . "\n");
+        fwrite(STDERR, "  TEST_BET_PRIMARY: " . (getenv('TEST_BET_PRIMARY') ?: 'NOT SET') . "\n");
 
         $this->client = new Client([
             'base_uri' => $endpoint,
