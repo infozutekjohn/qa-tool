@@ -75,7 +75,7 @@ class ApiTestRunner
         $cmd = ['php', 'vendor/bin/phpunit', '--configuration', $projectRoot . '/phpunit.xml'];
 
         $process = new Process($cmd, $projectRoot, $env);
-        $process->setTimeout(180); // 3 minutes
+        $process->setTimeout(600); // 10 minutes
         $process->run();
 
         $exitCode = $process->getExitCode();
