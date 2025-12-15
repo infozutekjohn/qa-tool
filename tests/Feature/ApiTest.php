@@ -6,7 +6,7 @@ use DateTime;
 use Tests\TestCase;                           // Laravel base TestCase
 use GuzzleHttp\Client;
 use Tests\Support\AllureHttpHelpers;
-
+use Tests\Support\ApiResponseValidator;
 // 01. Login
 use Tests\Traits\S11LoginScenario;
 
@@ -91,6 +91,9 @@ class ApiTest extends TestCase
 
         return $finalFormattedDate;
     }
+
+    // General response validation
+    use ApiResponseValidator;
 
     // 01. Login
     use S11LoginScenario;
