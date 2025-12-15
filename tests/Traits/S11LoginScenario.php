@@ -66,34 +66,36 @@ trait S11LoginScenario
 
         $this->stepAssertRequestIdMatches($payload, $data);
 
-        Allure::runStep(
-            #[DisplayName('Validate response JSON structure')]
-            function (StepContextInterface $step) use ($data, &$checks) {
-                $this->assertIsArray($data);
-                $checks[] = "✔ Response is JSON array/object";
+        // Allure::runStep(
+        //     #[DisplayName('Validate response JSON structure')]
+        //     function (StepContextInterface $step) use ($data, &$checks) {
+        //         $this->assertIsArray($data);
+        //         $checks[] = "✔ Response is JSON array/object";
 
-                // These keys are from your original test; adjust if your real API differs
-                $this->assertArrayHasKey('countryCode', $data);
-                $checks[] = "✔ 'countryCode' key exists";
+        //         // These keys are from your original test; adjust if your real API differs
+        //         $this->assertArrayHasKey('countryCode', $data);
+        //         $checks[] = "✔ 'countryCode' key exists";
 
-                $this->assertArrayHasKey('currencyCode', $data);
-                $checks[] = "✔ 'currencyCode' key exists";
+        //         $this->assertArrayHasKey('currencyCode', $data);
+        //         $checks[] = "✔ 'currencyCode' key exists";
 
-                $this->assertArrayHasKey('username', $data);
-                $checks[] = "✔ 'username' key exists";
+        //         $this->assertArrayHasKey('username', $data);
+        //         $checks[] = "✔ 'username' key exists";
 
-                $this->assertArrayHasKey('requestId', $data);
-                $checks[] = "✔ 'requestId' key exists";
+        //         $this->assertArrayHasKey('requestId', $data);
+        //         $checks[] = "✔ 'requestId' key exists";
 
-                // $this->assertIsInt($data['id']);
-                // $checks[] = "✔ 'id' is integer";
+        //         // $this->assertIsInt($data['id']);
+        //         // $checks[] = "✔ 'id' is integer";
 
-                // $this->assertNotEmpty($data['title']);
-                // $checks[] = "✔ 'title' is not empty";
+        //         // $this->assertNotEmpty($data['title']);
+        //         // $checks[] = "✔ 'title' is not empty";
 
-                $step->parameter('validatedKeys', 'countryCode,currencyCode,username,requestId');
-            }
-        );
+        //         $step->parameter('validatedKeys', 'countryCode,currencyCode,username,requestId');
+        //     }
+        // );
+
+        $this->stepAssertTransactionResponseSchema( $data, $checks, ['type'=>'auth']);
 
         Allure::attachment(
             'Validation Checks',
@@ -142,40 +144,48 @@ trait S11LoginScenario
             }
         );
 
+        // To register a balance for the tester
+        $this->updateTrackedBalance($data);
+
         $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
 
-        // status check
         $this->stepAssertStatus($response, 200, $checks);
 
-        // ⬇️ reused no-error step
         $this->stepAssertNoErrorField($data);
 
         $this->stepAssertRequestIdMatches($payload, $data);
 
-        Allure::runStep(
-            #[DisplayName('Validate response JSON structure')]
-            function (StepContextInterface $step) use ($data, &$checks) {
-                /** @var self $this */
+        $this->stepAssertTimestampFormat($data, $checks, ['includeBalance' => true, 'ignoreDefault' => true]);
 
-                $this->assertIsArray($data);
-                $checks[] = "✔ Response is JSON array/object";
+        $this->stepAssertTimestampGMT($data, $checks, ['includeBalance' => true, 'ignoreDefault' => true]);
 
-                // These keys are from your original test; adjust if your real API differs
-                $this->assertArrayHasKey('balance', $data);
-                $checks[] = "✔ 'countryCode' key exists";
+        // Allure::runStep(
+        //     #[DisplayName('Validate response JSON structure')]
+        //     function (StepContextInterface $step) use ($data, &$checks) {
 
-                $this->assertArrayHasKey('requestId', $data);
-                $checks[] = "✔ 'requestId' key exists";
+        //         $this->assertIsArray($data);
+        //         $checks[] = "✔ Response is JSON array/object";
 
-                // $this->assertIsInt($data['id']);
-                // $checks[] = "✔ 'id' is integer";
+        //         // These keys are from your original test; adjust if your real API differs
+        //         $this->assertArrayHasKey('balance', $data);
+        //         $checks[] = "✔ 'countryCode' key exists";
 
-                // $this->assertNotEmpty($data['title']);
-                // $checks[] = "✔ 'title' is not empty";
+        //         $this->assertArrayHasKey('requestId', $data);
+        //         $checks[] = "✔ 'requestId' key exists";
 
-                $step->parameter('validatedKeys', 'balance,requestId');
-            }
-        );
+        //         // $this->assertIsInt($data['id']);
+        //         // $checks[] = "✔ 'id' is integer";
+
+        //         // $this->assertNotEmpty($data['title']);
+        //         // $checks[] = "✔ 'title' is not empty";
+
+        //         $step->parameter('validatedKeys', 'balance,requestId');
+        //     }
+        // );
+
+        $this->stepAssertTransactionResponseSchema( $data, $checks, ['type' => 'getbalance']);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::attachment(
             'Validation Checks',
