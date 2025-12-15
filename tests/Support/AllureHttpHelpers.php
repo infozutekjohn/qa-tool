@@ -13,6 +13,34 @@ trait AllureHttpHelpers
     private static array $roundCodes = [];
     private static array $transactionCodes = [];
     private static ?float $currentBalance = null;
+    private array $schemas = [
+        'auth' => [
+            'requestId',
+            'username',
+            'permanentExternalToken',
+            'currencyCode',
+            'countryCode',
+            'subBrand'
+        ],
+
+        'getbalance' => [
+            'requestId',
+            'balance'
+        ],
+
+        // bet, result, transferfunds
+        'transaction' => [
+            'requestId',
+            'externalTransactionCode',
+            'externalTransactionDate',
+            'balance'
+        ],
+
+        // notifybonus, logout
+        'event' => [
+            'requestId'
+        ]
+    ];
 
     private function getRoundCode(string $group): string
     {
@@ -44,9 +72,6 @@ trait AllureHttpHelpers
         return 'test_' . implode('_', $numbers);
     }
 
-    /**
-     * Attach the standard HTTP request/response artifacts to Allure.
-     */
     protected function attachHttpRequestAndResponse(
         string $fullUrl,
         array $payload,
@@ -84,9 +109,6 @@ trait AllureHttpHelpers
         );
     }
 
-    /**
-     * Reusable "status must be X" step, with optional $checks array.
-     */
     protected function stepAssertStatus(
         ResponseInterface $response,
         int $expectedStatus = 200,
@@ -113,9 +135,6 @@ trait AllureHttpHelpers
         );
     }
 
-    /**
-     * Reusable "response must NOT contain an 'error' field" step.
-     */
     protected function stepAssertNoErrorField(
         array $data
     ): void {
@@ -211,52 +230,117 @@ trait AllureHttpHelpers
         );
     }
 
+    // protected function stepAssertTransactionResponseSchema(
+    //     array $data,
+    //     ?array &$checks = null
+    // ): void {
+    //     Allure::runStep(
+    //         #[DisplayName('Validate response JSON structure')]
+    //         function (StepContextInterface $step) use ($data, &$checks) {
+    //             /** @var self $this */
+
+    //             $this->assertIsArray($data);
+    //             $checks[] = "✔ Response is JSON array/object";
+
+    //             $this->assertArrayHasKey('externalTransactionCode', $data);
+    //             $checks[] = "✔ 'externalTransactionCode' key exists";
+
+    //             $this->assertArrayHasKey('requestId', $data);
+    //             $checks[] = "✔ 'requestId' key exists";
+
+    //             $this->assertArrayHasKey('externalTransactionDate', $data);
+    //             $checks[] = "✔ 'externalTransactionDate' key exists";
+
+    //             $this->assertArrayHasKey('balance', $data);
+    //             $checks[] = "✔ 'balance' key exists";
+
+    //             // $this->assertIsInt($data['id']);
+    //             // $checks[] = "✔ 'id' is integer";
+
+    //             // $this->assertNotEmpty($data['title']);
+    //             // $checks[] = "✔ 'title' is not empty";
+
+    //             $step->parameter('validatedKeys', 'externalTransactionCode,requestId,externalTransactionDate,balance');
+    //         }
+    //     );
+    // }
+
+    // TODO: Implement to all
     protected function stepAssertTransactionResponseSchema(
         array $data,
-        ?array &$checks = null
+        ?array &$checks = null,
+        array $options = []
     ): void {
         Allure::runStep(
             #[DisplayName('Validate response JSON structure')]
-            function (StepContextInterface $step) use ($data, &$checks) {
-                /** @var self $this */
+            function (StepContextInterface $step) use ($data, &$checks, $options) {
 
-                $this->assertIsArray($data);
-                $checks[] = "✔ Response is JSON array/object";
+                // 1. Determine schema based on type
+                $type = $options['type'] ?? 'transaction'; // default old behavior
 
-                $this->assertArrayHasKey('externalTransactionCode', $data);
-                $checks[] = "✔ 'username' key exists";
+                $allowedKeys = $this->schemas[$type] ?? $this->schemas['transaction'];
 
-                $this->assertArrayHasKey('requestId', $data);
-                $checks[] = "✔ 'requestId' key exists";
+                // VALIDATE KEY EXISTENCE
+                foreach ($allowedKeys as $key) {
+                    $this->assertArrayHasKey(
+                        $key,
+                        $data,
+                        "Missing required key '{$key}' for type '{$type}'"
+                    );
 
-                $this->assertArrayHasKey('externalTransactionDate', $data);
-                $checks[] = "✔ 'requestId' key exists";
+                    $checks[] = "✔ '{$key}' key exists";
+                }
 
-                $this->assertArrayHasKey('balance', $data);
-                $checks[] = "✔ 'requestId' key exists";
+                // VALIDATE NO EXTRA KEYS ALLOWED
+                foreach ($data as $key => $value) {
+                    $this->assertContains(
+                        $key,
+                        $allowedKeys,
+                        "Unexpected key '{$key}' for type '{$type}'"
+                    );
+                }
 
-                // $this->assertIsInt($data['id']);
-                // $checks[] = "✔ 'id' is integer";
+                // RULE: NO KEY THAT APPEARS CAN BE NULL
+                foreach ($data as $key => $value) {
+                    $this->assertNotNull(
+                        $value,
+                        "Key '{$key}' must not be null"
+                    );
+                    $checks[] = "✔ '{$key}' is not null";
+                }
 
-                // $this->assertNotEmpty($data['title']);
-                // $checks[] = "✔ 'title' is not empty";
+                // SPECIAL RULE FOR BALANCE
+                if (isset($data['balance'])) {
+                    $this->assertIsArray($data['balance'], "'balance' must be an object");
 
-                $step->parameter('validatedKeys', 'externalTransactionCode,requestId,externalTransactionDate,balance');
+                    // real can be int/string/float but must have <= 2 decimals
+                    $real = $data['balance']['real'] ?? null;
+
+                    $this->assertNotNull($real, "'balance.real' cannot be null");
+
+                    if (is_int($real)) {
+                        // ok
+                    } else {
+                        $realStr = (string)$real;
+                        $this->assertMatchesRegularExpression(
+                            '/^\d+(\.\d{1,2})?$/',
+                            $realStr,
+                            "'balance.real' must have max 2 decimal places"
+                        );
+                    }
+                }
+
+                $step->parameter('validatedKeys', implode(',', $allowedKeys));
             }
         );
     }
 
-    /**
-     * Get current tracked balance
-     */
+
     protected function getTrackedBalance(): ?float
     {
         return self::$currentBalance;
     }
 
-    /**
-     * Set/update tracked balance from response
-     */
     protected function updateTrackedBalance(array $data): void
     {
         if (isset($data['balance']['real'])) {
@@ -264,9 +348,26 @@ trait AllureHttpHelpers
         }
     }
 
-    /**
-     * Assert balance updated correctly after bet deduction
-     */
+    // Just for checking the balance + error case
+    // TODO: Implement to all
+    protected function stepAssertBalanceError(array $data, ?array &$checks = null): void
+    {
+        Allure::runStep(
+            #[DisplayName('Validate balance rules')]
+            function (StepContextInterface $step) use ($data, &$checks) {
+
+                /** 1. balance + error must NEVER both exist */
+                if (array_key_exists('balance', $data) && array_key_exists('error', $data)) {
+                    $this->fail(
+                        "Invalid response: 'balance' and 'error' cannot appear at the same time."
+                    );
+                }
+                $checks[] = "✔ No coexistence of 'balance' and 'error'";
+            }
+        );
+    }
+
+    // Balance computations
     protected function stepAssertBalanceDeducted(
         array $data,
         string $betAmount,
@@ -310,9 +411,6 @@ trait AllureHttpHelpers
         );
     }
 
-    /**
-     * Assert balance updated correctly after win addition
-     */
     protected function stepAssertBalanceWinAdded(
         array $data,
         string $winAmount,
@@ -357,9 +455,6 @@ trait AllureHttpHelpers
         );
     }
 
-    /**
-     * Assert balance unchanged (for no-win scenarios or refunds)
-     */
     protected function stepAssertBalanceUnchanged(
         array $data,
         string $message = 'No balance change expected',
@@ -402,72 +497,119 @@ trait AllureHttpHelpers
         );
     }
 
-    /**
-     * Assert timestamp is in correct format: YYYY-MM-DD HH:mm:ss.SSS
-     */
+    // TODO: Make the includeBalance as the default checking
     protected function stepAssertTimestampFormat(
         array $data,
-        ?array &$checks = null
+        ?array &$checks = null,
+        array $options = []
     ): void {
         Allure::runStep(
             #[DisplayName('Timestamp in correct format')]
-            function (StepContextInterface $step) use ($data, &$checks) {
-                $this->assertArrayHasKey('externalTransactionDate', $data, 'Missing externalTransactionDate in response');
+            function (StepContextInterface $step) use ($data, &$checks, $options) {
+                if (empty($options) || empty($options['ignoreDefault'])) {
+                    $this->assertArrayHasKey('externalTransactionDate', $data, 'Missing externalTransactionDate in response');
 
-                $timestamp = $data['externalTransactionDate'];
-                $step->parameter('timestamp', $timestamp);
+                    $timestamp = $data['externalTransactionDate'];
+                    $step->parameter('timestamp', $timestamp);
 
-                // Pattern: YYYY-MM-DD HH:mm:ss.SSS
-                $pattern = '/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]\.\d{3}$/';
+                    // Pattern: YYYY-MM-DD HH:mm:ss.SSS
+                    $pattern = '/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]\.\d{3}$/';
 
-                $this->assertMatchesRegularExpression(
-                    $pattern,
-                    $timestamp,
-                    "Timestamp format should be YYYY-MM-DD HH:mm:ss.SSS, got: {$timestamp}"
-                );
+                    $this->assertMatchesRegularExpression(
+                        $pattern,
+                        $timestamp,
+                        "Timestamp format should be YYYY-MM-DD HH:mm:ss.SSS, got: {$timestamp}"
+                    );
+                    if (is_array($checks)) {
+                        $checks[] = "✔ Timestamp in correct format";
+                    }
+                }
 
-                if (is_array($checks)) {
-                    $checks[] = "✔ Timestamp in correct format";
+                if (!empty($options['includeBalance'])) {
+                    $this->assertArrayHasKey('timestamp', $data['balance'], 'Missing balance timestamp in response');
+
+                    $balanceTimestamp = $data['balance']['timestamp'];
+                    $step->parameter('timestamp', $balanceTimestamp);
+
+                    // Pattern: YYYY-MM-DD HH:mm:ss.SSS
+                    $pattern = '/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]\.\d{3}$/';
+
+                    $this->assertMatchesRegularExpression(
+                        $pattern,
+                        $balanceTimestamp,
+                        "Timestamp format should be YYYY-MM-DD HH:mm:ss.SSS, got: {$balanceTimestamp}"
+                    );
                 }
             }
         );
     }
 
-    /**
-     * Assert timestamp is in GMT (UTC)
-     */
+    // TODO: Make the includeBalance as the default checking
     protected function stepAssertTimestampGMT(
         array $data,
-        ?array &$checks = null
+        ?array &$checks = null,
+        array $options = []
     ): void {
         Allure::runStep(
             #[DisplayName('Timestamp in GMT')]
-            function (StepContextInterface $step) use ($data, &$checks) {
-                $this->assertArrayHasKey('externalTransactionDate', $data, 'Missing externalTransactionDate in response');
+            function (StepContextInterface $step) use ($data, &$checks, $options) {
+                if (empty($options) || empty($options['ignoreDefault'])) {
+                    $this->assertArrayHasKey('externalTransactionDate', $data, 'Missing externalTransactionDate in response');
 
-                $timestamp = $data['externalTransactionDate'];
+                    $timestamp = $data['externalTransactionDate'];
 
-                // Parse the timestamp and convert to UTC, should remain the same if already in GMT
-                $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s.v', $timestamp, new \DateTimeZone('UTC'));
+                    // Parse the timestamp and convert to UTC, should remain the same if already in GMT
+                    $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s.v', $timestamp, new \DateTimeZone('UTC'));
 
-                if ($dateTime) {
-                    $utcFormatted = $dateTime->format('Y-m-d H:i:s.v');
+                    if ($dateTime) {
+                        $utcFormatted = $dateTime->format('Y-m-d H:i:s.v');
 
-                    $step->parameter('fromResponse', $timestamp);
-                    $step->parameter('conversionToGMT', $utcFormatted);
+                        $step->parameter('fromResponse', $timestamp);
+                        $step->parameter('conversionToGMT', $utcFormatted);
 
-                    $this->assertEquals(
-                        $timestamp,
-                        $utcFormatted,
-                        "Timestamp should be in GMT. Original: {$timestamp}, UTC conversion: {$utcFormatted}"
-                    );
+                        $this->assertEquals(
+                            $timestamp,
+                            $utcFormatted,
+                            "Timestamp should be in GMT. Original: {$timestamp}, UTC conversion: {$utcFormatted}"
+                        );
 
-                    if (is_array($checks)) {
-                        $checks[] = "✔ Timestamp in GMT | From response: {$timestamp} | Conversion to GMT: {$utcFormatted}";
+                        if (is_array($checks)) {
+                            $checks[] = "✔ Timestamp in GMT | From response: {$timestamp} | Conversion to GMT: {$utcFormatted}";
+                        }
+                    } else {
+                        $step->parameter('parseError', 'Could not parse timestamp');
+                        $this->fail("Could not parse timestamp: {$timestamp}");
                     }
-                } else {
-                    $step->parameter('parseError', 'Could not parse timestamp');
-                    $this->fail("Could not parse timestamp: {$timestamp}");
+                }
+
+                if (!empty($options['includeBalance'])) {
+                    $this->assertArrayHasKey('timestamp', $data['balance'], 'Missing balance timestamp in response');
+
+                    $balanceTimestamp = $data['balance']['timestamp'];
+                    $step->parameter('timestamp', $balanceTimestamp);
+
+                    // Parse the timestamp and convert to UTC, should remain the same if already in GMT
+                    $dateTime = \DateTime::createFromFormat('Y-m-d H:i:s.v', $balanceTimestamp, new \DateTimeZone('UTC'));
+
+                    if ($dateTime) {
+                        $utcFormatted = $dateTime->format('Y-m-d H:i:s.v');
+
+                        $step->parameter('fromBalanceResponse', $balanceTimestamp);
+                        $step->parameter('conversionToGMT', $utcFormatted);
+
+                        $this->assertEquals(
+                            $balanceTimestamp,
+                            $utcFormatted,
+                            "Balance timestamp should be in GMT. Original: {$balanceTimestamp}, UTC conversion: {$utcFormatted}"
+                        );
+
+                        if (is_array($checks)) {
+                            $checks[] = "✔ Balance timestamp in GMT | From response: {$balanceTimestamp} | Conversion to GMT: {$utcFormatted}";
+                        }
+                    } else {
+                        $step->parameter('parseError', 'Could not parse timestamp');
+                        $this->fail("Could not parse timestamp: {$balanceTimestamp}");
+                    }
                 }
             }
         );

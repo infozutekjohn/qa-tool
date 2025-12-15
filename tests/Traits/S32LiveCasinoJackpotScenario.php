@@ -82,6 +82,8 @@ trait S32LiveCasinoJackpotScenario
 
         $this->stepAssertTimestampGMT($data, $checks);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -158,6 +160,8 @@ trait S32LiveCasinoJackpotScenario
 
         $this->stepAssertTimestampGMT($data, $checks);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -233,6 +237,8 @@ trait S32LiveCasinoJackpotScenario
         $this->stepAssertTimestampFormat($data, $checks);
 
         $this->stepAssertTimestampGMT($data, $checks);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::attachment(
             'Validation Checks',
@@ -340,6 +346,8 @@ trait S32LiveCasinoJackpotScenario
         $this->stepAssertTimestampFormat($data, $checks);
 
         $this->stepAssertTimestampGMT($data, $checks);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::attachment(
             'Validation Checks',
@@ -468,6 +476,8 @@ trait S32LiveCasinoJackpotScenario
 
         $this->stepAssertTimestampGMT($data, $checks);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -582,6 +592,8 @@ trait S32LiveCasinoJackpotScenario
         $this->stepAssertTimestampFormat($data, $checks);
 
         $this->stepAssertTimestampGMT($data, $checks);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::attachment(
             'Validation Checks',

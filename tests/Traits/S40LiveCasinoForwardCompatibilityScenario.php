@@ -87,6 +87,8 @@ trait S40LiveCasinoForwardCompatibilityScenario
 
         $this->stepAssertTimestampGMT($data, $checks);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -163,6 +165,8 @@ trait S40LiveCasinoForwardCompatibilityScenario
 
         $this->stepAssertRequestIdMatches($payload, $data);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -206,6 +210,8 @@ trait S40LiveCasinoForwardCompatibilityScenario
         $this->attachHttpRequestAndResponse($endpoint, $payload, $response, $body);
 
         $this->stepAssertStatus($response, 200, $checks);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::runStep(
             #[DisplayName('Verify request echoed back correctly')]

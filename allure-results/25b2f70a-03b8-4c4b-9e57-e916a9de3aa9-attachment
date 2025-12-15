@@ -1,4 +1,0 @@
-✔ Status code is 200 (actual: 200)
-✔ Response is JSON array/object
-✔ 'countryCode' key exists
-✔ 'requestId' key exists

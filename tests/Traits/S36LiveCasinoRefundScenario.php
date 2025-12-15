@@ -87,6 +87,8 @@ trait S36LiveCasinoRefundScenario
 
         $this->stepAssertTimestampGMT($data, $checks);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -176,6 +178,8 @@ trait S36LiveCasinoRefundScenario
         $this->stepAssertTimestampFormat($data, $checks);
 
         $this->stepAssertTimestampGMT($data, $checks);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::attachment(
             'Validation Checks',

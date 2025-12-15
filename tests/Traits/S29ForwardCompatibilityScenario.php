@@ -83,6 +83,8 @@ trait S29ForwardCompatibilityScenario
 
         $this->stepAssertTimestampGMT($data, $checks);
 
+        $this->stepAssertBalanceError($data, $checks);
+
         Allure::attachment(
             'Validation Checks',
             implode(PHP_EOL, $checks),
@@ -158,6 +160,8 @@ trait S29ForwardCompatibilityScenario
         $this->stepAssertTimestampFormat($data, $checks);
 
         $this->stepAssertTimestampGMT($data, $checks);
+
+        $this->stepAssertBalanceError($data, $checks);
 
         Allure::attachment(
             'Validation Checks',
