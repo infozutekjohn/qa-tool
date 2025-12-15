@@ -32,6 +32,17 @@ const Main = () => {
     const [bonusTemplateSecondary, setBonusTemplateSecondary] = useState("");
     const [jackpot, setJackpot] = useState("yes");
 
+    // Live table details
+    const [tableId, setTableId] = useState("");
+    const [tableName, setTableName] = useState("");
+
+    // Jackpot IDs
+    const [jackpotIdMain, setJackpotIdMain] = useState("");
+    const [jackpotId110, setJackpotId110] = useState("");
+    const [jackpotId120, setJackpotId120] = useState("");
+    const [jackpotId130, setJackpotId130] = useState("");
+    const [jackpotId140, setJackpotId140] = useState("");
+
     const handleUsername = async (username) => {
         setUsername(username);
     };
@@ -107,6 +118,36 @@ const Main = () => {
         setJackpot(e.target.value);
     };
 
+    // Live table details handlers
+    const handleTableIdChange = (newTableId) => {
+        setTableId(newTableId);
+    };
+
+    const handleTableNameChange = (newTableName) => {
+        setTableName(newTableName);
+    };
+
+    // Jackpot ID handlers
+    const handleJackpotIdMainChange = (newJackpotIdMain) => {
+        setJackpotIdMain(newJackpotIdMain);
+    };
+
+    const handleJackpotId110Change = (newJackpotId110) => {
+        setJackpotId110(newJackpotId110);
+    };
+
+    const handleJackpotId120Change = (newJackpotId120) => {
+        setJackpotId120(newJackpotId120);
+    };
+
+    const handleJackpotId130Change = (newJackpotId130) => {
+        setJackpotId130(newJackpotId130);
+    };
+
+    const handleJackpotId140Change = (newJackpotId140) => {
+        setJackpotId140(newJackpotId140);
+    };
+
     const fetchRuns = async () => {
         try {
             const res = await fetch("/api/test-runs");
@@ -157,6 +198,17 @@ const Main = () => {
 
             // jackpot option
             jackpot,
+
+            // live table details
+            tableId,
+            tableName,
+
+            // jackpot IDs
+            jackpotIdMain,
+            jackpotId110,
+            jackpotId120,
+            jackpotId130,
+            jackpotId140,
         };
 
         try {
@@ -263,6 +315,22 @@ const Main = () => {
                                 // jackpot
                                 jackpot={jackpot}
                                 handleJackpot={handleJackpotChange}
+                                // live table details
+                                tableId={tableId}
+                                handleTableId={handleTableIdChange}
+                                tableName={tableName}
+                                handleTableName={handleTableNameChange}
+                                // jackpot IDs
+                                jackpotIdMain={jackpotIdMain}
+                                handleJackpotIdMain={handleJackpotIdMainChange}
+                                jackpotId110={jackpotId110}
+                                handleJackpotId110={handleJackpotId110Change}
+                                jackpotId120={jackpotId120}
+                                handleJackpotId120={handleJackpotId120Change}
+                                jackpotId130={jackpotId130}
+                                handleJackpotId130={handleJackpotId130Change}
+                                jackpotId140={jackpotId140}
+                                handleJackpotId140={handleJackpotId140Change}
                             />
                             {/* Parameters */}
                         </div>

@@ -22,10 +22,13 @@ trait S31LiveCasinoRegularScenario
     {
         $roundCode = $this->getRoundCode('live_regular_scenario');
 
-        $username        = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token           = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $liveGameCode    = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
-        $betPrimary      = getenv('TEST_BET_PRIMARY');
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
+        $betPrimary   = getenv('TEST_BET_PRIMARY') ?: '1';
 
         $date = $this->generateDate();
 
@@ -40,9 +43,9 @@ trait S31LiveCasinoRegularScenario
             "internalFundChanges" => [],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -102,10 +105,13 @@ trait S31LiveCasinoRegularScenario
     {
         $roundCode = $this->getRoundCode('live_regular_scenario_2');
 
-        $username        = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token           = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $liveGameCode    = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
-        $betPrimary      = getenv('TEST_BET_PRIMARY');
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
+        $betPrimary   = getenv('TEST_BET_PRIMARY') ?: '1';
 
         $date = $this->generateDate();
 
@@ -120,9 +126,9 @@ trait S31LiveCasinoRegularScenario
             "internalFundChanges" => [],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -183,6 +189,9 @@ trait S31LiveCasinoRegularScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -199,9 +208,9 @@ trait S31LiveCasinoRegularScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -263,7 +272,10 @@ trait S31LiveCasinoRegularScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
-        $winPrimary   = getenv('TEST_WIN_PRIMARY');
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
+        $winPrimary   = getenv('TEST_WIN_PRIMARY') ?: '2';
 
         $date = $this->generateDate();
 
@@ -287,9 +299,9 @@ trait S31LiveCasinoRegularScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 

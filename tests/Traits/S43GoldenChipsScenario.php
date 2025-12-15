@@ -27,6 +27,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -62,9 +65,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -125,6 +128,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -160,9 +166,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -222,6 +228,9 @@ trait S43GoldenChipsScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -238,9 +247,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -300,6 +309,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -339,9 +351,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -403,6 +415,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -438,9 +453,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -500,6 +515,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -548,9 +566,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -612,6 +630,9 @@ trait S43GoldenChipsScenario
         $username           = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token              = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode       = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode    = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode  = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId    = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -651,9 +672,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -714,6 +735,9 @@ trait S43GoldenChipsScenario
         $username           = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token              = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode       = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode2   = getenv('TEST_REMOTE_BONUS_CODE_SECONDARY') ?: '';
         $bonusInstanceCode2 = getenv('TEST_BONUS_INSTANCE_CODE_SECONDARY') ?: '';
         $bonusTemplateId2   = getenv('TEST_BONUS_TEMPLATE_SECONDARY') ?: '12346';
@@ -750,9 +774,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -812,6 +836,9 @@ trait S43GoldenChipsScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -828,9 +855,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -890,6 +917,9 @@ trait S43GoldenChipsScenario
         $username           = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token              = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode       = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode    = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode  = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId    = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -943,9 +973,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1007,6 +1037,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -1050,9 +1083,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1112,6 +1145,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -1156,9 +1192,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1220,6 +1256,9 @@ trait S43GoldenChipsScenario
         $username           = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token              = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode       = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode    = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode  = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId    = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -1275,9 +1314,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1337,6 +1376,9 @@ trait S43GoldenChipsScenario
         $username           = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token              = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode       = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode    = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode  = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId    = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -1393,9 +1435,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1457,6 +1499,9 @@ trait S43GoldenChipsScenario
         $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode      = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -1492,9 +1537,9 @@ trait S43GoldenChipsScenario
                 ]
             ],
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1554,6 +1599,9 @@ trait S43GoldenChipsScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -1571,9 +1619,9 @@ trait S43GoldenChipsScenario
             "gameCodeName" => $liveGameCode,
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -1633,6 +1681,9 @@ trait S43GoldenChipsScenario
         $username           = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token              = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode       = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $remoteBonusCode    = getenv('TEST_REMOTE_BONUS_CODE_PRIMARY') ?: '';
         $bonusInstanceCode  = getenv('TEST_BONUS_INSTANCE_CODE_PRIMARY') ?: '';
         $bonusTemplateId    = getenv('TEST_BONUS_TEMPLATE_PRIMARY') ?: '12345';
@@ -1672,9 +1723,9 @@ trait S43GoldenChipsScenario
             ],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 

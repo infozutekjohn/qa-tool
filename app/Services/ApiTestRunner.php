@@ -33,6 +33,17 @@ class ApiTestRunner
         $betPrimary     = $params['betPrimary'] ?? '1';
         $winPrimary     = $params['winPrimary'] ?? '2';
 
+        // Live table details
+        $tableId   = $params['tableId'] ?? '1234';
+        $tableName = $params['tableName'] ?? 'Integration Test';
+
+        // Jackpot IDs
+        $jackpotIdMain = $params['jackpotIdMain'] ?? '';
+        $jackpotId110  = $params['jackpotId110'] ?? '';
+        $jackpotId120  = $params['jackpotId120'] ?? '';
+        $jackpotId130  = $params['jackpotId130'] ?? '';
+        $jackpotId140  = $params['jackpotId140'] ?? '';
+
         // DEBUG: Log all environment variables being set
         Log::info('ApiTestRunner: Setting environment variables for PHPUnit', [
             'TEST_USERNAME'  => $username,
@@ -44,6 +55,8 @@ class ApiTestRunner
             'TEST_LAUNCH_ALIAS'     => $launchAlias,
             'TEST_BET_PRIMARY'      => $betPrimary,
             'TEST_WIN_PRIMARY'      => $winPrimary,
+            'TEST_TABLE_ID'         => $tableId,
+            'TEST_TABLE_NAME'       => $tableName,
         ]);
 
         $env = array_merge($_ENV, $_SERVER, [
@@ -92,6 +105,17 @@ class ApiTestRunner
 
             // jackpot option
             'TEST_JACKPOT' => $params['jackpot'] ?? '',
+
+            // Live table details
+            'TEST_TABLE_ID'   => $tableId,
+            'TEST_TABLE_NAME' => $tableName,
+
+            // Jackpot IDs for casino/live tests
+            'TEST_JACKPOT_ID_MAIN' => $jackpotIdMain,
+            'TEST_JACKPOT_ID_110'  => $jackpotId110,
+            'TEST_JACKPOT_ID_120'  => $jackpotId120,
+            'TEST_JACKPOT_ID_130'  => $jackpotId130,
+            'TEST_JACKPOT_ID_140'  => $jackpotId140,
 
             // This is what Allure will use if you rely on ALLURE_OUTPUT_DIR
             'ALLURE_OUTPUT_DIR' => $resultsDir,
