@@ -48,6 +48,17 @@ class TestRunController extends Controller
 
             // jackpot selector
             'jackpot' => 'nullable|string',
+
+            // live table details
+            'tableId'   => 'nullable|string',
+            'tableName' => 'nullable|string',
+
+            // jackpot IDs
+            'jackpotIdMain' => 'nullable|string',
+            'jackpotId110'  => 'nullable|string',
+            'jackpotId120'  => 'nullable|string',
+            'jackpotId130'  => 'nullable|string',
+            'jackpotId140'  => 'nullable|string',
         ]);
 
         Log::info('Data has been generated', ['data' => $data]);

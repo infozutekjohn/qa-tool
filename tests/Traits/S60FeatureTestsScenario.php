@@ -45,8 +45,8 @@ trait S60FeatureTestsScenario
             "gameCodeName" => $crosslaunchGame1,
             "liveTableDetails" => [
                 "launchAlias" => $crosslaunchAlias1,
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -125,8 +125,8 @@ trait S60FeatureTestsScenario
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
                 "launchAlias" => $crosslaunchAlias1,
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -515,8 +515,8 @@ trait S60FeatureTestsScenario
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
                 "launchAlias" => $launchAlias,
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -600,8 +600,8 @@ trait S60FeatureTestsScenario
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             "liveTableDetails" => [
                 "launchAlias" => $launchAlias,
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 

@@ -28,6 +28,9 @@ trait S34LiveCasinoMultiseatScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
@@ -43,9 +46,9 @@ trait S34LiveCasinoMultiseatScenario
             "internalFundChanges" => [],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -108,6 +111,9 @@ trait S34LiveCasinoMultiseatScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
@@ -123,9 +129,9 @@ trait S34LiveCasinoMultiseatScenario
             "internalFundChanges" => [],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -188,6 +194,9 @@ trait S34LiveCasinoMultiseatScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
@@ -203,9 +212,9 @@ trait S34LiveCasinoMultiseatScenario
             "internalFundChanges" => [],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ]
         ];
 
@@ -268,6 +277,9 @@ trait S34LiveCasinoMultiseatScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $winAmount    = getenv('TEST_WIN_AMOUNT') ?: '2';
 
         $date = $this->generateDate();
@@ -291,9 +303,9 @@ trait S34LiveCasinoMultiseatScenario
             ],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ],
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK"
         ];

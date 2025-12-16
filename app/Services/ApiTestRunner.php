@@ -30,6 +30,40 @@ class ApiTestRunner
         // Include TEMP/TMP and DNS-related settings to avoid Windows cURL issues
         $tempDir = getenv('TEMP') ?: getenv('TMP') ?: sys_get_temp_dir();
 
+        // Get form values with defaults
+        $casinoGameCode = $params['casinoGameCode'] ?? '';
+        $liveGameCode   = $params['liveGameCode'] ?? '';
+        $crossGameCode  = $params['crossGameCode'] ?? '';
+        $launchAlias    = $params['launchAlias'] ?? '';
+        $betPrimary     = $params['betPrimary'] ?? '1';
+        $winPrimary     = $params['winPrimary'] ?? '2';
+
+        // Live table details
+        $tableId   = $params['tableId'] ?? '1234';
+        $tableName = $params['tableName'] ?? 'Integration Test';
+
+        // Jackpot IDs
+        $jackpotIdMain = $params['jackpotIdMain'] ?? '';
+        $jackpotId110  = $params['jackpotId110'] ?? '';
+        $jackpotId120  = $params['jackpotId120'] ?? '';
+        $jackpotId130  = $params['jackpotId130'] ?? '';
+        $jackpotId140  = $params['jackpotId140'] ?? '';
+
+        // DEBUG: Log all environment variables being set
+        Log::info('ApiTestRunner: Setting environment variables for PHPUnit', [
+            'TEST_USERNAME'  => $username,
+            'TEST_TOKEN'     => substr($token, 0, 20) . '...',  // Truncate for security
+            'TEST_ENDPOINT'  => $endpoint,
+            'TEST_CASINO_GAME_CODE' => $casinoGameCode,
+            'TEST_LIVE_GAME_CODE'   => $liveGameCode,
+            'TEST_CROSS_GAME_CODE'  => $crossGameCode,
+            'TEST_LAUNCH_ALIAS'     => $launchAlias,
+            'TEST_BET_PRIMARY'      => $betPrimary,
+            'TEST_WIN_PRIMARY'      => $winPrimary,
+            'TEST_TABLE_ID'         => $tableId,
+            'TEST_TABLE_NAME'       => $tableName,
+        ]);
+
         $env = array_merge($_ENV, $_SERVER, [
             'APP_ENV'        => 'testing',
             'TEST_USERNAME'  => $username,
@@ -37,15 +71,32 @@ class ApiTestRunner
             'TEST_ENDPOINT'  => $endpoint,
 
             // game codes
-            'TEST_CASINO_GAME_CODE' => $params['casinoGameCode'] ?? '',
-            'TEST_LIVE_GAME_CODE'   => $params['liveGameCode'] ?? '',
-            'TEST_CROSS_GAME_CODE'  => $params['crossGameCode'] ?? '',
-            'TEST_LAUNCH_ALIAS'     => $params['launchAlias'] ?? '',
+            'TEST_CASINO_GAME_CODE' => $casinoGameCode,
+            'TEST_LIVE_GAME_CODE'   => $liveGameCode,
+            'TEST_CROSS_GAME_CODE'  => $crossGameCode,
+            'TEST_LAUNCH_ALIAS'     => $launchAlias,
+
+            // RNG game code (use casino game code as fallback)
+            'TEST_RNG_GAME_CODE' => $casinoGameCode,
+
+            // Crosslaunch games (S60 Feature Tests) - reuse live game code and launch alias
+            'TEST_CROSSLAUNCH_GAME_1'  => $liveGameCode,
+            'TEST_CROSSLAUNCH_ALIAS_1' => $launchAlias,
+            'TEST_CROSSLAUNCH_GAME_2'  => $casinoGameCode,
+
+            // GameCodeName check (S60) - use casino game code
+            'TEST_GAMECODENAME_GAME' => $casinoGameCode,
 
             // bets & wins
-            'TEST_BET_PRIMARY'   => $params['betPrimary'] ?? '',
-            'TEST_BET_SECONDARY' => $params['betSecondary'] ?? '',
-            'TEST_WIN_PRIMARY'   => $params['winPrimary'] ?? '',
+            'TEST_BET_PRIMARY'   => $betPrimary,
+            'TEST_BET_SECONDARY' => $params['betSecondary'] ?? $betPrimary,
+            'TEST_WIN_PRIMARY'   => $winPrimary,
+            'TEST_WIN_AMOUNT'    => $winPrimary,
+
+            // Transfer and jackpot amounts (derived from win amount)
+            'TEST_TRANSFER_AMOUNT'     => $winPrimary,
+            'TEST_JACKPOT_WIN_AMOUNT'  => $winPrimary,
+            'TEST_BONUS_BALANCE_CHANGE' => $winPrimary,
 
             // primary bonus
             'TEST_REMOTE_BONUS_CODE_PRIMARY'   => $params['remoteBonusCodePrimary'] ?? '',
@@ -60,6 +111,17 @@ class ApiTestRunner
             // jackpot option
             'TEST_JACKPOT' => $params['jackpot'] ?? '',
 
+            // Live table details
+            'TEST_TABLE_ID'   => $tableId,
+            'TEST_TABLE_NAME' => $tableName,
+
+            // Jackpot IDs for casino/live tests
+            'TEST_JACKPOT_ID_MAIN' => $jackpotIdMain,
+            'TEST_JACKPOT_ID_110'  => $jackpotId110,
+            'TEST_JACKPOT_ID_120'  => $jackpotId120,
+            'TEST_JACKPOT_ID_130'  => $jackpotId130,
+            'TEST_JACKPOT_ID_140'  => $jackpotId140,
+
             // This is what Allure will use if you rely on ALLURE_OUTPUT_DIR
             'ALLURE_OUTPUT_DIR' => $resultsDir,
 
@@ -67,6 +129,14 @@ class ApiTestRunner
             'TEMP' => $tempDir,
             'TMP' => $tempDir,
             'SystemRoot' => getenv('SystemRoot') ?: 'C:\\Windows',
+        ]);
+
+        // DEBUG: Log a subset of the final env array to verify values
+        Log::info('ApiTestRunner: Final environment array (TEST_* vars)', [
+            'env_TEST_USERNAME' => $env['TEST_USERNAME'] ?? 'NOT SET',
+            'env_TEST_TOKEN'    => isset($env['TEST_TOKEN']) ? substr($env['TEST_TOKEN'], 0, 20) . '...' : 'NOT SET',
+            'env_TEST_ENDPOINT' => $env['TEST_ENDPOINT'] ?? 'NOT SET',
+            'env_TEST_CASINO_GAME_CODE' => $env['TEST_CASINO_GAME_CODE'] ?? 'NOT SET',
         ]);
 
         // 2. Ensure allure-results exists + clean it

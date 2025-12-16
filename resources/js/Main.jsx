@@ -39,6 +39,17 @@ const Main = () => {
         logout: false,
     });
 
+    // Live table details
+    const [tableId, setTableId] = useState("");
+    const [tableName, setTableName] = useState("");
+
+    // Jackpot IDs
+    const [jackpotIdMain, setJackpotIdMain] = useState("");
+    const [jackpotId110, setJackpotId110] = useState("");
+    const [jackpotId120, setJackpotId120] = useState("");
+    const [jackpotId130, setJackpotId130] = useState("");
+    const [jackpotId140, setJackpotId140] = useState("");
+
     const fetchRuns = async () => {
         const res = await fetch("/api/test-runs");
         const data = await res.json();
@@ -74,6 +85,17 @@ const Main = () => {
             bonusInstanceCodeSecondary,
             bonusTemplateSecondary,
             jackpot,
+
+            // live table details
+            tableId,
+            tableName,
+
+            // jackpot IDs
+            jackpotIdMain,
+            jackpotId110,
+            jackpotId120,
+            jackpotId130,
+            jackpotId140,
         };
 
         await fetch("/api/test-runs", {
@@ -117,6 +139,10 @@ const Main = () => {
                             handleCrossGameCode={setCrossGameCode}
                             launchAlias={launchAlias}
                             handleLaunchAlias={setLaunchAlias}
+                            tableId={tableId}
+                            handleTableId={setTableId}
+                            tableName={tableName}
+                            handleTableName={setTableName}
                             betPrimary={betPrimary}
                             handleBetPrimary={setBetPrimary}
                             betSecondary={betSecondary}
@@ -149,6 +175,16 @@ const Main = () => {
                             }
                             jackpot={jackpot}
                             handleJackpot={(e) => setJackpot(e.target.value)}
+                            jackpotIdMain={jackpotIdMain}
+                            handleJackpotIdMain={setJackpotIdMain}
+                            jackpotId110={jackpotId110}
+                            handleJackpotId110={setJackpotId110}
+                            jackpotId120={jackpotId120}
+                            handleJackpotId120={setJackpotId120}
+                            jackpotId130={jackpotId130}
+                            handleJackpotId130={setJackpotId130}
+                            jackpotId140={jackpotId140}
+                            handleJackpotId140={setJackpotId140}
                         />
                     </div>
                 </div>

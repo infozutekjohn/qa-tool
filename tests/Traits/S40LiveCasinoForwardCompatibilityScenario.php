@@ -30,6 +30,9 @@ trait S40LiveCasinoForwardCompatibilityScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
         $betPrimary   = getenv('TEST_BET_PRIMARY');
 
         $date = $this->generateDate();
@@ -45,9 +48,9 @@ trait S40LiveCasinoForwardCompatibilityScenario
             "internalFundChanges" => [],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ],
             // Forward compatibility: API should ignore unknown fields
             "forwardCompatibilityCheck" => "ignoreUnexpectedFields"
@@ -113,6 +116,9 @@ trait S40LiveCasinoForwardCompatibilityScenario
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -130,9 +136,9 @@ trait S40LiveCasinoForwardCompatibilityScenario
             ],
             "gameCodeName" => $liveGameCode,
             "liveTableDetails" => [
-                "launchAlias" => "bal_baccaratko",
-                "tableId" => "1234",
-                "tableName" => "Integration Test"
+                "launchAlias" => $launchAlias,
+                "tableId" => $tableId,
+                "tableName" => $tableName
             ],
             "gameHistoryUrl" => "getgamehistory.php?ThisIsJustAutomatedTestDataOK",
             // Forward compatibility: API should ignore unknown fields
