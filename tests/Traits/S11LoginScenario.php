@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use GuzzleHttp\Psr7\Message;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -15,6 +16,7 @@ use Tests\Config\Endpoint;
 
 trait S11LoginScenario
 {
+    #[Group('login')]
     #[ParentSuite('01. Login')]
     #[Suite('1.1 Login Scenario')]
     #[Displayname('Authenticate')]
@@ -82,6 +84,7 @@ trait S11LoginScenario
         );
     }
 
+    #[Group('login')]
     #[ParentSuite('01. Login')]
     #[Suite('1.1 Login Scenario')]
     #[Displayname('Getbalance')]

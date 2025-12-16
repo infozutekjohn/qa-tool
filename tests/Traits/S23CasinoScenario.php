@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use DateTime;
 use GuzzleHttp\Psr7\Message;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -19,6 +20,8 @@ trait S23CasinoScenario
     private static array $CasinoRegularBetRetryPayload = [];
     private static array $CasinoRegularResultRetryPayload = [];
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Bet | Casino | Regular gameround scenario with retries')]
@@ -98,6 +101,8 @@ trait S23CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Bet | Casino | Regular gameround scenario with retries (retry)')]
@@ -155,7 +160,8 @@ trait S23CasinoScenario
         );
     }
 
-
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
@@ -235,6 +241,8 @@ trait S23CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.3 Regular Gameround Scenario with Retries')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]

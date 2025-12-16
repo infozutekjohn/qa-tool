@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S43GoldenChipsScenario
 {
     // 3.1 Golden Chips bonus round scenario (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.1 Golden Chips bonus round scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips bonus round scenario (spend)')]
@@ -112,6 +115,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.1 Golden Chips bonus round scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips bonus round scenario (spend)')]
@@ -210,6 +215,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.1 Golden Chips bonus round scenario (spend)')]
     #[DisplayName('GC Gameroundresult (no win) | Golden Chips bonus round scenario (spend)')]
@@ -288,6 +295,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.1 Golden Chips bonus round scenario (spend)')]
     #[DisplayName('GC Gameroundresult (win) | Golden Chips bonus round scenario (spend)')]
@@ -390,6 +399,8 @@ trait S43GoldenChipsScenario
     }
 
     // 3.2 Golden Chips bonus dealer push scenario (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.2 Golden Chips bonus dealer push scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips bonus dealer push scenario (spend)')]
@@ -488,6 +499,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.2 Golden Chips bonus dealer push scenario (spend)')]
     #[DisplayName('GC Gameroundresult (push) | Golden Chips bonus dealer push scenario (spend)')]
@@ -599,6 +612,8 @@ trait S43GoldenChipsScenario
     }
 
     // 3.3 Golden Chips multiple bonus round scenario (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.3 Golden Chips multiple bonus round scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips multiple bonus round scenario (spend)')]
@@ -701,6 +716,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.3 Golden Chips multiple bonus round scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips multiple bonus round scenario (spend)')]
@@ -800,6 +817,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.3 Golden Chips multiple bonus round scenario (spend)')]
     #[DisplayName('GC Gameroundresult (no win) | Golden Chips multiple bonus round scenario (spend)')]
@@ -878,6 +897,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.3 Golden Chips multiple bonus round scenario (spend)')]
     #[DisplayName('GC Gameroundresult (win) | Golden Chips multiple bonus round scenario (spend)')]
@@ -994,6 +1015,8 @@ trait S43GoldenChipsScenario
     }
 
     // 3.4 Golden Chips bonus round + real money combo scenario (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.4 Golden Chips bonus round + real money combo scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips round + real money combo scenario (spend)')]
@@ -1100,6 +1123,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.4 Golden Chips bonus round + real money combo scenario (spend)')]
     #[DisplayName('GC Gameroundresult (win) | Golden Chips round + real money combo scenario (spend)')]
@@ -1207,6 +1232,8 @@ trait S43GoldenChipsScenario
     }
 
     // 3.5 Golden Chips multiple bonus round + real money combo scenario (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.5 Golden Chips multiple bonus round + real money combo scenario (spend)')]
     #[DisplayName('GC Bet | Multiple GC + real money combo scenario (spend)')]
@@ -1325,6 +1352,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.5 Golden Chips multiple bonus round + real money combo scenario (spend)')]
     #[DisplayName('GC Gameroundresult (win) | Multiple GC + real money combo scenario (spend)')]
@@ -1444,6 +1473,8 @@ trait S43GoldenChipsScenario
     }
 
     // 3.6 Golden Chips bonus refund scenario (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.6 Golden Chips bonus refund scenario (spend)')]
     #[DisplayName('GC Bet | Golden Chips bonus refund scenario (spend)')]
@@ -1542,6 +1573,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.6 Golden Chips bonus refund scenario (spend)')]
     #[DisplayName('GC Gameroundresult (gameRoundClose) | Casino | Golden Chips bonus refund scenario (spend)')]
@@ -1621,6 +1654,8 @@ trait S43GoldenChipsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('3.6 Golden Chips bonus refund scenario (spend)')]
     #[DisplayName('GC Gameroundresult (refund) | Golden Chips bonus refund scenario (spend)')]

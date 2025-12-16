@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -13,6 +14,7 @@ use Tests\Config\Endpoint;
 
 trait S61LogoutScenario
 {
+    #[Group('logout')]
     #[ParentSuite('07. Gameslink Logout')]
     #[Suite('7.0 Logout')]
     #[DisplayName('Logout | User session logout')]

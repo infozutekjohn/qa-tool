@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use DateTime;
 use GuzzleHttp\Psr7\Message;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -16,6 +17,8 @@ use Tests\Config\Endpoint;
 
 trait S26CasinoScenario
 {
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Bet | Casino | In-game bonus round scenario')]
@@ -92,6 +95,8 @@ trait S26CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (main win) | Casino | In-game bonus round scenario')]
@@ -171,7 +176,8 @@ trait S26CasinoScenario
         );
     }
 
-
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature win 1) | Casino | In-game bonus round scenario')]
@@ -251,6 +257,8 @@ trait S26CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature win 2 | Casino | In-game bonus round scenario')]
@@ -330,6 +338,8 @@ trait S26CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature win 3) | Casino | In-game bonus round scenario')]
@@ -409,6 +419,8 @@ trait S26CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.6 In-Game Bonus Round Scenario')]
     #[Displayname('Gameroundresult (feature end no win) | Casino | In-game bonus round scenario')]

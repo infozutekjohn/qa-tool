@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S44PromotionalsScenario
 {
     // 4.1 Cash Bonus
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('4.1 Cash Bonus')]
     #[DisplayName('Transferfunds | Cash Bonus')]
@@ -89,6 +92,8 @@ trait S44PromotionalsScenario
     }
 
     // 4.2 Golden Chips Promo (spend)
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('4.2 Golden Chips Promo (spend)')]
     #[DisplayName('GC Bet | Golden Chips bonus round scenario (spend)')]
@@ -184,6 +189,8 @@ trait S44PromotionalsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('4.2 Golden Chips Promo (spend)')]
     #[DisplayName('GC Bet | Golden Chips bonus round scenario (spend)')]
@@ -279,6 +286,8 @@ trait S44PromotionalsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('4.2 Golden Chips Promo (spend)')]
     #[DisplayName('GC Gameroundresult (no win) | Golden Chips bonus round scenario (spend)')]
@@ -357,6 +366,8 @@ trait S44PromotionalsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('4.2 Golden Chips Promo (spend)')]
     #[DisplayName('GC Gameroundresult (win) | Golden Chips bonus round scenario (spend)')]

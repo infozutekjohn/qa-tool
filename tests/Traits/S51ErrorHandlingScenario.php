@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -13,6 +14,7 @@ use Tests\Config\Endpoint;
 
 trait S51ErrorHandlingScenario
 {
+    #[Group('error')]
     #[ParentSuite('05. Gameslink Casino Tests (error handling)')]
     #[Suite('2. Error handling')]
     #[DisplayName('Authenticate (invalid token)')]
@@ -75,6 +77,7 @@ trait S51ErrorHandlingScenario
         );
     }
 
+    #[Group('error')]
     #[ParentSuite('05. Gameslink Casino Tests (error handling)')]
     #[Suite('2. Error handling')]
     #[DisplayName('Authenticate (invalid username)')]
@@ -136,6 +139,7 @@ trait S51ErrorHandlingScenario
         );
     }
 
+    #[Group('error')]
     #[ParentSuite('05. Gameslink Casino Tests (error handling)')]
     #[Suite('2. Error handling')]
     #[DisplayName('Bet (insufficient funds)')]
@@ -209,6 +213,7 @@ trait S51ErrorHandlingScenario
         );
     }
 
+    #[Group('error')]
     #[ParentSuite('05. Gameslink Casino Tests (error handling)')]
     #[Suite('2. Error handling')]
     #[DisplayName('Bet (invalid externalToken)')]
@@ -280,6 +285,7 @@ trait S51ErrorHandlingScenario
         );
     }
 
+    #[Group('error')]
     #[ParentSuite('05. Gameslink Casino Tests (error handling)')]
     #[Suite('2. Error handling')]
     #[DisplayName('Bet (invalid format)')]

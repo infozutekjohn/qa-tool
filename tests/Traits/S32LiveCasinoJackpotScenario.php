@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -13,6 +14,8 @@ use Tests\Config\Endpoint;
 
 trait S32LiveCasinoJackpotScenario
 {
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.2 Regular gameround scenarios (with jackpot)')]
     #[DisplayName('Bet | Casino | Regular gameround scenario (no win with no jackpot)')]
@@ -91,6 +94,8 @@ trait S32LiveCasinoJackpotScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.2 Regular gameround scenarios (with jackpot)')]
     #[DisplayName('Bet | Casino | Regular gameround scenario (win with jackpot)')]
@@ -169,6 +174,8 @@ trait S32LiveCasinoJackpotScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.2 Regular gameround scenarios (with jackpot)')]
     #[DisplayName('Bet | Casino | Regular gameround scenario (win with no jackpot)')]
@@ -247,6 +254,8 @@ trait S32LiveCasinoJackpotScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.2 Regular gameround scenarios (with jackpot)')]
     #[DisplayName('Gameroundresult | Casino | Regular gameround scenario (no win with no jackpot)')]
@@ -356,6 +365,8 @@ trait S32LiveCasinoJackpotScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.2 Regular gameround scenarios (with jackpot)')]
     #[DisplayName('Gameroundresult | Casino | Regular gameround scenario (win with jackpot)')]
@@ -485,6 +496,8 @@ trait S32LiveCasinoJackpotScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.2 Regular gameround scenarios (with jackpot)')]
     #[DisplayName('Gameroundresult | Casino | Regular gameround scenario (win with no jackpot)')]

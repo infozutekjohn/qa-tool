@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use DateTime;
 use GuzzleHttp\Psr7\Message;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -16,6 +17,8 @@ use Tests\Config\Endpoint;
 
 trait S29ForwardCompatibilityScenario
 {
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.9 Forward compatibility check')]
     #[Displayname('Bet | Casino | Forward compatibility check')]
@@ -92,6 +95,8 @@ trait S29ForwardCompatibilityScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.9 Forward compatibility check')]
     #[Displayname('Gameroundresult | Casino | Forward compatibility check (no win)')]

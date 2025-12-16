@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -13,6 +14,8 @@ use Tests\Config\Endpoint;
 
 trait S33LiveCasinoRetriesScenario
 {
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.3 Regular gameround scenario with retries')]
     #[DisplayName('Bet (retry) | Live Casino | Regular gameround scenario with retries')]
@@ -97,6 +100,8 @@ trait S33LiveCasinoRetriesScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.3 Regular gameround scenario with retries')]
     #[DisplayName('Bet | Live Casino | Regular gameround scenario with retries')]
@@ -182,6 +187,8 @@ trait S33LiveCasinoRetriesScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.3 Regular gameround scenario with retries')]
     #[DisplayName('Gameroundresult (win retry) | Live Casino | Regular gameround scenario with retries')]
@@ -273,6 +280,8 @@ trait S33LiveCasinoRetriesScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.3 Regular gameround scenario with retries')]
     #[DisplayName('Gameroundresult (win) | Live Casino | Regular gameround scenario with retries')]
