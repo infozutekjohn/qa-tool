@@ -139,10 +139,10 @@ const Main = () => {
                             handleCrossGameCode={setCrossGameCode}
                             launchAlias={launchAlias}
                             handleLaunchAlias={setLaunchAlias}
-                            tableId={tableId}
-                            handleTableId={setTableId}
-                            tableName={tableName}
-                            handleTableName={setTableName}
+                            // tableId={tableId}
+                            // handleTableId={setTableId}
+                            // tableName={tableName}
+                            // handleTableName={setTableName}
                             betPrimary={betPrimary}
                             handleBetPrimary={setBetPrimary}
                             betSecondary={betSecondary}
@@ -175,16 +175,16 @@ const Main = () => {
                             }
                             jackpot={jackpot}
                             handleJackpot={(e) => setJackpot(e.target.value)}
-                            jackpotIdMain={jackpotIdMain}
-                            handleJackpotIdMain={setJackpotIdMain}
-                            jackpotId110={jackpotId110}
-                            handleJackpotId110={setJackpotId110}
-                            jackpotId120={jackpotId120}
-                            handleJackpotId120={setJackpotId120}
-                            jackpotId130={jackpotId130}
-                            handleJackpotId130={setJackpotId130}
-                            jackpotId140={jackpotId140}
-                            handleJackpotId140={setJackpotId140}
+                            // jackpotIdMain={jackpotIdMain}
+                            // handleJackpotIdMain={setJackpotIdMain}
+                            // jackpotId110={jackpotId110}
+                            // handleJackpotId110={setJackpotId110}
+                            // jackpotId120={jackpotId120}
+                            // handleJackpotId120={setJackpotId120}
+                            // jackpotId130={jackpotId130}
+                            // handleJackpotId130={setJackpotId130}
+                            // jackpotId140={jackpotId140}
+                            // handleJackpotId140={setJackpotId140}
                         />
                     </div>
                 </div>
