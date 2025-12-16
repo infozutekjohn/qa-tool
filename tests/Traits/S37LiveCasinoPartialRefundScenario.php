@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S37LiveCasinoPartialRefundScenario
 {
     // 2.7 Partial refund scenario with relation
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Bet 1 | Live Casino | Partial refund scenario with relation')]
@@ -96,6 +99,8 @@ trait S37LiveCasinoPartialRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Bet 2 | Live Casino | Partial refund scenario with relation')]
@@ -178,6 +183,8 @@ trait S37LiveCasinoPartialRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Bet 3 (split double) | Live Casino | Partial refund scenario with relation')]
@@ -260,6 +267,8 @@ trait S37LiveCasinoPartialRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund) | Live Casino | Partial refund scenario with relation')]
@@ -347,6 +356,8 @@ trait S37LiveCasinoPartialRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Gameroundresult (win) | Live Casino | Partial refund scenario with relation')]

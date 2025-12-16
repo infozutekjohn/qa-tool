@@ -23,6 +23,7 @@ class TestRunController extends Controller
             'username' => 'required|string',
             'token'    => 'required|string',
             'endpoint' => 'nullable|string',
+            'testGroups' => 'nullable|array',
 
             // game codes
             'casinoGameCode' => 'nullable|string',

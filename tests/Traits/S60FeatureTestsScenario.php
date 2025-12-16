@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,7 @@ use Tests\Config\Endpoint;
 trait S60FeatureTestsScenario
 {
     // 2. Crosslaunch check - 2.1 Regular gameround scenario GAME 1
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.1 Bet | Crosslaunch check GAME 1')]
@@ -92,6 +94,7 @@ trait S60FeatureTestsScenario
         );
     }
 
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.1 Gameroundresult | Crosslaunch check GAME 1')]
@@ -172,6 +175,7 @@ trait S60FeatureTestsScenario
     }
 
     // 2. Crosslaunch check - 2.2 Regular gameround scenario GAME 2 (RNG game)
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.2 Bet | Crosslaunch check GAME 2')]
@@ -244,6 +248,7 @@ trait S60FeatureTestsScenario
         );
     }
 
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.2 Gameroundresult | Crosslaunch check GAME 2')]
@@ -318,6 +323,7 @@ trait S60FeatureTestsScenario
     }
 
     // 3. GameCodeName check - 3.1 Regular gameround scenario random game
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('3. GameCodeName check')]
     #[DisplayName('3.1 Bet | GameCodeName check random game')]
@@ -397,6 +403,7 @@ trait S60FeatureTestsScenario
         );
     }
 
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('3. GameCodeName check')]
     #[DisplayName('3.1 Gameroundresult | GameCodeName check random game')]
@@ -478,6 +485,7 @@ trait S60FeatureTestsScenario
     }
 
     // 4. LaunchAlias check - 4.1 Regular gameround scenario random game (live casino with launchAlias)
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('4. LaunchAlias check')]
     #[DisplayName('4.1 Bet | LaunchAlias check random game')]
@@ -563,6 +571,7 @@ trait S60FeatureTestsScenario
         );
     }
 
+    #[Group('feature')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('4. LaunchAlias check')]
     #[DisplayName('4.1 Gameroundresult | LaunchAlias check random game')]

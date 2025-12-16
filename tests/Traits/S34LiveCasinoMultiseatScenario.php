@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -13,6 +14,8 @@ use Tests\Config\Endpoint;
 
 trait S34LiveCasinoMultiseatScenario
 {
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.4 Multiseat bets with aggregated win')]
     #[DisplayName('Bet 1 | Live Casino | Multiseat bets with wins')]
@@ -91,6 +94,8 @@ trait S34LiveCasinoMultiseatScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.4 Multiseat bets with aggregated win')]
     #[DisplayName('Bet 2 | Live Casino | Multiseat bets with wins')]
@@ -169,6 +174,8 @@ trait S34LiveCasinoMultiseatScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.4 Multiseat bets with aggregated win')]
     #[DisplayName('Bet 3 | Live Casino | Multiseat bets with wins')]
@@ -247,6 +254,8 @@ trait S34LiveCasinoMultiseatScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.4 Multiseat bets with aggregated win')]
     #[DisplayName('Gameroundresult (aggregated win) | Live Casino | Multiseat bets with aggregated win')]

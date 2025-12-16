@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S36LiveCasinoRefundScenario
 {
     // 2.6 Regular refund scenario with relation
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.6 Regular refund scenario with relation')]
     #[DisplayName('Bet (for refund) | Live Casino | Regular gameround scenario with relation')]
@@ -96,6 +99,8 @@ trait S36LiveCasinoRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.6 Regular refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund) | Live Casino | Regular gameround scenario with relation')]

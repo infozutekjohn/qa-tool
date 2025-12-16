@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -13,6 +14,8 @@ use Tests\Config\Endpoint;
 
 trait S35LiveCasinoBonusScenario
 {
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.5 In-game bonus round scenario')]
     #[DisplayName('Bet | Live Casino | In-game bonus round scenario')]
@@ -91,6 +94,8 @@ trait S35LiveCasinoBonusScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.5 In-game bonus round scenario')]
     #[DisplayName('Gameroundresult (no win) | Live Casino | In-game bonus round scenario')]
@@ -170,6 +175,8 @@ trait S35LiveCasinoBonusScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.5 In-game bonus round scenario')]
     #[DisplayName('Gameroundresult (win) | Live Casino | In-game bonus round scenario')]
@@ -251,6 +258,8 @@ trait S35LiveCasinoBonusScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.5 In-game bonus round scenario')]
     #[DisplayName('Gameroundresult (win) | Live Casino | In-game bonus round scenario')]
@@ -332,6 +341,8 @@ trait S35LiveCasinoBonusScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.5 In-game bonus round scenario')]
     #[DisplayName('Gameroundresult (win) | Live Casino | In-game bonus round scenario')]
@@ -413,6 +424,8 @@ trait S35LiveCasinoBonusScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.5 In-game bonus round scenario')]
     #[DisplayName('Gameroundresult | Live Casino | In-game bonus round scenario')]

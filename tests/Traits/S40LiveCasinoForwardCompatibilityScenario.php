@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S40LiveCasinoForwardCompatibilityScenario
 {
     // 2.10 Forward compatibility check
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('Bet | Live Casino | Forward compatibility check')]
@@ -96,6 +99,8 @@ trait S40LiveCasinoForwardCompatibilityScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('Gameroundresult (no win) | Live Casino | Forward compatibility check')]
@@ -174,6 +179,8 @@ trait S40LiveCasinoForwardCompatibilityScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('What Is My Purpose Again? | Live Casino | Forward compatibility check')]

@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use DateTime;
 use GuzzleHttp\Psr7\Message;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -16,6 +17,8 @@ use Tests\Config\Endpoint;
 
 trait S22CasinoScenario
 {
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Bet | Casino | Regular gameround scenario (no win with no jackpot)')]
@@ -93,6 +96,8 @@ trait S22CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win with no jackpot)')]
@@ -170,6 +175,8 @@ trait S22CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win with no jackpot)')]
@@ -247,6 +254,8 @@ trait S22CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (win with no jackpot)')]
@@ -370,6 +379,8 @@ trait S22CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win with jackpot)')]
@@ -447,6 +458,8 @@ trait S22CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.2 Regular Gameround Scenario with Jackpot')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (win with jackpot)')]

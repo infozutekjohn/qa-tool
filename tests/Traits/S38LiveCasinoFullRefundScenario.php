@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S38LiveCasinoFullRefundScenario
 {
     // 2.8 Full refund scenario with relation
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.8 Full refund scenario with relation')]
     #[DisplayName('Bet 1 | Live Casino | Full refund scenario with relation')]
@@ -96,6 +99,8 @@ trait S38LiveCasinoFullRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.8 Full refund scenario with relation')]
     #[DisplayName('Bet 2 | Live Casino | Full refund scenario with relation')]
@@ -178,6 +183,8 @@ trait S38LiveCasinoFullRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.8 Full refund scenario with relation')]
     #[DisplayName('Bet 3 | Live Casino | Full refund scenario with relation')]
@@ -260,6 +267,8 @@ trait S38LiveCasinoFullRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.8 Full refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund 1) | Live Casino | Full refund scenario with relation')]
@@ -347,6 +356,8 @@ trait S38LiveCasinoFullRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.8 Full refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund 2) | Live Casino | Full refund scenario with relation')]
@@ -434,6 +445,8 @@ trait S38LiveCasinoFullRefundScenario
         );
     }
 
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.8 Full refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund 3) | Live Casino | Full refund scenario with relation')]

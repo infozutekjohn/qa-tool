@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S39LiveCasinoTipScenario
 {
     // 2.9 Live tip scenario
+    #[Group('live')]
+    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.9 Live tip scenario')]
     #[DisplayName('Livetip | Live Casino | Live tip scenario')]

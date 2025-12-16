@@ -21,6 +21,11 @@ class ApiTestRunner
         $token    = $params['token'];
         $endpoint = $params['endpoint'] ?? null;
 
+        // Selected PHPUnit groups from UI
+        $selectedGroups = array_keys(
+            array_filter($params['testGroups'] ?? [])
+        );
+
         // 1. Prepare env for PHPUnit (explicitly)
         // Include TEMP/TMP and DNS-related settings to avoid Windows cURL issues
         $tempDir = getenv('TEMP') ?: getenv('TMP') ?: sys_get_temp_dir();
@@ -72,7 +77,17 @@ class ApiTestRunner
         }
 
         // 3. Run PHPUnit from project root
-        $cmd = ['php', 'vendor/bin/phpunit', '--configuration', $projectRoot . '/phpunit.xml'];
+        $cmd = [
+            'php',
+            'vendor/bin/phpunit',
+            '--configuration',
+            $projectRoot . '/phpunit.xml',
+        ];
+
+        if (!empty($selectedGroups)) {
+            $cmd[] = '--group';
+            $cmd[] = implode(',', $selectedGroups);
+        }
 
         $process = new Process($cmd, $projectRoot, $env);
         $process->setTimeout(600); // 10 minutes

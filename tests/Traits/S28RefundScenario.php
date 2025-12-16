@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use DateTime;
 use GuzzleHttp\Psr7\Message;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -16,6 +17,8 @@ use Tests\Config\Endpoint;
 
 trait S28RefundScenario
 {
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.8 Regular refund scenario')]
     #[Displayname('Bet | Casino | Refund scenario')]
@@ -93,6 +96,8 @@ trait S28RefundScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.8 Regular refund scenario')]
     #[Displayname('Gameroundresult | Casino | Refund scenario (gameRoundClose no win)')]
@@ -170,6 +175,8 @@ trait S28RefundScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.8 Regular refund scenario')]
     #[Displayname('Gameroundresult | Casino | Refund scenario (refund)')]

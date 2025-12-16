@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -14,6 +15,8 @@ use Tests\Config\Endpoint;
 trait S45NotificationsScenario
 {
     // 5.1 Bonus removal
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('5.1 Bonus removal')]
     #[DisplayName('Notifybonusevent | Bonus removal')]
@@ -78,6 +81,8 @@ trait S45NotificationsScenario
         );
     }
 
+    #[Group('bonus')]
+    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('5.1 Bonus removal')]
     #[DisplayName('Notifybonusevent | Bonus removal')]

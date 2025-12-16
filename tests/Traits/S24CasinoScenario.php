@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use DateTime;
 use GuzzleHttp\Psr7\Message;
+use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;
 use Qameta\Allure\Attribute\ParentSuite;
@@ -16,6 +17,8 @@ use Tests\Config\Endpoint;
 
 trait S24CasinoScenario
 {
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.4 Two Bet Gameround Scenario with Win')]
     #[Displayname('Bet 1 | Casino | Two bet gameround scenario with win')]
@@ -92,6 +95,8 @@ trait S24CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.4 Two Bet Gameround Scenario with Win')]
     #[Displayname('Bet 2 (split in card game) | Casino | Two bet gameround scenario with win')]
@@ -168,6 +173,8 @@ trait S24CasinoScenario
         );
     }
 
+    #[Group('casino')]
+    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.4 Two Bet Gameround Scenario with Win')]
     #[Displayname('Gameroundresult (combined result) | Casino | Two bet gameround scenario with win')]
