@@ -15,7 +15,7 @@ use Tests\Config\Endpoint;
 trait S60FeatureTestsScenario
 {
     // 2. Crosslaunch check - 2.1 Regular gameround scenario GAME 1
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.1 Bet | Crosslaunch check GAME 1')]
@@ -25,11 +25,13 @@ trait S60FeatureTestsScenario
     {
         $roundCode = $this->getRoundCode('crosslaunch_game_1');
 
-        $username      = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token         = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $crosslaunchGame1 = getenv('TEST_CROSSLAUNCH_GAME_1') ?: 'ubal';
+        $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $crosslaunchGame1  = getenv('TEST_CROSSLAUNCH_GAME_1') ?: 'ubal';
         $crosslaunchAlias1 = getenv('TEST_CROSSLAUNCH_ALIAS_1') ?: 'bal_emperorbaccarat';
-        $betPrimary    = getenv('TEST_BET_PRIMARY') ?: '1';
+        $betPrimary        = getenv('TEST_BET_PRIMARY') ?: '1';
+        $tableId           = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName         = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -73,19 +75,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -94,7 +94,7 @@ trait S60FeatureTestsScenario
         );
     }
 
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.1 Gameroundresult | Crosslaunch check GAME 1')]
@@ -104,10 +104,12 @@ trait S60FeatureTestsScenario
     {
         $roundCode = $this->getRoundCode('crosslaunch_game_1');
 
-        $username      = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token         = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $crosslaunchGame1 = getenv('TEST_CROSSLAUNCH_GAME_1') ?: 'ubal';
+        $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token             = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $crosslaunchGame1  = getenv('TEST_CROSSLAUNCH_GAME_1') ?: 'ubal';
         $crosslaunchAlias1 = getenv('TEST_CROSSLAUNCH_ALIAS_1') ?: 'bal_emperorbaccarat';
+        $tableId           = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName         = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -153,19 +155,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'gameroundresult',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -175,7 +175,7 @@ trait S60FeatureTestsScenario
     }
 
     // 2. Crosslaunch check - 2.2 Regular gameround scenario GAME 2 (RNG game)
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.2 Bet | Crosslaunch check GAME 2')]
@@ -227,19 +227,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -248,7 +246,7 @@ trait S60FeatureTestsScenario
         );
     }
 
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('2. Crosslaunch check')]
     #[DisplayName('2.2 Gameroundresult | Crosslaunch check GAME 2')]
@@ -301,19 +299,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'gameroundresult',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -323,7 +319,7 @@ trait S60FeatureTestsScenario
     }
 
     // 3. GameCodeName check - 3.1 Regular gameround scenario random game
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('3. GameCodeName check')]
     #[DisplayName('3.1 Bet | GameCodeName check random game')]
@@ -375,19 +371,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify gameCodeName was accepted')]
@@ -403,7 +397,7 @@ trait S60FeatureTestsScenario
         );
     }
 
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('3. GameCodeName check')]
     #[DisplayName('3.1 Gameroundresult | GameCodeName check random game')]
@@ -456,19 +450,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'gameroundresult',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify gameCodeName result completed')]
@@ -485,7 +477,7 @@ trait S60FeatureTestsScenario
     }
 
     // 4. LaunchAlias check - 4.1 Regular gameround scenario random game (live casino with launchAlias)
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('4. LaunchAlias check')]
     #[DisplayName('4.1 Bet | LaunchAlias check random game')]
@@ -495,11 +487,13 @@ trait S60FeatureTestsScenario
     {
         $roundCode = $this->getRoundCode('launchalias_random');
 
-        $username      = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token         = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $liveGameCode  = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
-        $launchAlias   = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
-        $betPrimary    = getenv('TEST_BET_PRIMARY') ?: '1';
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $betPrimary   = getenv('TEST_BET_PRIMARY') ?: '1';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -543,19 +537,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify launchAlias was accepted')]
@@ -571,7 +563,7 @@ trait S60FeatureTestsScenario
         );
     }
 
-    #[Group('feature')]
+    #[Group('gameslink')]
     #[ParentSuite('06. Gameslink Features Tests')]
     #[Suite('4. LaunchAlias check')]
     #[DisplayName('4.1 Gameroundresult | LaunchAlias check random game')]
@@ -581,10 +573,12 @@ trait S60FeatureTestsScenario
     {
         $roundCode = $this->getRoundCode('launchalias_random');
 
-        $username      = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $token         = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
-        $liveGameCode  = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
-        $launchAlias   = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+        $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
+        $liveGameCode = getenv('TEST_LIVE_GAME_CODE') ?: 'ubal';
+        $launchAlias  = getenv('TEST_LAUNCH_ALIAS') ?: 'bal_baccaratko';
+        $tableId      = getenv('TEST_TABLE_ID') ?: '1234';
+        $tableName    = getenv('TEST_TABLE_NAME') ?: 'Integration Test';
 
         $date = $this->generateDate();
 
@@ -628,19 +622,17 @@ trait S60FeatureTestsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'gameroundresult',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify launchAlias result completed')]

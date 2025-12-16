@@ -35,7 +35,7 @@ const Main = () => {
         live: false,
         bonus: false,
         error: false,
-        feature: false,
+        gameslink: false,
         logout: false,
     });
 

@@ -66,13 +66,16 @@ trait S45NotificationsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'notification',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -132,13 +135,16 @@ trait S45NotificationsScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'notification',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',

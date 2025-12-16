@@ -54,11 +54,17 @@ trait S51ErrorHandlingScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'authenticate',
+            "errorScenario" => true,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify error response contains ERR_AUTHENTICATION_FAILED')]
@@ -117,11 +123,17 @@ trait S51ErrorHandlingScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'authenticate',
+            "errorScenario" => true,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify error response contains ERR_PLAYER_NOT_FOUND')]
@@ -190,11 +202,17 @@ trait S51ErrorHandlingScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => true,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify error response contains ERR_INSUFFICIENT_FUNDS')]
@@ -262,11 +280,17 @@ trait S51ErrorHandlingScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => true,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify error response contains ERR_AUTHENTICATION_FAILED')]
@@ -335,11 +359,17 @@ trait S51ErrorHandlingScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "errorScenario" => true,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify error response contains INVALID_REQUEST_PAYLOAD')]

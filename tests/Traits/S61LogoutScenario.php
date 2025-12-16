@@ -53,13 +53,17 @@ trait S61LogoutScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'logout',
+            "errorScenario" => false,
+            "balanceAction" => null,
+        ]);
 
         Allure::runStep(
             #[DisplayName('Verify logout response structure')]

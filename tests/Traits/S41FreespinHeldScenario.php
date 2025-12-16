@@ -97,19 +97,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -200,19 +197,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -303,19 +297,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -386,19 +377,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'result',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -495,19 +483,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'result',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -598,19 +583,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'result',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -749,19 +731,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'result',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -828,19 +807,16 @@ trait S41FreespinHeldScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'transferfunds',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',

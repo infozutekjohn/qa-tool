@@ -70,23 +70,17 @@ trait S21CasinoScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
-
-        $this->stepAssertBalanceError($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "balanceAction" => 'deducted',
+            "bet"           => $betPrimary,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -149,23 +143,16 @@ trait S21CasinoScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertBalanceUnchanged($data, 'No win - balance unchanged', $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
-
-        $this->stepAssertBalanceError($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'result',
+            "balanceAction" => 'unchanged',
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -185,7 +172,6 @@ trait S21CasinoScenario
     public function bet_win(): void
     {
         $roundCode = $this->getRoundCode('regular_gameround_scenario_2');
-        // $transactionCode = $this->generateTransactionCode();
 
         $username       = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token          = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
@@ -228,23 +214,17 @@ trait S21CasinoScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertBalanceDeducted($data, $betPrimary, $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
-
-        $this->stepAssertBalanceError($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'bet',
+            "balanceAction" => 'deducted',
+            "bet"           => $betPrimary,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
@@ -316,23 +296,17 @@ trait S21CasinoScenario
 
         $checks = [];
 
-        $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertNoErrorField($data);
-
-        $this->stepAssertRequestIdMatches($payload, $data);
-
-        $this->stepAssertTransactionResponseSchema($data, $checks);
-
-        $this->stepAssertBalanceWinAdded($data, $win, 'Win amount', $checks);
-
-        $this->stepAssertTimestampFormat($data, $checks);
-
-        $this->stepAssertTimestampGMT($data, $checks);
-
-        $this->stepAssertBalanceError($data, $checks);
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => $checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'result',
+            "balanceAction" => 'added',
+            "win"           => $win,
+        ]);
 
         Allure::attachment(
             'Validation Checks',
