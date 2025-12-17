@@ -26,6 +26,12 @@ class ApiTestRunner
             array_filter($params['testGroups'] ?? [])
         );
 
+        // DEBUG: Log the testGroups and selected groups
+        Log::info('ApiTestRunner: Test group selection', [
+            'testGroups_received' => $params['testGroups'] ?? 'NOT SET',
+            'selectedGroups'      => $selectedGroups,
+        ]);
+
         // 1. Prepare env for PHPUnit (explicitly)
         // Include TEMP/TMP and DNS-related settings to avoid Windows cURL issues
         $tempDir = getenv('TEMP') ?: getenv('TMP') ?: sys_get_temp_dir();
@@ -158,6 +164,11 @@ class ApiTestRunner
             $cmd[] = '--group';
             $cmd[] = implode(',', $selectedGroups);
         }
+
+        // DEBUG: Log the final PHPUnit command
+        Log::info('ApiTestRunner: PHPUnit command', [
+            'command' => implode(' ', $cmd),
+        ]);
 
         $process = new Process($cmd, $projectRoot, $env);
         $process->setTimeout(600); // 10 minutes

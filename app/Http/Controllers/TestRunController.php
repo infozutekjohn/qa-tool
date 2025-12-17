@@ -63,6 +63,12 @@ class TestRunController extends Controller
 
         Log::info('Data has been generated', ['data' => $data]);
 
+        // Debug: Log raw testGroups from request
+        Log::info('TestGroups from request', [
+            'testGroups_raw'       => $request->input('testGroups'),
+            'testGroups_validated' => $data['testGroups'] ?? 'NOT IN DATA',
+        ]);
+
         // $testRun = $runner->run($data['username'], $data['token'], $request->input('endpoint'));
 
         $testRun = $runner->run($data);
