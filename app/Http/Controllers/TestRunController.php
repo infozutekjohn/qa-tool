@@ -11,55 +11,42 @@ class TestRunController extends Controller
 {
     public function store(Request $request, ApiTestRunner $runner)
     {
-        // Increase execution time limit for long-running PHPUnit tests
-        set_time_limit(300); // 5 minutes
-
-        // $data = $request->validate([
-        //     'username' => 'required|string',
-        //     'token'    => 'required|string',
-        // ]);
+        set_time_limit(300);
 
         $data = $request->validate([
             'username' => 'required|string',
             'token'    => 'required|string',
             'endpoint' => 'nullable|string',
-            'testGroups' => 'nullable|array',
 
-            // game codes
+            'flags' => 'nullable|array',
+            'flags.login'     => 'boolean',
+            'flags.casino'    => 'boolean',
+            'flags.live'      => 'boolean',
+            'flags.bonus'     => 'boolean',
+            'flags.error'     => 'boolean',
+            'flags.gameslink' => 'boolean',
+            'flags.logout'    => 'boolean',
+
             'casinoGameCode' => 'nullable|string',
             'liveGameCode'   => 'nullable|string',
             'crossGameCode'  => 'nullable|string',
             'launchAlias'    => 'nullable|string',
 
-            // bets & wins
             'betPrimary'   => 'nullable',
             'betSecondary' => 'nullable',
             'winPrimary'   => 'nullable',
 
-            // primary bonus
             'remoteBonusCodePrimary'   => 'nullable|string',
             'bonusInstanceCodePrimary' => 'nullable|string',
             'bonusTemplatePrimary'     => 'nullable|string',
 
-            // secondary bonus
             'remoteBonusCodeSecondary'   => 'nullable|string',
             'bonusInstanceCodeSecondary' => 'nullable|string',
             'bonusTemplateSecondary'     => 'nullable|string',
 
-            // jackpot selector
             'jackpot' => 'nullable|string',
-
-            // live table details
-            'tableId'   => 'nullable|string',
-            'tableName' => 'nullable|string',
-
-            // jackpot IDs
-            'jackpotIdMain' => 'nullable|string',
-            'jackpotId110'  => 'nullable|string',
-            'jackpotId120'  => 'nullable|string',
-            'jackpotId130'  => 'nullable|string',
-            'jackpotId140'  => 'nullable|string',
         ]);
+
 
         Log::info('Data has been generated', ['data' => $data]);
 

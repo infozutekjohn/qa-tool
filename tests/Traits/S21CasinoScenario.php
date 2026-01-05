@@ -18,7 +18,6 @@ use Tests\Config\Endpoint;
 trait S21CasinoScenario
 {
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Bet | Casino | Regular gameround scenario (no win)')]
@@ -90,7 +89,6 @@ trait S21CasinoScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
@@ -163,7 +161,6 @@ trait S21CasinoScenario
 
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Bet | Casino | Regular gameround scenario (win)')]
@@ -234,7 +231,6 @@ trait S21CasinoScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.1 Regular Gameround Scenario')]
     #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]

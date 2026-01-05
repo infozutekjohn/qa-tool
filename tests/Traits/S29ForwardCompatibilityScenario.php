@@ -18,7 +18,6 @@ use Tests\Config\Endpoint;
 trait S29ForwardCompatibilityScenario
 {
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.9 Forward compatibility check')]
     #[Displayname('Bet | Casino | Forward compatibility check')]
@@ -90,7 +89,6 @@ trait S29ForwardCompatibilityScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.9 Forward compatibility check')]
     #[Displayname('Gameroundresult | Casino | Forward compatibility check (no win)')]

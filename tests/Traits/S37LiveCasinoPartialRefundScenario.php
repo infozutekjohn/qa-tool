@@ -16,7 +16,6 @@ trait S37LiveCasinoPartialRefundScenario
 {
     // 2.7 Partial refund scenario with relation
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Bet 1 | Live Casino | Partial refund scenario with relation')]
@@ -97,7 +96,6 @@ trait S37LiveCasinoPartialRefundScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Bet 2 | Live Casino | Partial refund scenario with relation')]
@@ -178,7 +176,6 @@ trait S37LiveCasinoPartialRefundScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Bet 3 (split double) | Live Casino | Partial refund scenario with relation')]
@@ -259,7 +256,6 @@ trait S37LiveCasinoPartialRefundScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund) | Live Casino | Partial refund scenario with relation')]
@@ -345,7 +341,6 @@ trait S37LiveCasinoPartialRefundScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.7 Partial refund scenario with relation')]
     #[DisplayName('Gameroundresult (win) | Live Casino | Partial refund scenario with relation')]

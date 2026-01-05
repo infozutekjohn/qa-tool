@@ -69,7 +69,15 @@ const Main = () => {
             token,
             endpoint,
 
-            testGroups,
+            flags: {
+                login: true,
+                logout: true,
+                casino: !!testGroups.casino,
+                live: !!testGroups.live,
+                bonus: !!testGroups.bonus,
+                error: !!testGroups.error,
+                gameslink: !!testGroups.gameslink,
+            },
 
             casinoGameCode,
             liveGameCode,

@@ -60,7 +60,7 @@ trait S61LogoutScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'logout',
+            "endpointType"  => 'event',
             "errorScenario" => false,
             "balanceAction" => null,
         ]);

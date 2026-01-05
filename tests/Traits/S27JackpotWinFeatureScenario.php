@@ -18,7 +18,6 @@ use Tests\Config\Endpoint;
 trait S27JackpotWinFeatureScenario
 {
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.7 Jackpot win through feature')]
     #[Displayname('Bet | Casino | Jackpot win through feature scenario')]
@@ -89,7 +88,6 @@ trait S27JackpotWinFeatureScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.7 Jackpot win through feature')]
     #[Displayname('Gameroundresult | Casino | Jackpot win through feature scenario (jackpot win)')]
@@ -218,7 +216,6 @@ trait S27JackpotWinFeatureScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.7 Jackpot win through feature')]
     #[Displayname('Gameroundresult | Casino | Jackpot win through feature scenario (feature win)')]

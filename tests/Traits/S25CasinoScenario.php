@@ -18,7 +18,6 @@ use Tests\Config\Endpoint;
 trait S25CasinoScenario
 {
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Bet 1 | Casino | Alternating bet and result scenario')]
@@ -90,7 +89,6 @@ trait S25CasinoScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Gameroundresult 1 | Casino | Alternating bet and result scenario')]
@@ -166,7 +164,6 @@ trait S25CasinoScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Bet 2 | Casino | Alternating bet and result scenario')]
@@ -237,7 +234,6 @@ trait S25CasinoScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.5 Alternating Bet and Result Scenario')]
     #[Displayname('Gameroundresult 2 | Casino | Alternating bet and result scenario')]

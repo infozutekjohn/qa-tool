@@ -14,7 +14,13 @@ class ApiTestRunner
     public function run(array $params): TestRun
     {
         $projectRoot = base_path();
-        $resultsDir  = $projectRoot . '/allure-results';
+
+        /**
+         * IMPORTANT:
+         * Each test run MUST have its own allure-results directory
+         */
+        $projectCode = now()->format('Ymd-His');
+        $resultsDir  = $projectRoot . "/allure-results/{$projectCode}";
         $reportDir   = $projectRoot . '/public/allure-reports';
 
         $username = $params['username'];
@@ -23,14 +29,13 @@ class ApiTestRunner
 
         // Selected PHPUnit groups from UI
         $selectedGroups = array_keys(
-            array_filter($params['testGroups'] ?? [])
+            array_filter($params['flags'] ?? [])
         );
 
-        // 1. Prepare env for PHPUnit (explicitly)
-        // Include TEMP/TMP and DNS-related settings to avoid Windows cURL issues
+        // Temp directory (Windows-safe)
         $tempDir = getenv('TEMP') ?: getenv('TMP') ?: sys_get_temp_dir();
 
-        // Get form values with defaults
+        // Game codes
         $casinoGameCode = $params['casinoGameCode'] ?? '';
         $liveGameCode   = $params['liveGameCode'] ?? '';
         $crossGameCode  = $params['crossGameCode'] ?? '';
@@ -38,7 +43,7 @@ class ApiTestRunner
         $betPrimary     = $params['betPrimary'] ?? '1';
         $winPrimary     = $params['winPrimary'] ?? '2';
 
-        // Live table details
+        // Live table
         $tableId   = $params['tableId'] ?? '1234';
         $tableName = $params['tableName'] ?? 'Integration Test';
 
@@ -49,104 +54,101 @@ class ApiTestRunner
         $jackpotId130  = $params['jackpotId130'] ?? '';
         $jackpotId140  = $params['jackpotId140'] ?? '';
 
-        // DEBUG: Log all environment variables being set
-        Log::info('ApiTestRunner: Setting environment variables for PHPUnit', [
-            'TEST_USERNAME'  => $username,
-            'TEST_TOKEN'     => substr($token, 0, 20) . '...',  // Truncate for security
-            'TEST_ENDPOINT'  => $endpoint,
-            'TEST_CASINO_GAME_CODE' => $casinoGameCode,
-            'TEST_LIVE_GAME_CODE'   => $liveGameCode,
-            'TEST_CROSS_GAME_CODE'  => $crossGameCode,
-            'TEST_LAUNCH_ALIAS'     => $launchAlias,
-            'TEST_BET_PRIMARY'      => $betPrimary,
-            'TEST_WIN_PRIMARY'      => $winPrimary,
-            'TEST_TABLE_ID'         => $tableId,
-            'TEST_TABLE_NAME'       => $tableName,
+        Log::info('ApiTestRunner: Preparing PHPUnit run', [
+            'groups' => $selectedGroups,
+            'allure_dir' => $resultsDir,
         ]);
 
+        /**
+         * PHPUnit environment variables
+         */
         $env = array_merge($_ENV, $_SERVER, [
             'APP_ENV'        => 'testing',
             'TEST_USERNAME'  => $username,
             'TEST_TOKEN'     => $token,
             'TEST_ENDPOINT'  => $endpoint,
 
-            // game codes
             'TEST_CASINO_GAME_CODE' => $casinoGameCode,
             'TEST_LIVE_GAME_CODE'   => $liveGameCode,
             'TEST_CROSS_GAME_CODE'  => $crossGameCode,
             'TEST_LAUNCH_ALIAS'     => $launchAlias,
+            'TEST_RNG_GAME_CODE'    => $casinoGameCode,
 
-            // RNG game code (use casino game code as fallback)
-            'TEST_RNG_GAME_CODE' => $casinoGameCode,
-
-            // Crosslaunch games (S60 Feature Tests) - reuse live game code and launch alias
             'TEST_CROSSLAUNCH_GAME_1'  => $liveGameCode,
             'TEST_CROSSLAUNCH_ALIAS_1' => $launchAlias,
             'TEST_CROSSLAUNCH_GAME_2'  => $casinoGameCode,
 
-            // GameCodeName check (S60) - use casino game code
             'TEST_GAMECODENAME_GAME' => $casinoGameCode,
 
-            // bets & wins
             'TEST_BET_PRIMARY'   => $betPrimary,
             'TEST_BET_SECONDARY' => $params['betSecondary'] ?? $betPrimary,
             'TEST_WIN_PRIMARY'   => $winPrimary,
             'TEST_WIN_AMOUNT'    => $winPrimary,
 
-            // Transfer and jackpot amounts (derived from win amount)
-            'TEST_TRANSFER_AMOUNT'     => $winPrimary,
-            'TEST_JACKPOT_WIN_AMOUNT'  => $winPrimary,
+            'TEST_TRANSFER_AMOUNT'      => $winPrimary,
+            'TEST_JACKPOT_WIN_AMOUNT'   => $winPrimary,
             'TEST_BONUS_BALANCE_CHANGE' => $winPrimary,
 
-            // primary bonus
             'TEST_REMOTE_BONUS_CODE_PRIMARY'   => $params['remoteBonusCodePrimary'] ?? '',
             'TEST_BONUS_INSTANCE_CODE_PRIMARY' => $params['bonusInstanceCodePrimary'] ?? '',
             'TEST_BONUS_TEMPLATE_PRIMARY'      => $params['bonusTemplatePrimary'] ?? '',
 
-            // secondary bonus
             'TEST_REMOTE_BONUS_CODE_SECONDARY'   => $params['remoteBonusCodeSecondary'] ?? '',
             'TEST_BONUS_INSTANCE_CODE_SECONDARY' => $params['bonusInstanceCodeSecondary'] ?? '',
             'TEST_BONUS_TEMPLATE_SECONDARY'      => $params['bonusTemplateSecondary'] ?? '',
 
-            // jackpot option
             'TEST_JACKPOT' => $params['jackpot'] ?? '',
 
-            // Live table details
             'TEST_TABLE_ID'   => $tableId,
             'TEST_TABLE_NAME' => $tableName,
 
-            // Jackpot IDs for casino/live tests
             'TEST_JACKPOT_ID_MAIN' => $jackpotIdMain,
             'TEST_JACKPOT_ID_110'  => $jackpotId110,
             'TEST_JACKPOT_ID_120'  => $jackpotId120,
             'TEST_JACKPOT_ID_130'  => $jackpotId130,
             'TEST_JACKPOT_ID_140'  => $jackpotId140,
 
-            // This is what Allure will use if you rely on ALLURE_OUTPUT_DIR
-            'ALLURE_OUTPUT_DIR' => $resultsDir,
+            // 'ALLURE_OUTPUT_DIR' => $resultsDir,
+            'ALLURE_RESULTS_DIRECTORY' => $resultsDir,
+            'ALLURE_OUTPUT_DIR'  => $resultsDir,
+            'ALLURE_RESULTS_PATH' => $resultsDir,
 
-            // Windows environment variables to help with DNS/temp issues
             'TEMP' => $tempDir,
-            'TMP' => $tempDir,
+            'TMP'  => $tempDir,
             'SystemRoot' => getenv('SystemRoot') ?: 'C:\\Windows',
         ]);
 
-        // DEBUG: Log a subset of the final env array to verify values
-        Log::info('ApiTestRunner: Final environment array (TEST_* vars)', [
-            'env_TEST_USERNAME' => $env['TEST_USERNAME'] ?? 'NOT SET',
-            'env_TEST_TOKEN'    => isset($env['TEST_TOKEN']) ? substr($env['TEST_TOKEN'], 0, 20) . '...' : 'NOT SET',
-            'env_TEST_ENDPOINT' => $env['TEST_ENDPOINT'] ?? 'NOT SET',
-            'env_TEST_CASINO_GAME_CODE' => $env['TEST_CASINO_GAME_CODE'] ?? 'NOT SET',
-        ]);
+        /**
+         * Create fresh allure-results directory
+         */
+        File::makeDirectory($resultsDir, 0775, true, true);
 
-        // 2. Ensure allure-results exists + clean it
-        if (! File::exists($resultsDir)) {
-            File::makeDirectory($resultsDir, 0775, true);
-        } else {
-            File::cleanDirectory($resultsDir);
+        /**
+         * Build PHPUnit command (FILE-BASED, bypass categories completely)
+         *
+         * NOTE:
+         * This will make PHPUnit only load the selected test files.
+         * Non-selected categories will NOT be discovered => NOT shown in Allure.
+         */
+        $categoryMap = [
+            'login'     => $projectRoot . '/tests/Feature/LoginTest.php',
+            'casino'    => $projectRoot . '/tests/Feature/CasinoTest.php',
+            'live'      => $projectRoot . '/tests/Feature/LiveTest.php',
+            'bonus'     => $projectRoot . '/tests/Feature/BonusTest.php',
+            'error'     => $projectRoot . '/tests/Feature/ErrorTest.php',
+            'gameslink' => $projectRoot . '/tests/Feature/FeatureTest.php',
+            'logout'    => $projectRoot . '/tests/Feature/LogoutTest.php'
+        ];
+
+        $selectedFiles = [];
+        foreach ($selectedGroups as $groupKey) {
+            if (isset($categoryMap[$groupKey])) {
+                $selectedFiles[] = $categoryMap[$groupKey];
+            }
         }
 
-        // 3. Run PHPUnit from project root
+        $selectedFiles = array_values(array_unique($selectedFiles));
+
         $cmd = [
             'php',
             'vendor/bin/phpunit',
@@ -154,56 +156,94 @@ class ApiTestRunner
             $projectRoot . '/phpunit.xml',
         ];
 
-        if (!empty($selectedGroups)) {
-            $cmd[] = '--group';
-            $cmd[] = implode(',', $selectedGroups);
+        // If nothing selected
+        if (empty($selectedFiles)) {
+            Log::warning('ApiTestRunner: No test files selected', ['groups' => $selectedGroups]);
+
+            return TestRun::create([
+                'username'      => $username,
+                'phpunit_exit'  => 0,
+                'project_code'  => $projectCode,
+                'report_url'    => null,
+            ]);
         }
 
+        // Append the test files to run
+        foreach ($selectedFiles as $file) {
+            $cmd[] = $file;
+        }
+
+        Log::info('ApiTestRunner: PHPUnit selected files', [
+            'groups' => $selectedGroups,
+            'files'  => $selectedFiles,
+        ]);
+
+
+        Log::info('ApiTestRunner: PHPUnit command', ['cmd' => $cmd]);
+
         $process = new Process($cmd, $projectRoot, $env);
-        $process->setTimeout(600); // 10 minutes
+        $process->setTimeout(600);
         $process->run();
 
         $exitCode = $process->getExitCode();
 
-        // If PHPUnit itself failed, stop here and show why
-        if (! $process->isSuccessful()) {
-            Log::warning('PHPUnit had failing tests in ApiTestRunner', [
-                'command'  => implode(' ', $cmd),
-                'exitCode' => $exitCode,
-                'output'   => $process->getOutput(),
-                'error'    => $process->getErrorOutput(),
+        if (!$process->isSuccessful()) {
+            Log::warning('PHPUnit execution finished with issues', [
+                'exit_code' => $exitCode,
+                'output'    => $process->getOutput(),
+                'error'     => $process->getErrorOutput(),
             ]);
         }
 
-        // 4. Collect Allure result files
+        /**
+         * Collect Allure result files (ONLY this run)
+         */
         $files = File::exists($resultsDir) ? File::files($resultsDir) : [];
 
+        /**
+         * IMPORTANT FIX:
+         * Do NOT crash when no tests were executed
+         */
         if (empty($files)) {
-            throw new \RuntimeException(
-                "No Allure result files found after PHPUnit run. " .
-                    "Exit code: {$exitCode}\n" .
-                    $process->getOutput() . "\n" .
-                    $process->getErrorOutput()
-            );
+            Log::warning('ApiTestRunner: No Allure results generated (0 tests executed)', [
+                'groups'    => $selectedGroups,
+                'exit_code' => $exitCode,
+            ]);
+
+            return TestRun::create([
+                'username'      => $username,
+                'phpunit_exit'  => $exitCode,
+                'project_code'  => $projectCode,
+                'report_url'    => null,
+            ]);
         }
 
-        $projectCode = now()->format('Ymd-His');
-
-        // 5. Try Docker Allure Service first, fallback to local CLI
+        /**
+         * Generate Allure report
+         */
         $useLocalAllure = config('services.allure.use_local', false);
 
         if (!$useLocalAllure) {
             try {
                 $fullReportUrl = $this->generateDockerReport($files, $projectCode);
             } catch (ConnectException $e) {
-                Log::info('Docker Allure not available, falling back to local CLI');
-                $fullReportUrl = $this->generateLocalReport($projectRoot, $resultsDir, $reportDir, $projectCode);
+                Log::info('Docker Allure not available, using local CLI');
+                $fullReportUrl = $this->generateLocalReport(
+                    $projectRoot,
+                    $resultsDir,
+                    $reportDir,
+                    $projectCode
+                );
             }
         } else {
-            $fullReportUrl = $this->generateLocalReport($projectRoot, $resultsDir, $reportDir, $projectCode);
+            $fullReportUrl = $this->generateLocalReport(
+                $projectRoot,
+                $resultsDir,
+                $reportDir,
+                $projectCode
+            );
         }
 
-        // 6. Save to DB
         return TestRun::create([
             'username'      => $username,
             'phpunit_exit'  => $exitCode,
@@ -213,7 +253,7 @@ class ApiTestRunner
     }
 
     /**
-     * Generate report using Docker Allure Service
+     * Docker Allure report
      */
     private function generateDockerReport(array $files, string $projectCode): string
     {
@@ -221,13 +261,12 @@ class ApiTestRunner
 
         foreach ($files as $file) {
             $content = File::get($file->getRealPath());
-            if ($content === '' || $content === null) {
-                continue;
+            if ($content !== '' && $content !== null) {
+                $payload['results'][] = [
+                    'file_name'      => $file->getFilename(),
+                    'content_base64' => base64_encode($content),
+                ];
             }
-            $payload['results'][] = [
-                'file_name'      => $file->getFilename(),
-                'content_base64' => base64_encode($content),
-            ];
         }
 
         if (empty($payload['results'])) {
@@ -243,7 +282,6 @@ class ApiTestRunner
             'connect_timeout' => 5,
         ]);
 
-        // send-results
         $client->post('/allure-docker-service/send-results', [
             'query' => [
                 'project_id'             => $projectCode,
@@ -252,93 +290,63 @@ class ApiTestRunner
             'json' => $payload,
         ]);
 
-        // generate-report
         $resp = $client->get('/allure-docker-service/generate-report', [
             'query' => ['project_id' => $projectCode],
         ]);
 
         $body = json_decode((string) $resp->getBody(), true);
-        $reportUrlFromAllure = $body['data']['report_url'] ?? null;
 
-        if ($reportUrlFromAllure) {
-            if (str_starts_with($reportUrlFromAllure, 'http')) {
-                $path = parse_url($reportUrlFromAllure, PHP_URL_PATH) ?? '';
-                $query = parse_url($reportUrlFromAllure, PHP_URL_QUERY);
-                $fragment = parse_url($reportUrlFromAllure, PHP_URL_FRAGMENT);
+        // return $publicBase . (
+        //     $body['data']['report_url']
+        //     ?? "/allure-docker-service/projects/{$projectCode}/reports/latest/index.html"
+        // );
 
-                $fullReportUrl = $publicBase . $path;
+        $reportUrl = $body['data']['report_url']
+            ?? "/allure-docker-service/projects/{$projectCode}/reports/latest/index.html";
 
-                if ($query) {
-                    $fullReportUrl .= '?' . $query;
-                }
-                if ($fragment) {
-                    $fullReportUrl .= '#' . $fragment;
-                }
-            } else {
-                $fullReportUrl = $publicBase . '/' . ltrim($reportUrlFromAllure, '/');
-            }
-        } else {
-            $fullReportUrl = $publicBase . "/allure-docker-service/projects/{$projectCode}/reports/latest/index.html";
+        // If already absolute, return as-is (or rewrite host if you want)
+        if (preg_match('#^https?://#i', $reportUrl)) {
+            // Optional: rewrite internal docker hostname to localhost for browser access
+            $reportUrl = str_replace('http://allure:5050', $publicBase, $reportUrl);
+
+            return $reportUrl;
         }
 
-        return $fullReportUrl;
+        // If relative, prefix with public base
+        return $publicBase . '/' . ltrim($reportUrl, '/');
     }
 
     /**
-     * Generate report using local Allure CLI
+     * Local Allure CLI report
      */
-    private function generateLocalReport(string $projectRoot, string $resultsDir, string $reportDir, string $projectCode): string
-    {
+    private function generateLocalReport(
+        string $projectRoot,
+        string $resultsDir,
+        string $reportDir,
+        string $projectCode
+    ): string {
         $projectReportDir = $reportDir . '/' . $projectCode;
 
-        // Ensure report directory exists
-        if (! File::exists($reportDir)) {
-            File::makeDirectory($reportDir, 0775, true);
-        }
+        File::makeDirectory($reportDir, 0775, true, true);
 
-        // Find allure CLI - use the direct .bat file on Windows (doesn't require node in PATH)
-        if (PHP_OS_FAMILY === 'Windows') {
-            $allureBin = $projectRoot . '/node_modules/allure-commandline/dist/bin/allure.bat';
-        } else {
-            $allureBin = $projectRoot . '/node_modules/allure-commandline/dist/bin/allure';
-        }
+        $allureBin = PHP_OS_FAMILY === 'Windows'
+            ? $projectRoot . '/node_modules/allure-commandline/dist/bin/allure.bat'
+            : $projectRoot . '/node_modules/allure-commandline/dist/bin/allure';
 
-        if (! File::exists($allureBin)) {
-            // Fallback to global allure
+        if (!File::exists($allureBin)) {
             $allureBin = PHP_OS_FAMILY === 'Windows' ? 'allure.bat' : 'allure';
         }
 
-        // Generate report
         $cmd = [$allureBin, 'generate', $resultsDir, '-o', $projectReportDir, '--clean'];
 
-        // Set JAVA_HOME and TEMP for the Allure process (PHP built-in server may not have them)
-        $env = null;
-        if (PHP_OS_FAMILY === 'Windows') {
-            $javaHome = getenv('JAVA_HOME') ?: 'C:\\Program Files\\Microsoft\\jdk-17.0.17.10-hotspot';
-            $tempDir = getenv('TEMP') ?: getenv('TMP') ?: sys_get_temp_dir();
-            $env = array_merge($_ENV, $_SERVER, [
-                'JAVA_HOME' => $javaHome,
-                'PATH' => getenv('PATH') . ';' . $javaHome . '\\bin',
-                'TEMP' => $tempDir,
-                'TMP' => $tempDir,
-            ]);
-        }
-
-        $process = new Process($cmd, $projectRoot, $env);
+        $process = new Process($cmd, $projectRoot);
         $process->setTimeout(120);
         $process->run();
 
-        if (! $process->isSuccessful()) {
-            Log::error('Local Allure report generation failed', [
-                'output' => $process->getOutput(),
-                'error'  => $process->getErrorOutput(),
-            ]);
-            throw new \RuntimeException('Failed to generate local Allure report: ' . $process->getErrorOutput());
+        if (!$process->isSuccessful()) {
+            throw new \RuntimeException('Failed to generate local Allure report');
         }
 
-        Log::info('Local Allure report generated', ['path' => $projectReportDir]);
-
-        // Return URL to the local report (served from public folder)
         return '/allure-reports/' . $projectCode . '/index.html';
     }
 }

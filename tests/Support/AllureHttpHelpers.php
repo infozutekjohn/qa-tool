@@ -36,13 +36,18 @@ trait AllureHttpHelpers
             'balance'
         ],
 
+        'error' => [
+            'requestId',
+            'error'
+        ],
+
         // notifybonus, logout
         'event' => [
             'requestId'
         ]
     ];
 
-    private function getRoundCode(string $group): string
+    protected function getRoundCode(string $group): string
     {
         if (!isset(self::$roundCodes[$group])) {
             self::$roundCodes[$group] = 'test_rnd' . bin2hex(random_bytes(6));
@@ -60,7 +65,7 @@ trait AllureHttpHelpers
         return self::$transactionCodes[$key] ?? null;
     }
 
-    private function generateRandomJackpotId(): string
+    protected function generateRandomJackpotId(): string
     {
         $numbers = [];
 
@@ -229,41 +234,6 @@ trait AllureHttpHelpers
             }
         );
     }
-
-    // protected function stepAssertTransactionResponseSchema(
-    //     array $data,
-    //     ?array &$checks = null
-    // ): void {
-    //     Allure::runStep(
-    //         #[DisplayName('Validate response JSON structure')]
-    //         function (StepContextInterface $step) use ($data, &$checks) {
-    //             /** @var self $this */
-
-    //             $this->assertIsArray($data);
-    //             $checks[] = "✔ Response is JSON array/object";
-
-    //             $this->assertArrayHasKey('externalTransactionCode', $data);
-    //             $checks[] = "✔ 'externalTransactionCode' key exists";
-
-    //             $this->assertArrayHasKey('requestId', $data);
-    //             $checks[] = "✔ 'requestId' key exists";
-
-    //             $this->assertArrayHasKey('externalTransactionDate', $data);
-    //             $checks[] = "✔ 'externalTransactionDate' key exists";
-
-    //             $this->assertArrayHasKey('balance', $data);
-    //             $checks[] = "✔ 'balance' key exists";
-
-    //             // $this->assertIsInt($data['id']);
-    //             // $checks[] = "✔ 'id' is integer";
-
-    //             // $this->assertNotEmpty($data['title']);
-    //             // $checks[] = "✔ 'title' is not empty";
-
-    //             $step->parameter('validatedKeys', 'externalTransactionCode,requestId,externalTransactionDate,balance');
-    //         }
-    //     );
-    // }
 
     // TODO: Implement to all
     protected function stepAssertTransactionResponseSchema(

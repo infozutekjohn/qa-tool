@@ -17,6 +17,10 @@ return new class extends Migration
             $table->integer('phpunit_exit');
             $table->string('project_code');
             $table->string('report_url');
+            $table->string('status')->default('running')->index();
+            $table->text('error_message')->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
     }
