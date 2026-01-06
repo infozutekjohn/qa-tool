@@ -3,6 +3,7 @@
 namespace Tests\Support;
 
 use GuzzleHttp\Psr7\Message;
+use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\ResponseInterface;
 use Qameta\Allure\Allure;
 use Qameta\Allure\StepContextInterface;

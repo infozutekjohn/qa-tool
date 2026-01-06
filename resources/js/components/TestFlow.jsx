@@ -1,63 +1,58 @@
 import React, { useEffect } from "react";
 
 const TestFlow = ({ testGroups, setTestGroups }) => {
-    const lockedTrue = {
-        login: true,
-        logout: true,
-    };
+    const lockedTrue = { login: true, logout: true };
 
     useEffect(() => {
         setTestGroups((prev) => ({
             ...prev,
             ...lockedTrue,
         }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const toggle = (key) => {
         if (key in lockedTrue) return;
-
-        setTestGroups((prev) => ({
-            ...prev,
-            [key]: !prev[key],
-        }));
+        setTestGroups((prev) => ({ ...prev, [key]: !prev[key] }));
     };
 
     const flows = [
-        ["login", "Login (required)"],
-        ["casino", "Casino Flows"],
-        ["live", "Live Flows"],
-        ["bonus", "Bonus Flows"],
-        ["error", "Error Handling"],
-        ["gameslink", "Gameslink Features"],
-        ["logout", "Logout (required)"],
+        ["login", "Generalised Login (required)"],
+        ["casino", "Generalised Casino Tests (casino flows)"],
+        ["live", "Generalised Live Casino Tests (live flows)"],
+        ["bonus", "Generalised Bonus Flows"],
+        ["error", "Generalised Error Handling"],
+        ["gameslink", "Generalised Gameslink Feature Tests"],
+        ["logout", "Generalised Logout (required)"],
     ];
 
     return (
-        <div className="card mt-3">
-            <div className="card-header fw-bold">Test Flows</div>
-            <div className="card-body">
-                {flows.map(([key, label]) => {
-                    const isLocked = key in lockedTrue;
-
-                    return (
-                        <div className="form-check mb-2" key={key}>
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                checked={!!testGroups[key]}
-                                disabled={isLocked} // ✅ unchangeable
-                                onChange={() => toggle(key)} // ✅ no-op for locked
-                                id={`flow-${key}`}
-                            />
+        <div className="card">
+            <div className="card-header fw-bold">Test Collections</div>
+            <div className="card-body p-0">
+                <div className="list-group list-group-flush">
+                    {flows.map(([key, label]) => {
+                        const isLocked = key in lockedTrue;
+                        return (
                             <label
-                                className="form-check-label"
-                                htmlFor={`flow-${key}`}
+                                key={key}
+                                className="list-group-item d-flex gap-2 align-items-start"
+                                style={{ cursor: isLocked ? "not-allowed" : "pointer" }}
                             >
-                                {label}
+                                <input
+                                    className="form-check-input mt-1"
+                                    type="checkbox"
+                                    checked={!!testGroups[key]}
+                                    disabled={isLocked}
+                                    onChange={() => toggle(key)}
+                                />
+                                <span className={isLocked ? "text-muted" : ""}>
+                                    {label}
+                                </span>
                             </label>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

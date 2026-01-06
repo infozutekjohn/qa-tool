@@ -31,6 +31,6 @@
         <env name="SESSION_DRIVER" value="array"/>
 
         <!-- fallback only; runner overrides per run -->
-        <env name="ALLURE_RESULTS_DIRECTORY" value="build/allure-results"/>
+        <!-- <env name="ALLURE_RESULTS_DIRECTORY" value="build/allure-results"/> -->
     </php>
 </phpunit>

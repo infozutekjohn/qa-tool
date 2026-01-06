@@ -16,6 +16,8 @@ class TestRun extends Model
         'project_code',
         'report_url',
 
+        'token_used',
+
         'status',
         'error_message',
         'started_at',

@@ -10,4 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/test-runs', [TestRunController::class, 'store']);
 Route::get('/test-runs', [TestRunController::class, 'index']);
-Route::get('/test-runs/latest', [TestRunController::class, 'latest']);
+// Route::get('/test-runs/latest', [TestRunController::class, 'latest']);
+Route::get('/test-runs/{testRun}', [TestRunController::class, 'show']);
