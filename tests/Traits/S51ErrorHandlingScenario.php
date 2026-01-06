@@ -22,6 +22,11 @@ trait S51ErrorHandlingScenario
     #[Test]
     public function authenticate_invalid_token(): void
     {
+        // $this->requireGroup('error');
+        // if (!$this->shouldRunGroup('error')) {
+        //     return;
+        // }
+
         $username = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
 
         $payload = [
@@ -61,7 +66,7 @@ trait S51ErrorHandlingScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'authenticate',
+            "endpointType"  => 'error',
             "errorScenario" => true,
             "balanceAction" => null,
         ]);
@@ -91,6 +96,11 @@ trait S51ErrorHandlingScenario
     #[Test]
     public function authenticate_invalid_username(): void
     {
+        // $this->requireGroup('error');
+        // if (!$this->shouldRunGroup('error')) {
+        //     return;
+        // }
+
         $token = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
 
         $payload = [
@@ -130,7 +140,7 @@ trait S51ErrorHandlingScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'authenticate',
+            "endpointType"  => 'error',
             "errorScenario" => true,
             "balanceAction" => null,
         ]);
@@ -159,11 +169,18 @@ trait S51ErrorHandlingScenario
     #[Test]
     public function bet_insufficient_funds(): void
     {
+        // $this->requireGroup('error');
+        // if (!$this->shouldRunGroup('error')) {
+        //     return;
+        // }
+
         $username     = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token        = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
         $rngGameCode  = getenv('TEST_RNG_GAME_CODE') ?: 'gpas_buddhaways_pop';
 
         $date = $this->generateDate();
+
+        $currentBalance  = $this->getTrackedBalance();
 
         $payload = [
             "requestId" => uniqid('test_'),
@@ -172,7 +189,7 @@ trait S51ErrorHandlingScenario
             "gameRoundCode" => uniqid('test_') . bin2hex(random_bytes(8)),
             "transactionCode" => uniqid('test_') . bin2hex(random_bytes(4)),
             "transactionDate" => $date,
-            "amount" => "249",
+            "amount" => $currentBalance + 1,
             "internalFundChanges" => [],
             "gameCodeName" => $rngGameCode
         ];
@@ -209,7 +226,7 @@ trait S51ErrorHandlingScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'bet',
+            "endpointType"  => 'error',
             "errorScenario" => true,
             "balanceAction" => null,
         ]);
@@ -239,6 +256,11 @@ trait S51ErrorHandlingScenario
     #[Test]
     public function bet_invalid_external_token(): void
     {
+        // $this->requireGroup('error');
+        // if (!$this->shouldRunGroup('error')) {
+        //     return;
+        // }
+
         $username    = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $rngGameCode = getenv('TEST_RNG_GAME_CODE') ?: 'gpas_buddhaways_pop';
 
@@ -287,7 +309,7 @@ trait S51ErrorHandlingScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'bet',
+            "endpointType"  => 'error',
             "errorScenario" => true,
             "balanceAction" => null,
         ]);
@@ -317,6 +339,11 @@ trait S51ErrorHandlingScenario
     #[Test]
     public function bet_invalid_format(): void
     {
+        // $this->requireGroup('error');
+        // if (!$this->shouldRunGroup('error')) {
+        //     return;
+        // }
+
         $username = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
         $token    = getenv('TEST_TOKEN') ?: 'fixed_token_fallback';
 
@@ -366,7 +393,7 @@ trait S51ErrorHandlingScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'bet',
+            "endpointType"  => 'error',
             "errorScenario" => true,
             "balanceAction" => null,
         ]);
@@ -387,4 +414,5 @@ trait S51ErrorHandlingScenario
             'text/plain'
         );
     }
+
 }

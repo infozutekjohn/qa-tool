@@ -7,6 +7,8 @@ use Tests\TestCase;                           // Laravel base TestCase
 use GuzzleHttp\Client;
 use Tests\Support\AllureHttpHelpers;
 use Tests\Support\ApiResponseValidator;
+use Tests\Support\GroupGuardTrait;
+use Tests\Support\TestCaseActivate;
 // 01. Login
 use Tests\Traits\S11LoginScenario;
 
@@ -52,6 +54,7 @@ use Tests\Traits\S61LogoutScenario;
 class ApiTest extends TestCase
 {
     use AllureHttpHelpers;
+    // use TestCaseActivate;
 
     protected Client $client;
 

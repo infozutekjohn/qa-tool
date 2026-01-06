@@ -9,10 +9,10 @@ const Parameters = ({
     handleCrossGameCode,
     launchAlias,
     handleLaunchAlias,
-    tableId,
-    handleTableId,
-    tableName,
-    handleTableName,
+    // tableId,
+    // handleTableId,
+    // tableName,
+    // handleTableName,
     betPrimary,
     handleBetPrimary,
     betSecondary,
@@ -33,16 +33,16 @@ const Parameters = ({
     handleBonusTemplateSecondary,
     jackpot,
     handleJackpot,
-    jackpotIdMain,
-    handleJackpotIdMain,
-    jackpotId110,
-    handleJackpotId110,
-    jackpotId120,
-    handleJackpotId120,
-    jackpotId130,
-    handleJackpotId130,
-    jackpotId140,
-    handleJackpotId140,
+    // jackpotIdMain,
+    // handleJackpotIdMain,
+    // jackpotId110,
+    // handleJackpotId110,
+    // jackpotId120,
+    // handleJackpotId120,
+    // jackpotId130,
+    // handleJackpotId130,
+    // jackpotId140,
+    // handleJackpotId140,
 }) => {
     return (
         <div className="container">
@@ -109,7 +109,7 @@ const Parameters = ({
             </div>
 
             {/* Table ID */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Table ID</label>
                 </div>
@@ -122,10 +122,10 @@ const Parameters = ({
                         placeholder="1234"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {/* Table Name */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Table Name</label>
                 </div>
@@ -138,7 +138,7 @@ const Parameters = ({
                         placeholder="Integration Test"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {/* Bet Amount 1 */}
             <div className="row mb-3">
@@ -309,7 +309,7 @@ const Parameters = ({
             </div>
 
             {/* Jackpot ID Main */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Jackpot ID (Main)</label>
                 </div>
@@ -322,10 +322,10 @@ const Parameters = ({
                         placeholder="test_110_120_130_140_333"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {/* Jackpot ID 110 */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Jackpot ID (110)</label>
                 </div>
@@ -338,10 +338,10 @@ const Parameters = ({
                         placeholder="test_110_333"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {/* Jackpot ID 120 */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Jackpot ID (120)</label>
                 </div>
@@ -354,10 +354,10 @@ const Parameters = ({
                         placeholder="test_120_333"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {/* Jackpot ID 130 */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Jackpot ID (130)</label>
                 </div>
@@ -370,10 +370,10 @@ const Parameters = ({
                         placeholder="test_130_333"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {/* Jackpot ID 140 */}
-            <div className="row mb-3">
+            {/* <div className="row mb-3">
                 <div className="col-4">
                     <label className="form-label">Jackpot ID (140)</label>
                 </div>
@@ -386,7 +386,7 @@ const Parameters = ({
                         placeholder="test_140_333"
                     />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

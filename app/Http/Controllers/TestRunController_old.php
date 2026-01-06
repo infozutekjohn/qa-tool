@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\RunApiTestsJob;
 use App\Models\TestRun;
+use App\Services\ApiTestRunner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TestRunController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, ApiTestRunner $runner)
     {
         set_time_limit(300);
 
@@ -18,8 +18,14 @@ class TestRunController extends Controller
             'token'    => 'required|string',
             'endpoint' => 'nullable|string',
 
-            'testGroups' => 'nullable|array',
-            'flags'      => 'nullable|array',
+            'flags' => 'nullable|array',
+            'flags.login'     => 'boolean',
+            'flags.casino'    => 'boolean',
+            'flags.live'      => 'boolean',
+            'flags.bonus'     => 'boolean',
+            'flags.error'     => 'boolean',
+            'flags.gameslink' => 'boolean',
+            'flags.logout'    => 'boolean',
 
             'casinoGameCode' => 'nullable|string',
             'liveGameCode'   => 'nullable|string',
@@ -41,41 +47,28 @@ class TestRunController extends Controller
             'jackpot' => 'nullable|string',
         ]);
 
-        // Create the DB row immediately, status=running
-        $run = TestRun::create([
-            'username' => $data['username'],
-            'token_used' => $data['token'],
-            'phpunit_exit' => null,
-            'project_code' => null,
-            'report_url' => null,
-            'status' => 'running',
-            'error_message' => null,
-            'started_at' => now(),
-            'finished_at' => null,
-        ]);
 
-        Log::info('TestRunController - TestRun CREATED', [
-            'run_id' => $run->id,
-            'time'   => now()->toDateTimeString(),
-        ]);
+        Log::info('Data has been generated', ['data' => $data]);
 
-        // Run in background
-        RunApiTestsJob::dispatch($run->id, $data);
+        // $testRun = $runner->run($data['username'], $data['token'], $request->input('endpoint'));
 
-        // Return immediately so UI can start polling
+        $testRun = $runner->run($data);
+
+        Log::info('Test Run Result', ['test_data' => [$testRun]]);
+
         return response()->json([
-            'id' => $run->id,
-            'status' => $run->status,
-        ], 202);
+            'id'           => $testRun->id,
+            'username'     => $testRun->username,
+            'phpunit_exit' => $testRun->phpunit_exit,
+            'project_id'   => $testRun->project_code,
+            'report_url'   => $testRun->report_url,
+            'created_at'   => $testRun->created_at,
+        ]);
     }
+
 
     public function index()
     {
         return TestRun::orderByDesc('id')->limit(50)->get();
-    }
-
-    public function show(TestRun $testRun)
-    {
-        return $testRun;
     }
 }

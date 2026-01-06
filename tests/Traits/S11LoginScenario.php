@@ -3,6 +3,7 @@
 namespace Tests\Traits;
 
 use GuzzleHttp\Psr7\Message;
+use Illuminate\Support\Facades\Log;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Attributes\Group;
 use Qameta\Allure\Allure;
@@ -56,7 +57,7 @@ trait S11LoginScenario
                 return [$response, $body, $data];
             }
         );
-
+        
         // $this->attachHttpRequestAndResponse($fullUrl, $payload, $response, $body);
 
         // $this->stepAssertStatus($response, 200, $checks);

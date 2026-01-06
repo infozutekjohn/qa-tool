@@ -9,6 +9,8 @@ services:
     depends_on:
       - db
       - allure
+    env_file:
+      - .env
     environment:
       DB_HOST: db
       ALLURE_INTERNAL_BASE_URL: http://allure:5050
@@ -46,6 +48,24 @@ services:
       KEEP_HISTORY: "1"
     volumes:
       - allure_projects:/app/projects
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/node_modules
+    depends_on:
+      - db
+      - allure
+    env_file:
+      - .env
+    environment:
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: info
+    command: php artisan queue:work --verbose --tries=1 --timeout=300
+    restart: unless-stopped
 
 volumes:
   allure_projects:

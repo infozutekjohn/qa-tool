@@ -16,7 +16,6 @@ trait S41FreespinHeldScenario
 {
     // 2.1 Freespin bonus round scenario without wagering (held)
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Bet | Freespin bonus round scenario without wagering (held)')]
@@ -116,7 +115,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Bet | Freespin bonus round scenario without wagering (held)')]
@@ -216,7 +214,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Bet | Freespin bonus round scenario without wagering (held)')]
@@ -316,7 +313,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Gameroundresult (no win) | Freespin bonus round scenario without wagering (held)')]
@@ -396,7 +392,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Gameroundresult (win) | Freespin bonus round scenario without wagering (held)')]
@@ -502,7 +497,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Gameroundresult (win) | Freespin bonus round scenario without wagering (held)')]
@@ -602,7 +596,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('FS Gameroundresult (win) | Freespin bonus round scenario without wagering (held) with jackpot')]
@@ -750,7 +743,6 @@ trait S41FreespinHeldScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.1 Freespin bonus round scenario without wagering (held)')]
     #[DisplayName('Transferfunds | Freespin bonus round scenario without wagering (held)')]

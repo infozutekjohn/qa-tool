@@ -18,7 +18,6 @@ use Tests\Config\Endpoint;
 trait S28RefundScenario
 {
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.8 Regular refund scenario')]
     #[Displayname('Bet | Casino | Refund scenario')]
@@ -91,7 +90,6 @@ trait S28RefundScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.8 Regular refund scenario')]
     #[Displayname('Gameroundresult | Casino | Refund scenario (gameRoundClose no win)')]
@@ -163,7 +161,6 @@ trait S28RefundScenario
     }
 
     #[Group('casino')]
-    #[Group('casino-bet')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.8 Regular refund scenario')]
     #[Displayname('Gameroundresult | Casino | Refund scenario (refund)')]

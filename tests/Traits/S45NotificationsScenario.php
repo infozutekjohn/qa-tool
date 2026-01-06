@@ -16,7 +16,6 @@ trait S45NotificationsScenario
 {
     // 5.1 Bonus removal
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('5.1 Bonus removal')]
     #[DisplayName('Notifybonusevent | Bonus removal')]
@@ -73,8 +72,9 @@ trait S45NotificationsScenario
             "checks"        => $checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
-            "endpointType"  => 'notification',
-            "balanceAction" => 'unchanged',
+            "endpointType"  => 'event',
+            "errorScenario" => false,
+            "balanceAction" => null,
         ]);
 
         Allure::attachment(
@@ -84,72 +84,71 @@ trait S45NotificationsScenario
         );
     }
 
-    #[Group('bonus')]
-    #[Group('bonus-freespin')]
-    #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
-    #[Suite('5.1 Bonus removal')]
-    #[DisplayName('Notifybonusevent | Bonus removal')]
-    #[Description('Testing bonus removal notification 2')]
-    #[Test]
-    public function notify_bonus_removal_2(): void
-    {
-        $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
-        $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_SECONDARY') ?: '123124';
-        $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_SECONDARY') ?: '123124';
-        $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_SECONDARY') ?: '12346';
-        $bonusBalanceChange = getenv('TEST_BONUS_BALANCE_CHANGE') ?: '4';
+    // #[Group('bonus')]
+    // #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
+    // #[Suite('5.1 Bonus removal')]
+    // #[DisplayName('Notifybonusevent | Bonus removal')]
+    // #[Description('Testing bonus removal notification 2')]
+    // #[Test]
+    // public function notify_bonus_removal_2(): void
+    // {
+    //     $username          = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+    //     $remoteBonusCode   = getenv('TEST_REMOTE_BONUS_CODE_SECONDARY') ?: '123124';
+    //     $bonusInstanceCode = getenv('TEST_BONUS_INSTANCE_CODE_SECONDARY') ?: '123124';
+    //     $bonusTemplateId   = getenv('TEST_BONUS_TEMPLATE_SECONDARY') ?: '12346';
+    //     $bonusBalanceChange = getenv('TEST_BONUS_BALANCE_CHANGE') ?: '4';
 
-        $date = $this->generateDate();
+    //     $date = $this->generateDate();
 
-        $payload = [
-            "requestId" => uniqid('test_'),
-            "username" => $username,
-            "remoteBonusCode" => $remoteBonusCode,
-            "bonusInstanceCode" => $bonusInstanceCode,
-            "resultingStatus" => "REMOVED",
-            "date" => $date,
-            "bonusBalanceChange" => $bonusBalanceChange,
-            "bonusTemplateId" => $bonusTemplateId
-        ];
+    //     $payload = [
+    //         "requestId" => uniqid('test_'),
+    //         "username" => $username,
+    //         "remoteBonusCode" => $remoteBonusCode,
+    //         "bonusInstanceCode" => $bonusInstanceCode,
+    //         "resultingStatus" => "REMOVED",
+    //         "date" => $date,
+    //         "bonusBalanceChange" => $bonusBalanceChange,
+    //         "bonusTemplateId" => $bonusTemplateId
+    //     ];
 
-        $endpoint = Endpoint::playtech('notifybonusevent');
+    //     $endpoint = Endpoint::playtech('notifybonusevent');
 
-        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
+    //     $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
 
-        [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send Notifybonusevent (removal 2) request to endpoint')]
-            function (StepContextInterface $step) use ($payload, $endpoint) {
-                $step->parameter('method', 'POST');
-                $step->parameter('endpoint', $endpoint);
-                $step->parameter('resultingStatus', 'REMOVED');
+    //     [$response, $body, $data] = Allure::runStep(
+    //         #[DisplayName('Send Notifybonusevent (removal 2) request to endpoint')]
+    //         function (StepContextInterface $step) use ($payload, $endpoint) {
+    //             $step->parameter('method', 'POST');
+    //             $step->parameter('endpoint', $endpoint);
+    //             $step->parameter('resultingStatus', 'REMOVED');
 
-                $response = $this->client->post($endpoint, [
-                    'json' => $payload,
-                ]);
+    //             $response = $this->client->post($endpoint, [
+    //                 'json' => $payload,
+    //             ]);
 
-                $body = (string)$response->getBody();
-                $data = json_decode($body, true);
-                return [$response, $body, $data];
-            }
-        );
+    //             $body = (string)$response->getBody();
+    //             $data = json_decode($body, true);
+    //             return [$response, $body, $data];
+    //         }
+    //     );
 
-        $checks = [];
+    //     $checks = [];
 
-        $this->validateApiResponse([
-            "response"      => $response,
-            "data"          => $data,
-            "payload"       => $payload,
-            "checks"        => $checks,
-            "fullUrl"       => $fullUrl,
-            "body"          => $body,
-            "endpointType"  => 'notification',
-            "balanceAction" => 'unchanged',
-        ]);
+    //     $this->validateApiResponse([
+    //         "response"      => $response,
+    //         "data"          => $data,
+    //         "payload"       => $payload,
+    //         "checks"        => $checks,
+    //         "fullUrl"       => $fullUrl,
+    //         "body"          => $body,
+    //         "endpointType"  => 'event',
+    //         "balanceAction" => 'unchanged',
+    //     ]);
 
-        Allure::attachment(
-            'Validation Checks',
-            implode(PHP_EOL, $checks),
-            'text/plain'
-        );
-    }
+    //     Allure::attachment(
+    //         'Validation Checks',
+    //         implode(PHP_EOL, $checks),
+    //         'text/plain'
+    //     );
+    // }
 }

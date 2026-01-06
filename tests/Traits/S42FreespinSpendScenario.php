@@ -16,7 +16,6 @@ trait S42FreespinSpendScenario
 {
     // 2.2 Freespin bonus round scenario without wagering (spend)
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.2 Freespin bonus round scenario without wagering (spend)')]
     #[DisplayName('FS Bet | Freespin bonus round scenario without wagering (spend)')]
@@ -116,7 +115,6 @@ trait S42FreespinSpendScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.2 Freespin bonus round scenario without wagering (spend)')]
     #[DisplayName('FS Bet | Freespin bonus round scenario without wagering (spend)')]
@@ -216,7 +214,6 @@ trait S42FreespinSpendScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.2 Freespin bonus round scenario without wagering (spend)')]
     #[DisplayName('FS Bet | Freespin bonus round scenario without wagering (spend) for jackpot')]
@@ -316,7 +313,6 @@ trait S42FreespinSpendScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.2 Freespin bonus round scenario without wagering (spend)')]
     #[DisplayName('FS Gameroundresult (no win) | Freespin bonus round scenario without wagering (spend)')]
@@ -396,7 +392,6 @@ trait S42FreespinSpendScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.2 Freespin bonus round scenario without wagering (spend)')]
     #[DisplayName('FS Gameroundresult (win) | Freespin bonus round scenario without wagering (spend)')]
@@ -497,7 +492,6 @@ trait S42FreespinSpendScenario
     }
 
     #[Group('bonus')]
-    #[Group('bonus-freespin')]
     #[ParentSuite('04. Gameslink Casino Tests (bonus flows)')]
     #[Suite('2.2 Freespin bonus round scenario without wagering (spend)')]
     #[DisplayName('FS Gameroundresult (win) | Freespin bonus round scenario without wagering (spend) with jackpot')]

@@ -9,14 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
+    public function up(): void
     {
-        Schema::create('test_run', function(Blueprint $table){
+        Schema::create('test_run', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable();
-            $table->integer('phpunit_exit');
-            $table->string('project_code');
-            $table->string('report_url');
+            $table->integer('phpunit_exit')->nullable();
+            $table->string('project_code')->nullable();
+            $table->string('report_url')->nullable();
+            $table->string('token_used')->nullable();
+            $table->string('status')->default('running')->index();
+            $table->text('error_message')->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,6 @@ use Tests\Config\Endpoint;
 trait S31LiveCasinoRegularScenario
 {
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.1 Regular gameround scenarios')]
     #[DisplayName('Bet | Live Casino | Regular gameround scenario 1')]
@@ -94,7 +93,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.1 Regular gameround scenarios')]
     #[DisplayName('Bet | Live Casino | Regular gameround scenario 2')]
@@ -171,7 +169,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.1 Regular gameround scenarios')]
     #[DisplayName('Gameroundresult (no win) | Live Casino | Regular gameround scenario')]
@@ -250,7 +247,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.1 Regular gameround scenarios')]
     #[DisplayName('Gameroundresult (win) | Live Casino | Regular gameround scenario')]
@@ -337,7 +333,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.1 Regular gameround scenarios')]
     #[DisplayName('What Is My Purpose?')]
@@ -421,7 +416,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('Bet | Forward compatibility check')]
@@ -434,7 +428,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('Gameroundresult (no win) | Forward compatibility check')]
@@ -447,7 +440,6 @@ trait S31LiveCasinoRegularScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('What Is My Purpose Again?')]

@@ -16,7 +16,6 @@ trait S36LiveCasinoRefundScenario
 {
     // 2.6 Regular refund scenario with relation
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.6 Regular refund scenario with relation')]
     #[DisplayName('Bet (for refund) | Live Casino | Regular gameround scenario with relation')]
@@ -97,7 +96,6 @@ trait S36LiveCasinoRefundScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.6 Regular refund scenario with relation')]
     #[DisplayName('Gameroundresult (refund) | Live Casino | Regular gameround scenario with relation')]

@@ -16,7 +16,6 @@ trait S39LiveCasinoTipScenario
 {
     // 2.9 Live tip scenario
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.9 Live tip scenario')]
     #[DisplayName('Livetip | Live Casino | Live tip scenario')]

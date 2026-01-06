@@ -16,7 +16,6 @@ trait S40LiveCasinoForwardCompatibilityScenario
 {
     // 2.10 Forward compatibility check
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('Bet | Live Casino | Forward compatibility check')]
@@ -97,7 +96,6 @@ trait S40LiveCasinoForwardCompatibilityScenario
     }
 
     #[Group('live')]
-    #[Group('live-regular')]
     #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
     #[Suite('2.10 Forward compatibility check')]
     #[DisplayName('Gameroundresult (no win) | Live Casino | Forward compatibility check')]
@@ -171,63 +169,6 @@ trait S40LiveCasinoForwardCompatibilityScenario
             "body"          => $body,
             "endpointType"  => 'result',
         ]);
-
-        Allure::attachment(
-            'Validation Checks',
-            implode(PHP_EOL, $checks),
-            'text/plain'
-        );
-    }
-
-    #[Group('live')]
-    #[Group('live-regular')]
-    #[ParentSuite('03. Gameslink Casino Tests (live flows)')]
-    #[Suite('2.10 Forward compatibility check')]
-    #[DisplayName('What Is My Purpose Again? | Live Casino | Forward compatibility check')]
-    #[Description('Placeholder test until skipRequest() in Allure is fixed')]
-    #[Test]
-    public function live_forward_compatibility_purpose_check(): void
-    {
-        $payload = [
-            "requestId" => uniqid('test_'),
-            "purpose" => "To be a landing pad until skipRequest() in Allure is fixed."
-        ];
-
-        $endpoint = 'https://postman-echo.com/get';
-
-        [$response, $body, $data] = Allure::runStep(
-            #[DisplayName('Send purpose check request to Postman Echo')]
-            function (StepContextInterface $step) use ($payload, $endpoint) {
-                $step->parameter('method', 'GET');
-                $step->parameter('endpoint', $endpoint);
-                $step->parameter('purpose', 'Placeholder until skipRequest() is fixed');
-
-                $response = $this->client->get($endpoint, [
-                    'query' => $payload,
-                ]);
-
-                $body = (string)$response->getBody();
-                $data = json_decode($body, true);
-                return [$response, $body, $data];
-            }
-        );
-
-        $checks = [];
-
-        $this->attachHttpRequestAndResponse($endpoint, $payload, $response, $body);
-
-        $this->stepAssertStatus($response, 200, $checks);
-
-        $this->stepAssertBalanceError($data, $checks);
-
-        Allure::runStep(
-            #[DisplayName('Verify request echoed back correctly')]
-            function (StepContextInterface $step) use ($data, $payload, &$checks) {
-                $this->assertArrayHasKey('args', $data, 'Response should contain args');
-                $this->assertEquals($payload['requestId'], $data['args']['requestId'] ?? null, 'RequestId should match');
-                $checks[] = '[PASS] Request echoed back correctly';
-            }
-        );
 
         Allure::attachment(
             'Validation Checks',
