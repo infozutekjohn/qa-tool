@@ -112,6 +112,7 @@ const Main = () => {
                 const run = await pollRun(runId);
 
                 if (run.status === "success") {
+                    console.log("RunStateCheck: Success should be triggered");
                     setRunState({
                         status: "success",
                         id: runId,
@@ -121,11 +122,9 @@ const Main = () => {
                 }
 
                 if (run.status === "failed") {
-                    // setRunState({
-                    //     status: "failed",
-                    //     id: runId,
-                    //     message: run.error_message || "Run failed.",
-                    // });
+                    console.log(
+                        "RunStateCheck: If run.status is failed is triggered"
+                    );
 
                     setRunState({
                         status: "failed",
@@ -137,17 +136,13 @@ const Main = () => {
                 }
 
                 if (Date.now() - startedAt > 15 * 60 * 1000) {
-                    // setRunState({
-                    //     status: "failed",
-                    //     id: runId,
-                    //     message: "Timed out waiting for report.",
-                    // });
+                    console.log("RunStateCheck: If timeout is triggered");
 
                     setRunState({
                         status: "failed",
                         id: runId,
                         message:
-                            run.error_message || "Report generation failed.",
+                            "Timed out waiting for report. Report generation failed",
                     });
                     break;
                 }
@@ -157,6 +152,7 @@ const Main = () => {
 
             await fetchRuns();
         } catch (err) {
+            console.log("RunStateCheck: Catch is triggered");
             setRunState({
                 status: "failed",
                 id: null,
@@ -176,6 +172,8 @@ const Main = () => {
     // };
 
     const reportBadge = (run) => {
+        console.log("Trigger report badge");
+        console.log(run.status);
         if (run.status === "running")
             return <span className="badge text-bg-secondary">GENERATING</span>;
         if (run.status === "failed")

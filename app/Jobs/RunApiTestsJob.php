@@ -22,11 +22,7 @@ class RunApiTestsJob implements ShouldQueue
 
     public function handle(ApiTestRunner $runner): void
     {
-        /**
-         * ============================================================
-         * HARD LOCK — guarantees this run executes ONLY ONCE
-         * ============================================================
-         */
+        // HARD LOCK — guarantees this run executes ONLY ONCE
         $lock = cache()->lock("run-api-tests:{$this->testRunId}", 600);
 
         if (!$lock->get()) {
@@ -53,7 +49,6 @@ class RunApiTestsJob implements ShouldQueue
                 return;
             }
 
-
             // MARK AS RUNNING
             $run->update([
                 'status'        => 'running',
@@ -74,15 +69,9 @@ class RunApiTestsJob implements ShouldQueue
                 'finished_at'  => now(),
             ]);
 
-            // $run->update([
-            //     'phpunit_exit' => $result['exitCode'],
-            //     'project_code' => $result['projectCode'],
-            //     'report_url'   => $result['reportUrl'],
-            //     'status'       => ($result['exitCode'] === 0) ? 'success' : 'failed',
-            //     'finished_at'  => now(),
-            // ]);
-
             Log::info('RunApiTestsJob - RunApiTestsJob FINISHED', [
+                'message'=>'RunApiTestsJob successful',
+                'status'        => $run->status,
                 'run_id'        => $this->testRunId,
                 'exit_code'     => $result['exitCode'],
                 'project_code'  => $result['projectCode'],
@@ -97,6 +86,8 @@ class RunApiTestsJob implements ShouldQueue
             }
 
             Log::error('RunApiTestsJob - RunApiTestsJob FAILED', [
+                'message'=>'RunApiTestsJob triggered catch',
+                'status'        => $run->status,
                 'run_id' => $this->testRunId,
                 'error'  => $e->getMessage(),
                 'trace'  => $e->getTraceAsString(),
