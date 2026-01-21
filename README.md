@@ -283,12 +283,12 @@ Create subdomains with "A" records pointing to Virtual Machine's IP:
 <VirtualHost *:80>
     ServerName qa-tool.domain.com
     ServerAdmin dev@domain.com
-    DocumentRoot /var/www/qa-tool-domain-com
+    DocumentRoot /var/www/qa-tool-domain-com/public
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
     RemoteIPHeader CF-Connecting-IP
 </VirtualHost>
-<Directory /var/www/qa-tool-domain-com>
+<Directory /var/www/qa-tool-domain-com/public>
     Options FollowSymLinks
     AllowOverride All
     Require all granted
@@ -300,7 +300,7 @@ Create subdomains with "A" records pointing to Virtual Machine's IP:
 <VirtualHost *:443>
     ServerName qa-tool.domain.com
     ServerAdmin dev@domain.com
-    DocumentRoot /var/www/qa-tool-domain-com
+    DocumentRoot /var/www/qa-tool-domain-com/public
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
     RemoteIPHeader CF-Connecting-IP
@@ -309,7 +309,7 @@ Create subdomains with "A" records pointing to Virtual Machine's IP:
     SSLCertificateKeyFile /etc/apache2/certs/domain_com.key
     SSLCertificateChainFile /etc/apache2/certs/cloudflareca.crt
 </VirtualHost>
-<Directory /var/www/qa-tool-domain-com>
+<Directory /var/www/qa-tool-domain-com/public>
     Options FollowSymLinks
     AllowOverride All
     Require all granted
@@ -366,9 +366,24 @@ git clone <REPO_URL> qa-tool
 cd qa-tool
 ```
 
-## Create .env file from example
+## Configure for production environment
+### Create .env file from example
 ```bash
 cp .env.example .env
+```
+### Update .env file
+```bash
+nano .env
+
+APP_ENV=production
+LOG_CHANNEL=stderr 
+```
+### Make logs, cache and allure-results directories writable
+```bash
+# create directories if not existing before running the command:
+mkdir storage/log bootstrap/cache allure-results 
+# update directory permissions 
+chmod –R 775 storage bootstrap/cache allure-results 
 ```
 
 ## Setup MySQL
