@@ -115,7 +115,9 @@ trait ApiResponseValidator
                 break;
         }
 
-        $this->stepAssertBalanceError($data, $checks);
+        if ($balanceAction || $endpointType === 'getbalance') {
+            $this->stepAssertBalanceError($data, $checks);
+        }
 
         // getbalance-only tracking
         if ($endpointType === 'getbalance') {

@@ -324,7 +324,7 @@ trait AllureHttpHelpers
     protected function stepAssertBalanceError(array $data, ?array &$checks = null): void
     {
         Allure::runStep(
-            #[DisplayName('Validate balance rules')]
+            #[DisplayName("No coexistence of 'balance' and 'error'")]
             function (StepContextInterface $step) use ($data, &$checks) {
 
                 /** 1. balance + error must NEVER both exist */

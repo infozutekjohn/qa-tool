@@ -403,8 +403,8 @@ trait S51ErrorHandlingScenario
             function (StepContextInterface $step) use ($data, &$checks) {
                 $this->assertArrayHasKey('error', $data, 'Response should contain error field');
                 $this->assertEquals('INVALID_REQUEST_PAYLOAD', $data['error']['code'] ?? null, 'Error code should be INVALID_REQUEST_PAYLOAD');
-                $checks[] = '[PASS] Error code is INVALID_REQUEST_PAYLOAD';
-                $checks[] = '[PASS] Error description: ' . ($data['error']['description'] ?? 'N/A');
+                $checks[] = '✔ Error code is INVALID_REQUEST_PAYLOAD';
+                $checks[] = '✔ Error description: ' . ($data['error']['description'] ?? 'N/A');
             }
         );
 
@@ -414,5 +414,74 @@ trait S51ErrorHandlingScenario
             'text/plain'
         );
     }
+
+    #[Group('error')]
+    #[ParentSuite('05. Gameslink Casino Tests (error handling)')]
+    #[Suite('2. Error handling')]
+    #[DisplayName('GetBalance (invalid externalToken)')]
+    #[Description('Testing getBalance with invalid external token')]
+    #[Test]
+    public function getbalance_invalid_external_token(): void
+    {
+        $username = getenv('TEST_USERNAME') ?: 'fixed_user_fallback';
+
+        $payload = [
+            "requestId" => uniqid('test_'),
+            "username" => $username,
+            "externalToken" => "InvalidTokenTestValue"
+        ];
+
+        $endpoint = Endpoint::playtech('getbalance');
+
+        $fullUrl = (string)$this->client->getConfig('base_uri') . ltrim($endpoint, '/');
+
+        [$response, $body, $data] = Allure::runStep(
+            #[DisplayName('Send GetBalance (invalid externalToken) request to endpoint')]
+            function (StepContextInterface $step) use ($payload, $endpoint) {
+                $step->parameter('method', 'POST');
+                $step->parameter('endpoint', $endpoint);
+                $step->parameter('errorType', 'Invalid External Token');
+
+                $response = $this->client->post($endpoint, [
+                    'json' => $payload,
+                    'http_errors' => false,
+                ]);
+
+                $body = (string)$response->getBody();
+                $data = json_decode($body, true);
+                return [$response, $body, $data];
+            }
+        );
+
+        $checks = [];
+
+        $this->validateApiResponse([
+            "response"      => $response,
+            "data"          => $data,
+            "payload"       => $payload,
+            "checks"        => &$checks,
+            "fullUrl"       => $fullUrl,
+            "body"          => $body,
+            "endpointType"  => 'error',
+            "errorScenario" => true,
+            "balanceAction" => null,
+        ]);
+
+        Allure::runStep(
+            #[DisplayName('Verify error response contains ERR_AUTHENTICATION_FAILED')]
+            function (StepContextInterface $step) use ($data, &$checks) {
+                $this->assertArrayHasKey('error', $data, 'Response should contain error field');
+                $this->assertEquals('ERR_AUTHENTICATION_FAILED', $data['error']['code'] ?? null, 'Error code should be ERR_AUTHENTICATION_FAILED');
+                $checks[] = '✔ Error code is ERR_AUTHENTICATION_FAILED';
+                $checks[] = '✔ Error description: ' . ($data['error']['description'] ?? 'N/A');
+            }
+        );        
+
+        Allure::attachment(
+            'Validation Checks',
+            implode(PHP_EOL, $checks),
+            'text/plain'
+        );
+    }    
 
 }

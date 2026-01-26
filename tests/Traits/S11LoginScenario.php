@@ -18,7 +18,7 @@ use Tests\Config\Endpoint;
 trait S11LoginScenario
 {
     #[Group('login')]
-    #[ParentSuite('01. Login')]
+    #[ParentSuite('01. Gameslink Login')]
     #[Suite('1.1 Login Scenario')]
     #[Displayname('Authenticate')]
     #[Description('Testing wallet authenticate response')]
@@ -86,9 +86,9 @@ trait S11LoginScenario
     }
 
     #[Group('login')]
-    #[ParentSuite('01. Login')]
+    #[ParentSuite('01. Gameslink Login')]
     #[Suite('1.1 Login Scenario')]
-    #[Displayname('Getbalance')]
+    #[Displayname('GetBalance')]
     #[Description('Testing wallet balance response')]
     #[Test]
     public function Getbalance(): void
