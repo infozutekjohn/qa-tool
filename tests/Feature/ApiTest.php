@@ -36,11 +36,17 @@ use Tests\Traits\S309LiveCasinoTipScenario;
 use Tests\Traits\S310LiveCasinoForwardCompatibilityScenario;
 
 // 04. Bonus Flows
-use Tests\Traits\S41FreespinHeldScenario;
-use Tests\Traits\S42FreespinSpendScenario;
-use Tests\Traits\S43GoldenChipsScenario;
-use Tests\Traits\S44PromotionalsScenario;
-use Tests\Traits\S45NotificationsScenario;
+use Tests\Traits\S411FreespinHeldScenario;
+use Tests\Traits\S422FreespinSpendScenario;
+use Tests\Traits\S421GoldenChipsScenario;
+use Tests\Traits\S422GoldenChipsScenario;
+use Tests\Traits\S423GoldenChipsScenario;
+use Tests\Traits\S424GoldenChipsScenario;
+use Tests\Traits\S425GoldenChipsScenario;
+use Tests\Traits\S426GoldenChipsScenario;
+use Tests\Traits\S431PromotionalsScenario;
+use Tests\Traits\S432PromotionalsScenario;
+use Tests\Traits\S441NotificationsScenario;
 
 // 05. Error Handling
 use Tests\Traits\S51ErrorHandlingScenario;
