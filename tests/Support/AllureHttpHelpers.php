@@ -733,4 +733,24 @@ trait AllureHttpHelpers
             }
         );
     }
+
+    protected function stepAssertUsername(
+        array $data,
+        ?array &$checks = null,
+        array $options = []
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Username in response matches request')]
+            function (StepContextInterface $step) use ($data, &$checks, $options) {
+                $this->assertArrayHasKey('username', $data, 'Missing username in response');
+
+            }
+        );
+        Allure::runStep(
+            #[DisplayName('Username is 32 char or less')]
+            function (StepContextInterface $step) use ($data, &$checks, $options) {
+                $this->assertLessThanOrEqual(32, strlen($data['username']), 'Username must be 32 characters or less');
+            }
+        );
+    }    
 }
