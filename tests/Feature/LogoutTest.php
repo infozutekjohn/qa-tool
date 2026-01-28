@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\Traits\S61LogoutScenario;
+use Tests\Traits\S71LogoutScenario;
 
 class LogoutTest extends BaseApiTest
 {
-    use S61LogoutScenario;
+    use S71LogoutScenario;
 }

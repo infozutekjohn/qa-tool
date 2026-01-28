@@ -57,7 +57,7 @@ use Tests\Traits\S62FeatureTestsScenario;
 use Tests\Traits\S63FeatureTestsScenario;
 
 // 07. Logout
-use Tests\Traits\S61LogoutScenario;
+use Tests\Traits\S71LogoutScenario;
 
 class ApiTest extends TestCase
 {
@@ -165,5 +165,5 @@ class ApiTest extends TestCase
     use S63FeatureTestsScenario;
 
     // 07. Logout
-    use S61LogoutScenario;
+    use S71LogoutScenario;
 }
