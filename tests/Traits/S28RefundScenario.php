@@ -74,7 +74,7 @@ trait S28RefundScenario
             "response"      => $response,
             "data"          => $data,
             "payload"       => $payload,
-            "checks"        => $checks,
+            "checks"        => &$checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
             "endpointType"  => 'bet',
@@ -146,7 +146,7 @@ trait S28RefundScenario
             "response"      => $response,
             "data"          => $data,
             "payload"       => $payload,
-            "checks"        => $checks,
+            "checks"        => &$checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
             "endpointType"  => 'result',
@@ -221,12 +221,12 @@ trait S28RefundScenario
             "response"      => $response,
             "data"          => $data,
             "payload"       => $payload,
-            "checks"        => $checks,
+            "checks"        => &$checks,
             "fullUrl"       => $fullUrl,
             "body"          => $body,
             "endpointType"  => 'result',
-            "balanceAction" => 'added',
-            "win"           => $betPrimary,
+            "balanceAction" => 'refunded',
+            "refund"        => $betPrimary,
         ]);
 
         Allure::attachment(

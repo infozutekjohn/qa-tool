@@ -32,7 +32,7 @@ trait ApiResponseValidator
         $response        = $context['response'];
         $data            = $context['data'];
         $payload         = $context['payload'];
-        $checks          = $context['checks'];
+        $checks          = &$context['checks'];
         $fullUrl         = $context['fullUrl'];
         $body            = $context['body'];
 
@@ -57,7 +57,7 @@ trait ApiResponseValidator
             $this->stepAssertNoErrorField($data);
         }
 
-        $this->stepAssertRequestIdMatches($payload, $data);
+        $this->stepAssertRequestIdMatches($payload, $data, $checks);
 
         $this->stepAssertTimestampFormat(
             $data,
