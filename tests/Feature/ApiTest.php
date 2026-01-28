@@ -24,16 +24,16 @@ use Tests\Traits\S28RefundScenario;
 use Tests\Traits\S29ForwardCompatibilityScenario;
 
 // 03. Live Casino Tests (live flows)
-use Tests\Traits\S31LiveCasinoRegularScenario;
-use Tests\Traits\S32LiveCasinoJackpotScenario;
-use Tests\Traits\S33LiveCasinoRetriesScenario;
-use Tests\Traits\S34LiveCasinoMultiseatScenario;
-use Tests\Traits\S35LiveCasinoBonusScenario;
-use Tests\Traits\S36LiveCasinoRefundScenario;
-use Tests\Traits\S37LiveCasinoPartialRefundScenario;
-use Tests\Traits\S38LiveCasinoFullRefundScenario;
-use Tests\Traits\S39LiveCasinoTipScenario;
-use Tests\Traits\S40LiveCasinoForwardCompatibilityScenario;
+use Tests\Traits\S301LiveCasinoRegularScenario;
+use Tests\Traits\S302LiveCasinoJackpotScenario;
+use Tests\Traits\S303LiveCasinoRetriesScenario;
+use Tests\Traits\S304LiveCasinoMultiseatScenario;
+use Tests\Traits\S305LiveCasinoBonusScenario;
+use Tests\Traits\S306LiveCasinoRefundScenario;
+use Tests\Traits\S307LiveCasinoPartialRefundScenario;
+use Tests\Traits\S308LiveCasinoFullRefundScenario;
+use Tests\Traits\S309LiveCasinoTipScenario;
+use Tests\Traits\S310LiveCasinoForwardCompatibilityScenario;
 
 // 04. Bonus Flows
 use Tests\Traits\S41FreespinHeldScenario;
