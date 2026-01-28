@@ -52,7 +52,9 @@ use Tests\Traits\S441NotificationsScenario;
 use Tests\Traits\S51ErrorHandlingScenario;
 
 // 06. Gameslink Features Tests
-use Tests\Traits\S60FeatureTestsScenario;
+use Tests\Traits\S61FeatureTestsScenario;
+use Tests\Traits\S62FeatureTestsScenario;
+use Tests\Traits\S63FeatureTestsScenario;
 
 // 07. Logout
 use Tests\Traits\S61LogoutScenario;
@@ -130,29 +132,37 @@ class ApiTest extends TestCase
     use S29ForwardCompatibilityScenario;
 
     // 03. Live Casino Tests (live flows)
-    use S31LiveCasinoRegularScenario;
-    use S32LiveCasinoJackpotScenario;
-    use S33LiveCasinoRetriesScenario;
-    use S34LiveCasinoMultiseatScenario;
-    use S35LiveCasinoBonusScenario;
-    use S36LiveCasinoRefundScenario;
-    use S37LiveCasinoPartialRefundScenario;
-    use S38LiveCasinoFullRefundScenario;
-    use S39LiveCasinoTipScenario;
-    use S40LiveCasinoForwardCompatibilityScenario;
+    use S301LiveCasinoRegularScenario;
+    use S302LiveCasinoJackpotScenario;
+    use S303LiveCasinoRetriesScenario;
+    use S304LiveCasinoMultiseatScenario;
+    use S305LiveCasinoBonusScenario;
+    use S306LiveCasinoRefundScenario;
+    use S307LiveCasinoPartialRefundScenario;
+    use S308LiveCasinoFullRefundScenario;
+    use S309LiveCasinoTipScenario;
+    use S310LiveCasinoForwardCompatibilityScenario;
 
     // 04. Bonus Flows
-    use S41FreespinHeldScenario;
-    use S42FreespinSpendScenario;
-    use S43GoldenChipsScenario;
-    use S44PromotionalsScenario;
-    use S45NotificationsScenario;
+    use S411FreespinHeldScenario;
+    use S412FreespinSpendScenario;
+    use S421GoldenChipsScenario;
+    use S422GoldenChipsScenario;
+    use S423GoldenChipsScenario;
+    use S424GoldenChipsScenario;
+    use S425GoldenChipsScenario;
+    use S426GoldenChipsScenario;
+    use S431PromotionalsScenario;
+    use S432PromotionalsScenario;
+    use S441NotificationsScenario;
 
     // 05. Error Handling
     use S51ErrorHandlingScenario;
 
     // 06. Gameslink Features Tests
-    use S60FeatureTestsScenario;
+    use S61FeatureTestsScenario;
+    use S62FeatureTestsScenario;
+    use S63FeatureTestsScenario;
 
     // 07. Logout
     use S61LogoutScenario;

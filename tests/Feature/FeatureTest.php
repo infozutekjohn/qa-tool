@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\Traits\S60FeatureTestsScenario;
-use Tests\Traits\S61LogoutScenario;
+use Tests\Traits\S61FeatureTestsScenario;
+use Tests\Traits\S62FeatureTestsScenario;
+use Tests\Traits\S63FeatureTestsScenario;
 
 class FeatureTest extends BaseApiTest
 {
-    use S60FeatureTestsScenario;
-    use S61LogoutScenario;
+    use S61FeatureTestsScenario;
+    use S62FeatureTestsScenario;
+    use S63FeatureTestsScenario;
 }
