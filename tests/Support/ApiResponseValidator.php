@@ -113,6 +113,32 @@ trait ApiResponseValidator
                     $checks
                 );
                 break;
+
+            case 'transferred':
+                $this->stepAssertBalanceTransferAdded(
+                    $data,
+                    $context['transfer'] ?? null,
+                    'Transfer amount',
+                    $checks
+                );
+                break;  
+
+            case 'refunded':
+                $this->stepAssertBalanceRefundAdded(
+                    $data,
+                    $context['refund'] ?? null,
+                    'Refund amount',
+                    $checks
+                );
+                break;                
+
+            case 'tipped':
+                $this->stepAssertBalanceTipDeducted(
+                    $data,
+                    $context['tip'] ?? null,
+                    $checks
+                );
+                break;              
         }
 
         if ($balanceAction || $endpointType === 'getbalance') {

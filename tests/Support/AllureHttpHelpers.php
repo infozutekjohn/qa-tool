@@ -29,7 +29,7 @@ trait AllureHttpHelpers
             'balance'
         ],
 
-        // bet, result, transferfunds
+        // bet, result, transferfunds, tip
         'transaction' => [
             'requestId',
             'externalTransactionCode',
@@ -329,11 +329,13 @@ trait AllureHttpHelpers
 
                 /** 1. balance + error must NEVER both exist */
                 if (array_key_exists('balance', $data) && array_key_exists('error', $data)) {
+                    $checks[] = "⚠ There is a coexistence of 'balance' and 'error'";
                     $this->fail(
                         "Invalid response: 'balance' and 'error' cannot appear at the same time."
                     );
+                } else {
+                    $checks[] = "✔ No coexistence of 'balance' and 'error'";
                 }
-                $checks[] = "✔ No coexistence of 'balance' and 'error'";
             }
         );
     }
@@ -458,6 +460,9 @@ trait AllureHttpHelpers
                             $checks[] = "✔ Balance unchanged | {$message} | Balance: {$balanceAfter}";
                         } else {
                             $checks[] = "⚠ Balance change: {$actualChange} (expected: 0) | {$message} | Balance: {$balanceAfter}";
+                            $this->fail(
+                                "expected {$balanceAfter} to equal to {$balanceBefore}"
+                            );
                         }
                     }
                 }
@@ -467,6 +472,149 @@ trait AllureHttpHelpers
             }
         );
     }
+
+    protected function stepAssertBalanceTransferAdded(
+        array $data,
+        string $transferAmount,
+        string $message = 'Transfer amount',
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Balance updated correctly (transfer addition)')]
+            function (StepContextInterface $step) use ($data, $transferAmount, $message, &$checks) {
+                $this->assertArrayHasKey('balance', $data, 'Missing balance in response');
+                $this->assertArrayHasKey('real', $data['balance'], 'Missing balance.real in response');
+
+                $balanceBefore = self::$currentBalance;
+                $balanceAfter = (float) $data['balance']['real'];
+                $transferAmountFloat = (float) $transferAmount;
+
+                $step->parameter('balanceBefore', (string) $balanceBefore);
+                $step->parameter('transferAmount', $transferAmount);
+                $step->parameter('balanceAfter', (string) $balanceAfter);
+
+                // Verify balance is a valid non-negative number
+                $this->assertGreaterThanOrEqual(0, $balanceAfter, 'Balance should be non-negative');
+
+                if ($balanceBefore !== null) {
+                    $actualAddition = round($balanceAfter - $balanceBefore, 2);
+                    $step->parameter('actualAddition', (string) $actualAddition);
+
+                    // Log the balance change for debugging, but don't fail on mismatch
+                    // as balance may be affected by other concurrent transactions
+                    if (is_array($checks)) {
+                        if (abs($actualAddition - $transferAmountFloat) < 0.01) {
+                            $checks[] = "✔ Balance increased correctly | {$message}: {$transferAmount} | Balance after: {$balanceAfter}";
+                        } else {
+                            $checks[] = "⚠ Balance change: {$actualAddition} (expected: {$transferAmount}) | Balance after: {$balanceAfter}";
+                            $expectedBalance = round($balanceBefore + $transferAmount, 2);
+                            $this->fail(
+                                "expected {$balanceAfter} to equal to {$expectedBalance}"
+                            );
+                        }
+                    }
+                }
+
+                // Update tracked balance
+                self::$currentBalance = $balanceAfter;
+            }
+        );
+    } 
+    
+    protected function stepAssertBalanceRefundAdded(
+        array $data,
+        string $refundAmount,
+        string $message = 'Refund amount',
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Balance updated correctly (refund addition)')]
+            function (StepContextInterface $step) use ($data, $refundAmount, $message, &$checks) {
+                $this->assertArrayHasKey('balance', $data, 'Missing balance in response');
+                $this->assertArrayHasKey('real', $data['balance'], 'Missing balance.real in response');
+
+                $balanceBefore = self::$currentBalance;
+                $balanceAfter = (float) $data['balance']['real'];
+                $refundAmountFloat = (float) $refundAmount;
+
+                $step->parameter('balanceBefore', (string) $balanceBefore);
+                $step->parameter('refundAmount', $refundAmount);
+                $step->parameter('balanceAfter', (string) $balanceAfter);
+
+                // Verify balance is a valid non-negative number
+                $this->assertGreaterThanOrEqual(0, $balanceAfter, 'Balance should be non-negative');
+
+                if ($balanceBefore !== null) {
+                    $actualAddition = round($balanceAfter - $balanceBefore, 2);
+                    $step->parameter('actualAddition', (string) $actualAddition);
+
+                    // Log the balance change for debugging, but don't fail on mismatch
+                    // as balance may be affected by other concurrent transactions
+                    if (is_array($checks)) {
+                        if (abs($actualAddition - $refundAmountFloat) < 0.01) {
+                            $checks[] = "✔ Balance increased correctly | {$message}: {$refundAmount} | Balance after: {$balanceAfter}";
+                        } else {
+                            $checks[] = "⚠ Balance change: {$actualAddition} (expected: {$refundAmount}) | Balance after: {$balanceAfter}";
+                            $expectedBalance = round($balanceBefore + $refundAmount, 2);
+                            $this->fail(
+                                "expected {$balanceAfter} to equal to {$expectedBalance}"
+                            );
+                        }
+                    }
+                }
+
+                // Update tracked balance
+                self::$currentBalance = $balanceAfter;
+            }
+        );
+    }     
+    
+    protected function stepAssertBalanceTipDeducted(
+        array $data,
+        string $tipAmount,
+        ?array &$checks = null
+    ): void {
+        Allure::runStep(
+            #[DisplayName('Balance updated correctly (tip deduction)')]
+            function (StepContextInterface $step) use ($data, $tipAmount, &$checks) {
+                $this->assertArrayHasKey('balance', $data, 'Missing balance in response');
+                $this->assertArrayHasKey('real', $data['balance'], 'Missing balance.real in response');
+
+                $balanceBefore = self::$currentBalance;
+                $balanceAfter = (float) $data['balance']['real'];
+                $tipAmountFloat = (float) $tipAmount;
+
+                $step->parameter('balanceBefore', (string) $balanceBefore);
+                $step->parameter('tipAmount', $tipAmount);
+                $step->parameter('balanceAfter', (string) $balanceAfter);
+
+                // Verify balance is a valid non-negative number
+                $this->assertGreaterThanOrEqual(0, $balanceAfter, 'Balance should be non-negative');
+
+                if ($balanceBefore !== null) {
+                    $actualDeduction = round($balanceBefore - $balanceAfter, 2);
+                    $step->parameter('actualDeduction', (string) $actualDeduction);
+
+                    // Log the balance change for debugging, but don't fail on mismatch
+                    // as balance may be affected by other concurrent transactions
+                    if (is_array($checks)) {
+                        if (abs($actualDeduction - $tipAmountFloat) < 0.01) {
+                            $checks[] = "✔ Balance deducted correctly | Tip: {$tipAmount} | Balance after: {$balanceAfter}";
+                        } else {
+                            $checks[] = "⚠ Balance change: {$actualDeduction} (expected: {$tipAmount}) | Balance after: {$balanceAfter}";
+                            $expectedBalance = round($balanceBefore - $tipAmount, 2);
+                            $this->fail(
+                                "expected {$balanceAfter} to equal to {$expectedBalance}"
+                            );
+                        }
+                    }
+                }
+
+                // Update tracked balance
+                self::$currentBalance = $balanceAfter;
+            }
+        );
+    }    
 
     // TODO: Make the includeBalance as the default checking
     protected function stepAssertTimestampFormat(
