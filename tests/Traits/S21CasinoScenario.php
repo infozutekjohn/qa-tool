@@ -233,7 +233,7 @@ trait S21CasinoScenario
     #[Group('casino')]
     #[ParentSuite('02. Gameslink Casino Tests (casino flows)')]
     #[Suite('2.1 Regular Gameround Scenario')]
-    #[Displayname('Gameroundresult | Casino | Regular gameround scenario (no win)')]
+    #[Displayname('Gameroundresult | Casino | Regular gameround scenario (win)')]
     #[Description('Testing wallet regular no win result response')]
     #[Test]
     public function result_win(): void
