@@ -84,6 +84,10 @@ trait AllureHttpHelpers
         ResponseInterface $response,
         string $body
     ): void {
+        
+        Allure::parameter('Request', 'POST - ' . $fullUrl);
+        Allure::parameter('Response Code', $response->getStatusCode());
+
         Allure::attachment(
             'Raw HTTP Response',
             Message::toString($response),
